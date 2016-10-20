@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1912" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Abr-pO-gYe">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="qxa-bz-5fN">
+            <objects>
+                <navigationController id="Abr-pO-gYe" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="blR-kp-5TX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="w3x-3Z-DE7" kind="relationship" relationship="rootViewController" id="R0y-Fy-URa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c51-Ld-xNG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-828" y="109"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="4hG-wU-8bB">
+            <objects>
+                <viewController id="w3x-3Z-DE7" customClass="ViewController" customModule="DribbleTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NHT-wT-wPa"/>
+                        <viewControllerLayoutGuide type="bottom" id="pBg-wJ-COJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tK9-wM-p2j">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nlh-Gp-bw8">
+                                <rect key="frame" x="107" y="316" width="107" height="29"/>
+                                <state key="normal" title="LoginDribble"/>
+                                <connections>
+                                    <segue destination="qKj-qu-fdb" kind="push" id="ttZ-kT-O8N"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dribbble" translatesAutoresizingMaskIntoConstraints="NO" id="4Vd-fn-syt">
+                                <rect key="frame" x="40" y="156" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZMF-xb-VZF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UIg-BO-lNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-426" y="109"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="Rnd-kc-UWb">
+            <objects>
+                <tableViewController storyboardIdentifier="ShotsVC" id="hPQ-ki-Qch" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="265" sectionHeaderHeight="28" sectionFooterHeight="28" id="fma-b2-Hq4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="265" id="4P4-9T-O9b">
+                                <rect key="frame" x="0.0" y="28" width="320" height="265"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4P4-9T-O9b" id="IN0-Re-yWH">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="264"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="I am grunt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIm-5T-Pt9">
+                                            <rect key="frame" x="25" y="121" width="118" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hPQ-ki-Qch" id="yTs-V9-T88"/>
+                            <outlet property="delegate" destination="hPQ-ki-Qch" id="S9t-uZ-HLn"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vhC-nL-YfC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2" y="109"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="kyF-WK-ghp">
+            <objects>
+                <viewController storyboardIdentifier="LoginVC" id="qKj-qu-fdb" customClass="LoginViewController" customModule="DribbleTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jtK-Tm-hPU"/>
+                        <viewControllerLayoutGuide type="bottom" id="xt8-w9-829"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uaz-69-g1y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="iGF-JV-5cs"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ho6-p5-hvn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-426" y="865"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="dribbble" width="400" height="300"/>
+    </resources>
+</document>
