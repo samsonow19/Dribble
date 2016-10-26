@@ -17,7 +17,11 @@
 		A4907B861DAF5CC000DBF6EE /* DribbleTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B851DAF5CC000DBF6EE /* DribbleTestTests.swift */; };
 		A4907B911DAF5CC000DBF6EE /* DribbleTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B901DAF5CC000DBF6EE /* DribbleTestUITests.swift */; };
 		A4907B9F1DAF7D5E00DBF6EE /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B9E1DAF7D5E00DBF6EE /* OAuth.swift */; };
+		A49359E31DC0982B000A86FC /* DribbleComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E21DC0982B000A86FC /* DribbleComment.swift */; };
+		A49359E51DC09884000A86FC /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E41DC09884000A86FC /* Comments.swift */; };
+		A49359E71DC0994C000A86FC /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E61DC0994C000A86FC /* CommentsViewController.swift */; };
 		A49982D91DB8992A00F5FE4C /* OauthDribbble.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49982D81DB8992A00F5FE4C /* OauthDribbble.swift */; };
+		A4A033AE1DB9E76A00A6524C /* ShotsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A033AD1DB9E76A00A6524C /* ShotsTableViewController.swift */; };
 		A4A181751DB8AAC1007F4779 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A181741DB8AAC1007F4779 /* LoginViewController.swift */; };
 		A4A181781DB8C21C007F4779 /* DribbbleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A181771DB8C21C007F4779 /* DribbbleApi.swift */; };
 		A4A1817B1DB8C25D007F4779 /* Shots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A1817A1DB8C25D007F4779 /* Shots.swift */; };
@@ -62,7 +66,11 @@
 		A4907B901DAF5CC000DBF6EE /* DribbleTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DribbleTestUITests.swift; sourceTree = "<group>"; };
 		A4907B921DAF5CC000DBF6EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4907B9E1DAF7D5E00DBF6EE /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
+		A49359E21DC0982B000A86FC /* DribbleComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DribbleComment.swift; sourceTree = "<group>"; };
+		A49359E41DC09884000A86FC /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		A49359E61DC0994C000A86FC /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		A49982D81DB8992A00F5FE4C /* OauthDribbble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthDribbble.swift; sourceTree = "<group>"; };
+		A4A033AD1DB9E76A00A6524C /* ShotsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotsTableViewController.swift; sourceTree = "<group>"; };
 		A4A181741DB8AAC1007F4779 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A4A181771DB8C21C007F4779 /* DribbbleApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DribbbleApi.swift; sourceTree = "<group>"; };
 		A4A1817A1DB8C25D007F4779 /* Shots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shots.swift; sourceTree = "<group>"; };
@@ -139,12 +147,11 @@
 		A4907B6F1DAF5CC000DBF6EE /* DribbleTest */ = {
 			isa = PBXGroup;
 			children = (
+				A4AFA99E1DBF33440075F911 /* View */,
 				A4A1817C1DB8C31C007F4779 /* Constant */,
 				A4A181761DB8C1ED007F4779 /* ApiDribble */,
 				A49982D71DB898F300F5FE4C /* OAuth */,
 				A4907B701DAF5CC000DBF6EE /* AppDelegate.swift */,
-				A4907B721DAF5CC000DBF6EE /* ViewController.swift */,
-				A4A181741DB8AAC1007F4779 /* LoginViewController.swift */,
 				A4A1817F1DB8DEAC007F4779 /* Main.storyboard */,
 				A4907B771DAF5CC000DBF6EE /* Assets.xcassets */,
 				A4907B791DAF5CC000DBF6EE /* LaunchScreen.storyboard */,
@@ -184,6 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				A4A181771DB8C21C007F4779 /* DribbbleApi.swift */,
+				A49359E21DC0982B000A86FC /* DribbleComment.swift */,
+				A49359E41DC09884000A86FC /* Comments.swift */,
 				A4A1817A1DB8C25D007F4779 /* Shots.swift */,
 			);
 			name = ApiDribble;
@@ -195,6 +204,17 @@
 				A4A1817D1DB8C354007F4779 /* MyConstants.swift */,
 			);
 			name = Constant;
+			sourceTree = "<group>";
+		};
+		A4AFA99E1DBF33440075F911 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4A181741DB8AAC1007F4779 /* LoginViewController.swift */,
+				A4A033AD1DB9E76A00A6524C /* ShotsTableViewController.swift */,
+				A4907B721DAF5CC000DBF6EE /* ViewController.swift */,
+				A49359E61DC0994C000A86FC /* CommentsViewController.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		EA6C21AF3B2BFAF6874D4C98 /* Frameworks */ = {
@@ -470,13 +490,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4A1817B1DB8C25D007F4779 /* Shots.swift in Sources */,
+				A49359E71DC0994C000A86FC /* CommentsViewController.swift in Sources */,
 				A4907B9F1DAF7D5E00DBF6EE /* OAuth.swift in Sources */,
 				A49982D91DB8992A00F5FE4C /* OauthDribbble.swift in Sources */,
 				A4A181781DB8C21C007F4779 /* DribbbleApi.swift in Sources */,
 				A4907B731DAF5CC000DBF6EE /* ViewController.swift in Sources */,
+				A4A033AE1DB9E76A00A6524C /* ShotsTableViewController.swift in Sources */,
 				A4A181751DB8AAC1007F4779 /* LoginViewController.swift in Sources */,
 				A4907B711DAF5CC000DBF6EE /* AppDelegate.swift in Sources */,
 				A4A1817E1DB8C354007F4779 /* MyConstants.swift in Sources */,
+				A49359E31DC0982B000A86FC /* DribbleComment.swift in Sources */,
+				A49359E51DC09884000A86FC /* Comments.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

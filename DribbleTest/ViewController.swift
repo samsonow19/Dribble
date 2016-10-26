@@ -88,6 +88,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         //doOAuthDribbble()
         var test_my = "string"
         // Do any additional setup after loading the view, typically from a nib.

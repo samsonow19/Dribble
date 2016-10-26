@@ -10,15 +10,31 @@ import Foundation
 
 class Shots{
     var id: Int!
+    var title: String!
+    var descriptions: String!
+    var commentsURL: String!
+    var commentCount: Int!
+    var likesCount: Int!
+    var viewsCount: Int!
     var imageURL: String!
     var imageData : NSData?
-    var userName : String!
+    
+   // var userName : String!
     
     
     init(data : NSDictionary){
         self.id = data["id"] as! Int
-        self.imageURL = getStrJSON(data, key: "image")
-        self.userName = getStrJSON(data, key: "name")
+        self.title = getStrJSON(data, key: "title")
+        
+        self.descriptions = getStrJSON(data, key: "description")
+        self.commentsURL = getStrJSON(data, key: "comments_url")
+        self.commentCount = data["comments_count"] as! Int
+        self.likesCount = data["likes_count"] as! Int
+        self.viewsCount = data["views_count"] as! Int
+        
+        let image = data["images"] as! NSDictionary//{mas}
+        self.imageURL = getStrJSON(image, key: "normal")
+      // self.userName = getStrJSON(data, key: "name")
     }
     
     

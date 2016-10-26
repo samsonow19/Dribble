@@ -9,7 +9,7 @@
 import Foundation
 import OAuthSwift
 
-public var flag: Bool = false
+
 
 class OauthDribble {
     static func  doOAuthDribbble(this : AnyObject)  {

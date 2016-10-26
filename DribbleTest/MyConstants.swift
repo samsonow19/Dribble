@@ -16,4 +16,8 @@ let oauthswift = OAuth2Swift(
     accessTokenUrl: "https://dribbble.com/oauth/token",
     responseType:   "code"
 )
-
+//public var shots: [Shots] = [Shots]()
+public var flag: Bool = false
+public var shotid : Int!
+var shots: [Shots]!
+var comments: [Comments]!
