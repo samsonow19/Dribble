@@ -21,3 +21,4 @@ public var flag: Bool = false
 public var shotid : Int!
 var shots: [Shots]!
 var comments: [Comments]!
+var myToken : String!

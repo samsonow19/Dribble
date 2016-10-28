@@ -15,6 +15,7 @@ class Comments {
     var commentCount: Int!
     var userName: String!
     var avatar_url: String!
+    var avatarImageNSData : NSData?
     init(data : NSDictionary){
         self.id = data["id"] as! Int
         self.body = getStrJSON(data, key: "body")
@@ -30,7 +31,7 @@ class Comments {
             return info
         }
         return ""
-        
+
     }
     
 }

@@ -12,12 +12,8 @@ import Alamofire
 
 
 class ViewController: UIViewController {
-    
-  //  var oauthswift : OAuthSwift?
     var currentParameters = [String: String]()
- 
-    
-    //Del this functions
+     //Del this functions
     func doOAuthDribbble(){
         let oauthswift = OAuth2Swift(
             consumerKey:    "e5dfd06e7f32f8093dd689e6146892f376c48207b85df0e8d5662c340c85006e",
@@ -81,22 +77,16 @@ class ViewController: UIViewController {
         })*/
     }
 
-    
-
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        //doOAuthDribbble()
         var test_my = "string"
-        // Do any additional setup after loading the view, typically from a nib.
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+      
     }
 
 
