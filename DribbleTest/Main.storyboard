@@ -110,16 +110,24 @@
         <scene sceneID="pxx-r6-J4u">
             <objects>
                 <tableViewController id="d0p-br-VeR" customClass="ShotsTableViewController" customModule="DribbleTest" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="288" sectionHeaderHeight="28" sectionFooterHeight="28" id="RMK-RR-7rs">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="284" sectionHeaderHeight="28" sectionFooterHeight="28" id="RMK-RR-7rs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j3b-nI-2nF">
+                            <rect key="frame" x="0.0" y="376" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="butUp:" destination="d0p-br-VeR" eventType="touchUpInside" id="yfj-rl-XTU"/>
+                            </connections>
+                        </button>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="288" id="Mrt-0D-bhL">
-                                <rect key="frame" x="0.0" y="92" width="320" height="288"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="284" id="Mrt-0D-bhL">
+                                <rect key="frame" x="0.0" y="92" width="320" height="284"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mrt-0D-bhL" id="Nfq-Ss-N4r">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="287"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="283"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="myimg" translatesAutoresizingMaskIntoConstraints="NO" id="Haz-eI-O3M">
@@ -206,14 +214,14 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mdp-jQ-Eyu">
-                                <rect key="frame" x="192" y="382" width="102" height="30"/>
+                                <rect key="frame" x="192" y="479" width="102" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="SubmitComment:" destination="GRP-Hh-Iwa" eventType="touchUpInside" id="Dtd-m3-HPa"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PGY-bt-vCs">
-                                <rect key="frame" x="20" y="382" width="147" height="30"/>
+                                <rect key="frame" x="26" y="464" width="147" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>

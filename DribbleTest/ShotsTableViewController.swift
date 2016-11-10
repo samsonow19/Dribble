@@ -11,6 +11,10 @@ import UIKit
 
 class ShotsTableViewController: UITableViewController{
     
+    @IBAction func butUp(sender: AnyObject) {
+        
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         shots = [Shots]()
@@ -20,6 +24,7 @@ class ShotsTableViewController: UITableViewController{
     func didLoadShots(shots_: [Shots]){
         shots = shots_
         //self.tableView.reloadData()
+        
         dispatch_async(dispatch_get_main_queue(), {() -> Void in
         self.tableView.reloadData()
     })
@@ -50,7 +55,11 @@ class ShotsTableViewController: UITableViewController{
         let celldescription :UILabel = (cell.viewWithTag(102) as? UILabel)!
         celldescription.text = shot_.descriptions.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
         let id_shot : UILabel = (cell.viewWithTag(103) as? UILabel)!
-        id_shot.text = String(shot_.id)
+        id_shot.text = String(shot_.idShots)
+        
+        
+        Cache.UpdateCacheShots()
+        
         return cell
     }
     // Override to support conditional editing of the table view.

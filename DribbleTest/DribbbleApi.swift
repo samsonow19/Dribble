@@ -12,7 +12,7 @@ import OAuthSwift
 class DriblShots {
     func loadShots(completion: (([Shots])-> Void)!) {
      
-        let urlString = "https://api.dribbble.com/v1/shots?access_token=" + myToken
+        let urlString = "https://api.dribbble.com/v1/shots?timeframe=year&access_token=" + myToken
         let session = NSURLSession.sharedSession()
         let shotsURL = NSURL(string: urlString)
         
@@ -27,6 +27,7 @@ class DriblShots {
                     if let JsonResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSArray{
                         var shots = [Shots]()
                         for shot in JsonResult{
+                          //  print(JsonResult)
                             let shot = Shots(data: shot as! NSDictionary)
                             shots.append(shot)
                         }

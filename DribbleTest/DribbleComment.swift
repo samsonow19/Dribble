@@ -8,10 +8,10 @@
 
 import Foundation
 class DriblComments {
-    let accesToken = "3f5b8b149a5a70351e114f3911be7e9910ff3154e0ae9f08061e1064b503e67d"
+   // let accesToken = "3f5b8b149a5a70351e114f3911be7e9910ff3154e0ae9f08061e1064b503e67d"
     func loadShots(completion: (([Comments])-> Void)!, id : Int) {
         print (id)
-        let urlString = shots[id].commentsURL + "?access_token=" + accesToken
+        let urlString = shots[id].commentsURL + "?access_token=" + myToken
         let session = NSURLSession.sharedSession()
         let commentsURL = NSURL(string: urlString)
         let task = session.dataTaskWithURL(commentsURL!) {

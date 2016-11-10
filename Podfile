@@ -8,7 +8,8 @@ target 'DribbleTest' do
   # Pods for DribbleTest
 pod 'OAuthSwift', '0.5.0’
 pod 'Alamofire', '~> 2.0’
-  target 'DribbleTestTests' do
+pod 'RealmSwift', ‘ 0.98.6’
+target 'DribbleTestTests' do
     inherit! :search_paths
     # Pods for testing
   end
