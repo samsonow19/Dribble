@@ -7,13 +7,13 @@
 //
 
 import Foundation
-import Realm
+//import Realm
 import RealmSwift
 
 class MyCacheComments : Object{
     dynamic var idComments = 0
     dynamic var body: String!
     dynamic var userName: String!
-  
+    dynamic var idShots = 0
     dynamic var avatarImageNSData : NSData?
 }

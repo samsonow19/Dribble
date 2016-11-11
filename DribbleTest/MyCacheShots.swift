@@ -7,14 +7,17 @@
 //
 
 import Foundation
-import Realm
+//import Realm
 import RealmSwift
 
 class MyCacheShots : Object{
-
+ 
     dynamic var idShots = 0
     dynamic var title: String!
     dynamic var descriptions: String!
     dynamic var imageData : NSData?
+    
+    let commentsShot = List<MyCacheComments>()
+    
 
 }

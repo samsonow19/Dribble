@@ -14,14 +14,22 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
 
     @IBOutlet var CommenText: UITextField!
     var indexshot = Int()
+   
     let api_comment = DriblComments()
     
     @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
+        
+        idShot = shots[indexshot].idShots
+        indexShots = indexshot
         super.viewDidLoad()
-      
-        api_comment.loadShots(didLoadComments,id: indexshot)
+        if TestInternetConnection.connectedToNetwork() == true {
+            api_comment.loadShots(didLoadComments,id: indexshot)
+        }
+        else {
+            Cache.GetComments()
+        }
      
     }
 
@@ -65,21 +73,31 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as UITableViewCell
         var comment_ : Comments
-        comment_ = comments[indexPath.row]
-        let data = NSData(contentsOfURL: NSURL(string: comment_.avatar_url)!)
         var imgg : UIImage?
-        comment_.avatarImageNSData = data
-        imgg = UIImage(data: data!)!
-        // 105 - image 101 - name avtor 102 - comments {? 100 - eroro}
-        let cellimage : UIImageView = (cell.viewWithTag(105) as? UIImageView)!
-        cellimage.image = imgg
-        let cellname : UILabel = (cell.viewWithTag(101) as? UILabel
-        )!
+        comment_ = comments[indexPath.row]
+        let cellname : UILabel = (cell.viewWithTag(101) as? UILabel)!
         cellname.text = comment_.userName
         let cellcomments : UILabel = (cell.viewWithTag(102) as? UILabel)!
         cellcomments.text = comment_.body.stringByReplacingOccurrencesOfString("<[^>]+>",withString: "",  options: .RegularExpressionSearch, range: nil)
-        if indexPath.row == comments.count-1 {
-            api_comment.loadShots(didUpComments,id: indexshot)
+        
+        if TestInternetConnection.connectedToNetwork() == true {
+            let data = NSData(contentsOfURL: NSURL(string: comment_.avatar_url)!)
+           
+            comment_.avatarImageNSData = data
+            imgg = UIImage(data: data!)!
+            // 105 - image 101 - name avtor 102 - comments {? 100 - eroro}
+            let cellimage : UIImageView = (cell.viewWithTag(105) as? UIImageView)!
+            cellimage.image = imgg
+            
+            if indexPath.row == comments.count-1 {
+                api_comment.loadShots(didUpComments,id: indexshot)
+            }
+        }
+        else {
+            imgg = UIImage(data: comments[indexPath.row].avatarImageNSData!)!
+            // 105 - image 101 - name avtor 102 - comments {? 100 - eroro}
+            let cellimage : UIImageView = (cell.viewWithTag(105) as? UIImageView)!
+            cellimage.image = imgg
         }
         return cell
     }

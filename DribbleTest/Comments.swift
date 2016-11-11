@@ -9,6 +9,7 @@
 import Foundation
 class Comments {
     var id: Int!
+    var idShots: Int?
     var body: String!
     var created_at: String!
     var update_at: String!
@@ -16,6 +17,10 @@ class Comments {
     var userName: String!
     var avatar_url: String!
     var avatarImageNSData : NSData?
+    init(){
+        
+    }
+    
     init(data : NSDictionary){
         self.id = data["id"] as! Int
         self.body = getStrJSON(data, key: "body")

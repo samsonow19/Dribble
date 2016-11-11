@@ -37,7 +37,8 @@ class Cache {
         }*/
         
     }
-    static func GetShots() {
+    
+      static func GetShots() {
         let realm = try! Realm()
         let allShots = realm.objects(MyCacheShots)
         var myshots  = Shots()
@@ -48,8 +49,6 @@ class Cache {
             myshots.title = sh.title
             myshots.descriptions = sh.descriptions
             myshots.imageData = sh.imageData
-            
-            
             myshots.imageURL = ""
             myshots.commentsURL = ""
             myshots.commentCount = 0
@@ -63,32 +62,56 @@ class Cache {
         }*/
     }
     
-    
+    // in comments
     
     
     static func UpdateCacheComments(){
         var cacheComments = MyCacheComments()
         let realm = try! Realm()
-       
+        let cacheShots = MyCacheShots()
         try! realm.write({() -> Void in
             realm.deleteAll()
         })
         // realm.deleteAll()
         try! realm.write {
             for cm in comments{
+              
                 cacheComments = MyCacheComments()
+                cacheComments.idShots = idShot
                 cacheComments.idComments = cm.id
                 cacheComments.body = cm.body
                 cacheComments.userName = cm.userName
                 cacheComments.avatarImageNSData = cm.avatarImageNSData
                 realm.add(cacheComments)
+                cacheShots.commentsShot.append(cacheComments)
+                realm.add(cacheComments, update: true)
+
             }
         }
+        
         
         let allShots = realm.objects(MyCacheShots)
 
 
-}
+    }
+    
+    static func GetComments(){
+        let realm = try! Realm()
+        let allCommentsShot = realm.objects(MyCacheShots)
+        var mycomments = Comments()
+        comments = [Comments]()
+     
+        for com in allCommentsShot[idShot].commentsShot {
+            mycomments = Comments()
+            mycomments.idShots = com.idShots
+            mycomments.id = com.idComments
+            mycomments.body = com.body
+            mycomments.avatarImageNSData = com.avatarImageNSData
+            mycomments.avatar_url = ""
+            mycomments.userName = com.userName
+            comments.append(mycomments)
+        }
+    }
 }
 
 /*  
