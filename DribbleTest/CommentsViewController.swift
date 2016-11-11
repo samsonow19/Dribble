@@ -14,13 +14,13 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
 
     @IBOutlet var CommenText: UITextField!
     var indexshot = Int()
-    
+    let api_comment = DriblComments()
     
     @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let api_comment = DriblComments()
+      
         api_comment.loadShots(didLoadComments,id: indexshot)
      
     }
@@ -32,12 +32,30 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     
     
     func didLoadComments(comments_ : [Comments]){
-        comments = comments_
+        
+        for cm in comments_{
+            let data = NSData(contentsOfURL: NSURL(string: cm.avatar_url)!)
+            cm.avatarImageNSData = data
+            comments.append(cm)
+        }
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
        
     }
+    func didUpComments(comments_ : [Comments]){
+        for cm in comments_{
+            let data = NSData(contentsOfURL: NSURL(string: cm.avatar_url)!)
+            cm.avatarImageNSData = data
+            comments.append(cm)
+        }
+        tableView.reloadData()
+    }
+    
+    
+    
+    
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
     }
@@ -60,6 +78,9 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         cellname.text = comment_.userName
         let cellcomments : UILabel = (cell.viewWithTag(102) as? UILabel)!
         cellcomments.text = comment_.body.stringByReplacingOccurrencesOfString("<[^>]+>",withString: "",  options: .RegularExpressionSearch, range: nil)
+        if indexPath.row == comments.count-1 {
+            api_comment.loadShots(didUpComments,id: indexshot)
+        }
         return cell
     }
     

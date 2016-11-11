@@ -16,8 +16,5 @@ class MyCacheShots : Object{
     dynamic var title: String!
     dynamic var descriptions: String!
     dynamic var imageData : NSData?
-    
-    
-  
-    
+
 }

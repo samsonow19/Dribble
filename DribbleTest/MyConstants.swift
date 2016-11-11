@@ -22,3 +22,5 @@ public var shotid : Int!
 var shots: [Shots]!
 var comments: [Comments]!
 var myToken : String!
+var numberPageShots = 1
+var numberPageComments = 1

@@ -17,17 +17,36 @@ class ShotsTableViewController: UITableViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        shots = [Shots]()
-        let api = DriblShots()
-        api.loadShots(didLoadShots)
+        
+        if TestInternetConnection.connectedToNetwork() == true {
+            shots = [Shots]()
+            let api = DriblShots()
+            api.loadShots(didLoadShots)
+        }
     }
     func didLoadShots(shots_: [Shots]){
-        shots = shots_
+        
+       
+       
+        for sh in shots_{
+            let data = NSData(contentsOfURL: NSURL(string: sh.imageURL)!)
+            sh.imageData = data
+            shots.append( sh)
+        }
+        Cache.UpdateCacheShots()
         //self.tableView.reloadData()
         
         dispatch_async(dispatch_get_main_queue(), {() -> Void in
         self.tableView.reloadData()
     })
+    }
+    func didUploadingShots(shots_: [Shots]){
+        for sh in shots_{
+            let data = NSData(contentsOfURL: NSURL(string: sh.imageURL)!)
+            sh.imageData = data
+            shots.append( sh)
+        }
+        Cache.UpdateCacheShots()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,22 +62,38 @@ class ShotsTableViewController: UITableViewController{
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         var shot_ : Shots
         shot_ = shots[indexPath.row]
-        let data = NSData(contentsOfURL: NSURL(string: shot_.imageURL)!)
-        var imgg : UIImage?
-        shot_.imageData = data
-        imgg = UIImage(data: data!)!
+        
+        
         //tag 100 - image; 101 - title; 102 -description; 103 - id_sho
-        let cellimg : UIImageView = (cell.viewWithTag(100) as? UIImageView)!
-        cellimg.image = imgg!
+       
         let celltitle : UILabel = (cell.viewWithTag(101) as? UILabel)!
         celltitle.text = shot_.title
         let celldescription :UILabel = (cell.viewWithTag(102) as? UILabel)!
         celldescription.text = shot_.descriptions.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
         let id_shot : UILabel = (cell.viewWithTag(103) as? UILabel)!
+        var imgg : UIImage?
         id_shot.text = String(shot_.idShots)
+        if TestInternetConnection.connectedToNetwork() == true {
+            let data = NSData(contentsOfURL: NSURL(string: shot_.imageURL)!)
+         
+            shot_.imageData = data
+            imgg = UIImage(data: data!)!
+            let cellimg : UIImageView = (cell.viewWithTag(100) as? UIImageView)!
+            cellimg.image = imgg!
+            
+            if indexPath.row == shots.count-1 {
+                numberPageShots += 1
+                let api = DriblShots()
+                api.loadShots(didLoadShots)
+            }
+        }
+        else{
+            imgg = UIImage(data: shot_.imageData!)!
+            let cellimg : UIImageView = (cell.viewWithTag(100) as? UIImageView)!
+            cellimg.image = imgg!
+        }
         
-        
-        Cache.UpdateCacheShots()
+     
         
         return cell
     }

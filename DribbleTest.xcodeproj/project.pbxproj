@@ -30,6 +30,8 @@
 		A4A1817B1DB8C25D007F4779 /* Shots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A1817A1DB8C25D007F4779 /* Shots.swift */; };
 		A4A1817E1DB8C354007F4779 /* MyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A1817D1DB8C354007F4779 /* MyConstants.swift */; };
 		A4A181801DB8DEAC007F4779 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4A1817F1DB8DEAC007F4779 /* Main.storyboard */; };
+		A4C71C731DD593BC002B8BD6 /* MyCacheComments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71C721DD593BC002B8BD6 /* MyCacheComments.swift */; };
+		A4C71C781DD59792002B8BD6 /* NetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71C771DD59792002B8BD6 /* NetConnection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +84,8 @@
 		A4A1817A1DB8C25D007F4779 /* Shots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shots.swift; sourceTree = "<group>"; };
 		A4A1817D1DB8C354007F4779 /* MyConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyConstants.swift; sourceTree = "<group>"; };
 		A4A1817F1DB8DEAC007F4779 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A4C71C721DD593BC002B8BD6 /* MyCacheComments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCacheComments.swift; sourceTree = "<group>"; };
+		A4C71C771DD59792002B8BD6 /* NetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetConnection.swift; sourceTree = "<group>"; };
 		B8FECE6FF3E09C3FA499E315 /* Pods-DribbleTestUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DribbleTestUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DribbleTestUITests/Pods-DribbleTestUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		BA9C2EA6EC1287F26177C708 /* Pods_DribbleTestUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DribbleTestUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC87113E1E7599F904FDD243 /* Pods-DribbleTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DribbleTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-DribbleTest/Pods-DribbleTest.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 			children = (
 				A4880B8C1DD3261D007168B2 /* CacheShots.swift */,
 				A4A11B251DD496840038FE12 /* MyCacheShots.swift */,
+				A4C71C721DD593BC002B8BD6 /* MyCacheComments.swift */,
 			);
 			name = BD;
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 		A4907B6F1DAF5CC000DBF6EE /* DribbleTest */ = {
 			isa = PBXGroup;
 			children = (
+				A4C71C761DD596F8002B8BD6 /* NET */,
 				A4880B891DD325AA007168B2 /* BD */,
 				A4AFA99E1DBF33440075F911 /* View */,
 				A4A1817C1DB8C31C007F4779 /* Constant */,
@@ -232,6 +238,14 @@
 				A4880B8E1DD34934007168B2 /* ViewController.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		A4C71C761DD596F8002B8BD6 /* NET */ = {
+			isa = PBXGroup;
+			children = (
+				A4C71C771DD59792002B8BD6 /* NetConnection.swift */,
+			);
+			name = NET;
 			sourceTree = "<group>";
 		};
 		EA6C21AF3B2BFAF6874D4C98 /* Frameworks */ = {
@@ -506,6 +520,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4C71C731DD593BC002B8BD6 /* MyCacheComments.swift in Sources */,
 				A4A1817B1DB8C25D007F4779 /* Shots.swift in Sources */,
 				A49359E71DC0994C000A86FC /* CommentsViewController.swift in Sources */,
 				A4907B9F1DAF7D5E00DBF6EE /* OAuth.swift in Sources */,
@@ -520,6 +535,7 @@
 				A4A1817E1DB8C354007F4779 /* MyConstants.swift in Sources */,
 				A49359E31DC0982B000A86FC /* DribbleComment.swift in Sources */,
 				A4A11B261DD496840038FE12 /* MyCacheShots.swift in Sources */,
+				A4C71C781DD59792002B8BD6 /* NetConnection.swift in Sources */,
 				A49359E51DC09884000A86FC /* Comments.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

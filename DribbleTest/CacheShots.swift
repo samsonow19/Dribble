@@ -31,11 +31,70 @@ class Cache {
         }
         
         let allShots = realm.objects(MyCacheShots)
+        /*
         for sh in allShots{
-            print("\(sh.title)")
+           print("\(sh.title)")
+        }*/
+        
+    }
+    static func GetShots() {
+        let realm = try! Realm()
+        let allShots = realm.objects(MyCacheShots)
+        var myshots  = Shots()
+        shots = [Shots]()
+        for sh in allShots {
+            myshots = Shots()
+            myshots.idShots = sh.idShots
+            myshots.title = sh.title
+            myshots.descriptions = sh.descriptions
+            myshots.imageData = sh.imageData
+            
+            
+            myshots.imageURL = ""
+            myshots.commentsURL = ""
+            myshots.commentCount = 0
+            myshots .likesCount = 0
+            myshots.viewsCount = 0
+            shots.append(myshots)
+        }
+        /*
+        for sh in allShots{
+        print("\(sh.title)")
+        }*/
+    }
+    
+    
+    
+    
+    static func UpdateCacheComments(){
+        var cacheComments = MyCacheComments()
+        let realm = try! Realm()
+       
+        try! realm.write({() -> Void in
+            realm.deleteAll()
+        })
+        // realm.deleteAll()
+        try! realm.write {
+            for cm in comments{
+                cacheComments = MyCacheComments()
+                cacheComments.idComments = cm.id
+                cacheComments.body = cm.body
+                cacheComments.userName = cm.userName
+                cacheComments.avatarImageNSData = cm.avatarImageNSData
+                realm.add(cacheComments)
+            }
         }
         
+        let allShots = realm.objects(MyCacheShots)
+
+
 }
+}
+
+/*  
+}
+    
+    
 }
         
         /* // logik
@@ -106,5 +165,4 @@ class Cache {
         }
         let test : String = ""
         
-    }*/
-
+    }*/*/

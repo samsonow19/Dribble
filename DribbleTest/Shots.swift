@@ -21,7 +21,9 @@ class Shots {
     var imageData : NSData?
     var cache : Int! // 0 - not cashe 1 - cashe 2 - dell 3 - not dell
  
-    
+    init(){
+        
+    }
     
     init(data : NSDictionary){
         self.idShots = data["id"] as! Int
