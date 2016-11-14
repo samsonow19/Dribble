@@ -12,8 +12,11 @@ import RealmSwift
 
 class MyCacheComments : Object{
     dynamic var idComments = 0
-    dynamic var body: String!
-    dynamic var userName: String!
+    dynamic var body: String? = nil
+    dynamic var userName: String? = nil
     dynamic var idShots = 0
     dynamic var avatarImageNSData : NSData?
+    override static func primaryKey() -> String? {
+        return "idComments"
+    }
 }

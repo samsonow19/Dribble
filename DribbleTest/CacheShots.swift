@@ -20,7 +20,7 @@ class Cache {
         })
        // realm.deleteAll()
         try! realm.write {
-            for sh in shots{
+            for sh in shotsGlobal{
                 cacheShots = MyCacheShots()
                 cacheShots.idShots = sh.idShots
                 cacheShots.title = sh.title
@@ -42,7 +42,7 @@ class Cache {
         let realm = try! Realm()
         let allShots = realm.objects(MyCacheShots)
         var myshots  = Shots()
-        shots = [Shots]()
+        shotsGlobal = [Shots]()
         for sh in allShots {
             myshots = Shots()
             myshots.idShots = sh.idShots
@@ -54,7 +54,7 @@ class Cache {
             myshots.commentCount = 0
             myshots .likesCount = 0
             myshots.viewsCount = 0
-            shots.append(myshots)
+            shotsGlobal.append(myshots)
         }
         /*
         for sh in allShots{
@@ -69,12 +69,17 @@ class Cache {
         var cacheComments = MyCacheComments()
         let realm = try! Realm()
         let cacheShots = MyCacheShots()
-        try! realm.write({() -> Void in
+       /* try! realm.write({() -> Void in
             realm.deleteAll()
-        })
+        })*/
+        
+        
+        
+        
+        
         // realm.deleteAll()
         try! realm.write {
-            for cm in comments{
+            for cm in commentsGlobal{
               
                 cacheComments = MyCacheComments()
                 cacheComments.idShots = idShot
@@ -84,24 +89,48 @@ class Cache {
                 cacheComments.avatarImageNSData = cm.avatarImageNSData
                 realm.add(cacheComments)
                 cacheShots.commentsShot.append(cacheComments)
-                realm.add(cacheComments, update: true)
+                print(indexShots)
+ 
 
             }
+            cacheShots.idShots = shotsGlobal[indexShots].idShots
+            realm.create(MyCacheShots.self, value: ["idShots": shotsGlobal[indexShots].idShots, "commentsShot":  cacheShots.commentsShot], update: true)
         }
         
         
+        
+        
         let allShots = realm.objects(MyCacheShots)
+        var myshots  = Shots()
+        shotsGlobal = [Shots]()
+        for sh in allShots {
+            myshots = Shots()
+            myshots.idShots = sh.idShots
+            myshots.title = sh.title
+            myshots.descriptions = sh.descriptions
+            myshots.imageData = sh.imageData
+            myshots.imageURL = ""
+            myshots.commentsURL = ""
+            myshots.commentCount = 0
+            myshots .likesCount = 0
+            myshots.viewsCount = 0
+            print(myshots)
+        }
 
 
     }
     
+    
+    
+    
     static func GetComments(){
         let realm = try! Realm()
-        let allCommentsShot = realm.objects(MyCacheShots)
+        let allCommentsShot = realm.objects(MyCacheShots).filter("idShots = \(idShot)")
         var mycomments = Comments()
-        comments = [Comments]()
-     
-        for com in allCommentsShot[idShot].commentsShot {
+        commentsGlobal = [Comments]()
+       
+        print(idShot)
+        for com in allCommentsShot[0].commentsShot {
             mycomments = Comments()
             mycomments.idShots = com.idShots
             mycomments.id = com.idComments
@@ -109,7 +138,7 @@ class Cache {
             mycomments.avatarImageNSData = com.avatarImageNSData
             mycomments.avatar_url = ""
             mycomments.userName = com.userName
-            comments.append(mycomments)
+            commentsGlobal.append(mycomments)
         }
     }
 }

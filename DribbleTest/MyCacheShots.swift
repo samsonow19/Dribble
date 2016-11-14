@@ -13,11 +13,14 @@ import RealmSwift
 class MyCacheShots : Object{
  
     dynamic var idShots = 0
-    dynamic var title: String!
-    dynamic var descriptions: String!
+    dynamic var title: String? = nil
+    dynamic var descriptions: String? = nil
     dynamic var imageData : NSData?
     
     let commentsShot = List<MyCacheComments>()
+    override static func primaryKey() -> String? {
+        return "idShots"
+    }
     
 
 }

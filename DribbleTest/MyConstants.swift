@@ -19,8 +19,8 @@ let oauthswift = OAuth2Swift(
 //public var shots: [Shots] = [Shots]()
 public var flag: Bool = false
 public var shotid : Int!
-var shots: [Shots]!
-var comments: [Comments]!
+var shotsGlobal: [Shots]!
+var commentsGlobal: [Comments]!
 var myToken : String!
 var numberPageShots = 1
 var numberPageComments = 1

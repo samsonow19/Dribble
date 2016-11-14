@@ -19,7 +19,7 @@ class ShotsTableViewController: UITableViewController{
         super.viewDidLoad()
         
         if TestInternetConnection.connectedToNetwork() == true {
-            shots = [Shots]()
+            shotsGlobal = [Shots]()
             let api = DriblShots()
             api.loadShots(didLoadShots)
         }
@@ -31,7 +31,7 @@ class ShotsTableViewController: UITableViewController{
         for sh in shots_{
             let data = NSData(contentsOfURL: NSURL(string: sh.imageURL)!)
             sh.imageData = data
-            shots.append( sh)
+            shotsGlobal.append( sh)
         }
         Cache.UpdateCacheShots()
         //self.tableView.reloadData()
@@ -44,7 +44,7 @@ class ShotsTableViewController: UITableViewController{
         for sh in shots_{
             let data = NSData(contentsOfURL: NSURL(string: sh.imageURL)!)
             sh.imageData = data
-            shots.append( sh)
+            shotsGlobal.append( sh)
         }
         Cache.UpdateCacheShots()
     }
@@ -55,13 +55,13 @@ class ShotsTableViewController: UITableViewController{
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          return shots.count
+          return shotsGlobal.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         var shot_ : Shots
-        shot_ = shots[indexPath.row]
+        shot_ = shotsGlobal[indexPath.row]
         
         
         //tag 100 - image; 101 - title; 102 -description; 103 - id_sho
@@ -81,7 +81,7 @@ class ShotsTableViewController: UITableViewController{
             let cellimg : UIImageView = (cell.viewWithTag(100) as? UIImageView)!
             cellimg.image = imgg!
             
-            if indexPath.row == shots.count-1 {
+            if indexPath.row == shotsGlobal.count-1 {
                 numberPageShots += 1
                 let api = DriblShots()
                 api.loadShots(didLoadShots)

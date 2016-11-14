@@ -21,7 +21,8 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         
-        idShot = shots[indexshot].idShots
+        idShot = shotsGlobal[indexshot].idShots
+        commentsGlobal = [Comments]()
         indexShots = indexshot
         super.viewDidLoad()
         if TestInternetConnection.connectedToNetwork() == true {
@@ -29,6 +30,9 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         }
         else {
             Cache.GetComments()
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.reloadData()
         }
      
     }
@@ -44,19 +48,21 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         for cm in comments_{
             let data = NSData(contentsOfURL: NSURL(string: cm.avatar_url)!)
             cm.avatarImageNSData = data
-            comments.append(cm)
+            commentsGlobal.append(cm)
         }
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
+        Cache.UpdateCacheComments()
        
     }
     func didUpComments(comments_ : [Comments]){
         for cm in comments_{
             let data = NSData(contentsOfURL: NSURL(string: cm.avatar_url)!)
             cm.avatarImageNSData = data
-            comments.append(cm)
+            commentsGlobal.append(cm)
         }
+        Cache.UpdateCacheComments()
         tableView.reloadData()
     }
     
@@ -65,7 +71,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return commentsGlobal.count
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
@@ -74,7 +80,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as UITableViewCell
         var comment_ : Comments
         var imgg : UIImage?
-        comment_ = comments[indexPath.row]
+        comment_ = commentsGlobal[indexPath.row]
         let cellname : UILabel = (cell.viewWithTag(101) as? UILabel)!
         cellname.text = comment_.userName
         let cellcomments : UILabel = (cell.viewWithTag(102) as? UILabel)!
@@ -89,12 +95,14 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
             let cellimage : UIImageView = (cell.viewWithTag(105) as? UIImageView)!
             cellimage.image = imgg
             
-            if indexPath.row == comments.count-1 {
+            if indexPath.row == commentsGlobal.count-1 {
+                numberPageComments += 1
                 api_comment.loadShots(didUpComments,id: indexshot)
+                Cache.UpdateCacheComments()
             }
         }
         else {
-            imgg = UIImage(data: comments[indexPath.row].avatarImageNSData!)!
+            imgg = UIImage(data: commentsGlobal[indexPath.row].avatarImageNSData!)!
             // 105 - image 101 - name avtor 102 - comments {? 100 - eroro}
             let cellimage : UIImageView = (cell.viewWithTag(105) as? UIImageView)!
             cellimage.image = imgg
@@ -104,9 +112,9 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     
    
     @IBAction func SubmitComment(sender: AnyObject) {
-        print(myToken)
-        print(shots[indexshot].commentsURL)
-        Alamofire.request(.POST, shots[indexshot].commentsURL , parameters: ["body" : "Good", "access_token" : myToken], encoding: .JSON ).responseJSON{ respons in
+       // print(myToken)
+        //print(shotsGlobal[indexshot].commentsURL)
+        Alamofire.request(.POST, shotsGlobal[indexshot].commentsURL , parameters: ["body" : "Good", "access_token" : myToken], encoding: .JSON ).responseJSON{ respons in
         print(respons)
         }
          
