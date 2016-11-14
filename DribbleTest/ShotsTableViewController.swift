@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 
 class ShotsTableViewController: UITableViewController{
     
@@ -59,39 +59,29 @@ class ShotsTableViewController: UITableViewController{
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("ShotsTableViewCell") as! ShotsTableViewCell
+        
         var shot_ : Shots
         shot_ = shotsGlobal[indexPath.row]
         
         
-        //tag 100 - image; 101 - title; 102 -description; 103 - id_sho
-       
-        let celltitle : UILabel = (cell.viewWithTag(101) as? UILabel)!
-        celltitle.text = shot_.title
-        let celldescription :UILabel = (cell.viewWithTag(102) as? UILabel)!
-        celldescription.text = shot_.descriptions.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
-        let id_shot : UILabel = (cell.viewWithTag(103) as? UILabel)!
-        var imgg : UIImage?
-        id_shot.text = String(shot_.idShots)
+        
+        cell.ImageShot.sd_setImageWithURL(NSURL(string: shot_.imageURL), placeholderImage: UIImage(named: "placeHolder"))
+        
+        cell.TitleShot.text = shot_.title
+        cell.DescriptionShot.text = shot_.descriptions.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+
+        
         if TestInternetConnection.connectedToNetwork() == true {
-            let data = NSData(contentsOfURL: NSURL(string: shot_.imageURL)!)
-         
-            shot_.imageData = data
-            imgg = UIImage(data: data!)!
-            let cellimg : UIImageView = (cell.viewWithTag(100) as? UIImageView)!
-            cellimg.image = imgg!
             
-            if indexPath.row == shotsGlobal.count-1 {
-                numberPageShots += 1
-                let api = DriblShots()
-                api.loadShots(didLoadShots)
-            }
+                if indexPath.row == shotsGlobal.count-1 {
+                    numberPageShots += 1
+                    let api = DriblShots()
+                    api.loadShots(didLoadShots)
+                }
+            
         }
-        else{
-            imgg = UIImage(data: shot_.imageData!)!
-            let cellimg : UIImageView = (cell.viewWithTag(100) as? UIImageView)!
-            cellimg.image = imgg!
-        }
+    
         
      
         
@@ -108,5 +98,6 @@ class ShotsTableViewController: UITableViewController{
         let indexPath : NSIndexPath = self.tableView.indexPathForSelectedRow!
         let detailsVC : CommentsViewController = segue.destinationViewController as! CommentsViewController
         detailsVC.indexshot = indexPath.row
+         numberPageComments = 0
     }
 }

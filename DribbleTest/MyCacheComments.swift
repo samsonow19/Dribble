@@ -16,6 +16,8 @@ class MyCacheComments : Object{
     dynamic var userName: String? = nil
     dynamic var idShots = 0
     dynamic var avatarImageNSData : NSData?
+    dynamic var avatarUrl: String? = nil
+    
     override static func primaryKey() -> String? {
         return "idComments"
     }

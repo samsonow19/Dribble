@@ -26,6 +26,8 @@ class Cache {
                 cacheShots.title = sh.title
                 cacheShots.descriptions = sh.descriptions
                 cacheShots.imageData = sh.imageData
+                cacheShots.imageUrl = sh.imageURL
+             
                 realm.add(cacheShots)
             }
         }
@@ -49,8 +51,9 @@ class Cache {
             myshots.title = sh.title
             myshots.descriptions = sh.descriptions
             myshots.imageData = sh.imageData
-            myshots.imageURL = ""
+            myshots.imageURL = sh.imageUrl
             myshots.commentsURL = ""
+            
             myshots.commentCount = 0
             myshots .likesCount = 0
             myshots.viewsCount = 0
@@ -70,7 +73,7 @@ class Cache {
         let realm = try! Realm()
         let cacheShots = MyCacheShots()
        /* try! realm.write({() -> Void in
-            realm.deleteAll()
+            realm.delete(MyCacheShots)
         })*/
         
         
@@ -86,37 +89,16 @@ class Cache {
                 cacheComments.idComments = cm.id
                 cacheComments.body = cm.body
                 cacheComments.userName = cm.userName
-                cacheComments.avatarImageNSData = cm.avatarImageNSData
-                realm.add(cacheComments)
+                cacheComments.avatarUrl = cm.avatar_url
+                realm.add(cacheComments,update: true)
                 cacheShots.commentsShot.append(cacheComments)
-                print(indexShots)
+               // print(indexShots)
  
 
             }
             cacheShots.idShots = shotsGlobal[indexShots].idShots
             realm.create(MyCacheShots.self, value: ["idShots": shotsGlobal[indexShots].idShots, "commentsShot":  cacheShots.commentsShot], update: true)
         }
-        
-        
-        
-        
-        let allShots = realm.objects(MyCacheShots)
-        var myshots  = Shots()
-        shotsGlobal = [Shots]()
-        for sh in allShots {
-            myshots = Shots()
-            myshots.idShots = sh.idShots
-            myshots.title = sh.title
-            myshots.descriptions = sh.descriptions
-            myshots.imageData = sh.imageData
-            myshots.imageURL = ""
-            myshots.commentsURL = ""
-            myshots.commentCount = 0
-            myshots .likesCount = 0
-            myshots.viewsCount = 0
-            print(myshots)
-        }
-
 
     }
     
@@ -136,7 +118,7 @@ class Cache {
             mycomments.id = com.idComments
             mycomments.body = com.body
             mycomments.avatarImageNSData = com.avatarImageNSData
-            mycomments.avatar_url = ""
+            mycomments.avatar_url = com.avatarUrl
             mycomments.userName = com.userName
             commentsGlobal.append(mycomments)
         }

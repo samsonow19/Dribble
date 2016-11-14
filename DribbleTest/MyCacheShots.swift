@@ -16,6 +16,7 @@ class MyCacheShots : Object{
     dynamic var title: String? = nil
     dynamic var descriptions: String? = nil
     dynamic var imageData : NSData?
+    dynamic var imageUrl: String? = nil
     
     let commentsShot = List<MyCacheComments>()
     override static func primaryKey() -> String? {

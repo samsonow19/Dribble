@@ -19,6 +19,8 @@
 		A4907B861DAF5CC000DBF6EE /* DribbleTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B851DAF5CC000DBF6EE /* DribbleTestTests.swift */; };
 		A4907B911DAF5CC000DBF6EE /* DribbleTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B901DAF5CC000DBF6EE /* DribbleTestUITests.swift */; };
 		A4907B9F1DAF7D5E00DBF6EE /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B9E1DAF7D5E00DBF6EE /* OAuth.swift */; };
+		A4915CB71DD9E69F001258D1 /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4915CB61DD9E69F001258D1 /* CommentsTableViewCell.swift */; };
+		A4915CBB1DD9E8DF001258D1 /* ShotsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4915CBA1DD9E8DF001258D1 /* ShotsTableViewCell.swift */; };
 		A49359E31DC0982B000A86FC /* DribbleComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E21DC0982B000A86FC /* DribbleComment.swift */; };
 		A49359E51DC09884000A86FC /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E41DC09884000A86FC /* Comments.swift */; };
 		A49359E71DC0994C000A86FC /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E61DC0994C000A86FC /* CommentsViewController.swift */; };
@@ -73,6 +75,8 @@
 		A4907B901DAF5CC000DBF6EE /* DribbleTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DribbleTestUITests.swift; sourceTree = "<group>"; };
 		A4907B921DAF5CC000DBF6EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4907B9E1DAF7D5E00DBF6EE /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
+		A4915CB61DD9E69F001258D1 /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
+		A4915CBA1DD9E8DF001258D1 /* ShotsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotsTableViewCell.swift; sourceTree = "<group>"; };
 		A49359E21DC0982B000A86FC /* DribbleComment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DribbleComment.swift; sourceTree = "<group>"; };
 		A49359E41DC09884000A86FC /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		A49359E61DC0994C000A86FC /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 		A4907B6F1DAF5CC000DBF6EE /* DribbleTest */ = {
 			isa = PBXGroup;
 			children = (
+				A4915CB51DD9E5F3001258D1 /* Cell */,
 				A4C71C761DD596F8002B8BD6 /* NET */,
 				A4880B891DD325AA007168B2 /* BD */,
 				A4AFA99E1DBF33440075F911 /* View */,
@@ -200,6 +205,15 @@
 				A4907B921DAF5CC000DBF6EE /* Info.plist */,
 			);
 			path = DribbleTestUITests;
+			sourceTree = "<group>";
+		};
+		A4915CB51DD9E5F3001258D1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A4915CB61DD9E69F001258D1 /* CommentsTableViewCell.swift */,
+				A4915CBA1DD9E8DF001258D1 /* ShotsTableViewCell.swift */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		A49982D71DB898F300F5FE4C /* OAuth */ = {
@@ -525,8 +539,10 @@
 				A49359E71DC0994C000A86FC /* CommentsViewController.swift in Sources */,
 				A4907B9F1DAF7D5E00DBF6EE /* OAuth.swift in Sources */,
 				A49982D91DB8992A00F5FE4C /* OauthDribbble.swift in Sources */,
+				A4915CBB1DD9E8DF001258D1 /* ShotsTableViewCell.swift in Sources */,
 				A4880B8F1DD34934007168B2 /* ViewController.swift in Sources */,
 				A4A181781DB8C21C007F4779 /* DribbbleApi.swift in Sources */,
+				A4915CB71DD9E69F001258D1 /* CommentsTableViewCell.swift in Sources */,
 				A4880B8D1DD3261D007168B2 /* CacheShots.swift in Sources */,
 				A41037A41DD21F14007E5360 /* testobj.swift in Sources */,
 				A4A033AE1DB9E76A00A6524C /* ShotsTableViewController.swift in Sources */,
