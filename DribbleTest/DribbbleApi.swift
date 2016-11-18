@@ -12,7 +12,7 @@ import OAuthSwift
 class DriblShots {
     func loadShots(completion: (([Shots])-> Void)!) {
      
-        let urlString = "https://api.dribbble.com/v1/shots?page=\(numberPageShots)&access_token=" + myToken
+        let urlString = "https://api.dribbble.com/v1/shots?page=\(numberPageShots)&access_token=\(myToken)"
         let session = NSURLSession.sharedSession()
         let shotsURL = NSURL(string: urlString)
         

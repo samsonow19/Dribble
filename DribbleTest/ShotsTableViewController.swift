@@ -11,6 +11,11 @@ import SDWebImage
 
 class ShotsTableViewController: UITableViewController{
     
+    
+    
+    var rControl: UIRefreshControl = UIRefreshControl()
+ 
+    
     @IBAction func butUp(sender: AnyObject) {
         
         
@@ -18,16 +23,31 @@ class ShotsTableViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        rControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        rControl.addTarget(self, action: "refreshcontrol", forControlEvents:.ValueChanged)
+        self.tableView.addSubview(rControl)
+        
         if TestInternetConnection.connectedToNetwork() == true {
             shotsGlobal = [Shots]()
             let api = DriblShots()
             api.loadShots(didLoadShots)
         }
     }
-    func didLoadShots(shots_: [Shots]){
+    func refreshcontrol()
+    {
+        print(numberPageShots)
+        
+        let api = DriblShots()
+        api.loadShots(didLoadShots)
         
        
-       
+        
+    }
+    
+    func didLoadShots(shots_: [Shots]){
+        
+        shotsGlobal = [Shots]()
         for sh in shots_{
             let data = NSData(contentsOfURL: NSURL(string: sh.imageURL)!)
             sh.imageData = data
@@ -35,7 +55,8 @@ class ShotsTableViewController: UITableViewController{
         }
         Cache.UpdateCacheShots()
         //self.tableView.reloadData()
-        
+        print("123")
+        self.rControl.endRefreshing()
         dispatch_async(dispatch_get_main_queue(), {() -> Void in
         self.tableView.reloadData()
     })
@@ -46,6 +67,7 @@ class ShotsTableViewController: UITableViewController{
             sh.imageData = data
             shotsGlobal.append( sh)
         }
+      
         Cache.UpdateCacheShots()
     }
 
@@ -70,6 +92,8 @@ class ShotsTableViewController: UITableViewController{
         
         cell.TitleShot.text = shot_.title
         cell.DescriptionShot.text = shot_.descriptions.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
+        
+    
 
         
         if TestInternetConnection.connectedToNetwork() == true {

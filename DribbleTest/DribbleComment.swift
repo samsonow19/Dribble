@@ -33,11 +33,9 @@ class DriblComments {
                             dispatch_async(dispatch_get_main_queue()){
                                 completion(comments)
                             }}
-                    
                 }catch let error as NSError {
                     print(error.localizedDescription)
                 }
-
             }
         }
         task.resume()

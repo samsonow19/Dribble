@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DribbleTest/DribbleComment.swift"
-            timestampString = "500832273.007367"
+            filePath = "DribbleTest/ShotsTableViewController.swift"
+            timestampString = "500993807.339611"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "loadShots(_:id:)"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "didUploadingShots(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,29 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DribbleTest/DribbleComment.swift"
-            timestampString = "500832273.320209"
+            filePath = "DribbleTest/ProfileTableViewCell.swift"
+            timestampString = "501173668.537037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "loadShots(_:id:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DribbleTest/DribbleComment.swift"
-            timestampString = "500832274.16627"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "loadShots(_:id:)"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "numberOfItemsInCarousel(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -12,6 +12,8 @@ import Alamofire
 class CommentsViewController: ViewController, UITableViewDataSource, UITableViewDelegate {
 
 
+    var rControl: UIRefreshControl = UIRefreshControl()
+    
     @IBOutlet var CommenText: UITextField!
     var indexshot = Int()
    
@@ -20,11 +22,17 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         idShot = shotsGlobal[indexshot].idShots
         commentsGlobal = [Comments]()
         indexShots = indexshot
-        super.viewDidLoad()
+        
+        rControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        rControl.addTarget(self, action: "refreshcontrol", forControlEvents:.ValueChanged)
+        self.tableView.addSubview(rControl)
+        
+        
         if TestInternetConnection.connectedToNetwork() == true {
             api_comment.loadShots(didLoadComments,id: indexShots)
         }
@@ -36,7 +44,18 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         }
      
     }
-
+    
+    func refreshcontrol()
+    {
+       
+        let api = DriblComments()
+        api.loadShots(didLoadComments, id: indexShots)
+        rControl.endRefreshing()
+    }
+    
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -45,6 +64,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     
     func didLoadComments(comments_ : [Comments]){
         
+         commentsGlobal = [Comments]()        
         for cm in comments_{
             let data = NSData(contentsOfURL: NSURL(string: cm.avatar_url)!)
             cm.avatarImageNSData = data
@@ -79,12 +99,22 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentsTableViewCell") as! CommentsTableViewCell
         var comment_ : Comments
+    
          comment_ = commentsGlobal[indexPath.row]
         cell.CommentImage.sd_setImageWithURL(NSURL(string: comment_.avatar_url), placeholderImage: UIImage(named: "placeHolder"))
         cell.CommentLabel.text = comment_.body.stringByReplacingOccurrencesOfString("<[^>]+>",withString: "",  options: .RegularExpressionSearch, range: nil)
         
         cell.NameAvtorLabel.text = comment_.userName
-        print(indexShots)
+        
+        
+        
+        cell.CommentImage.userInteractionEnabled = true
+        
+        let tapRecog = UITapGestureRecognizer(target: self, action: "imgTap:")
+        
+        cell.CommentImage.addGestureRecognizer(tapRecog)
+        
+    
         if TestInternetConnection.connectedToNetwork() == true {
             let data = NSData(contentsOfURL: NSURL(string: comment_.avatar_url)!)
             if shotsGlobal[indexShots].commentCount > commentsGlobal.count {
@@ -98,7 +128,21 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
      
         return cell
     }
+    func imgTap(gestureRecognizer: UITapGestureRecognizer)
+    {
+        let touch = gestureRecognizer.locationInView(self.tableView)
+        
+        let tapImg = gestureRecognizer.view!
     
+        var indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
+        print(indexPath.row )
+        
+        let profileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+        
+       // profileViewController.indexComments = indexPath.row
+        self.navigationController!.pushViewController(profileViewController, animated: true)
+       
+    }
    
     @IBAction func SubmitComment(sender: AnyObject) {
        // print(myToken)
@@ -110,6 +154,15 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         
        
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let indexPath : NSIndexPath = self.tableView.indexPathForSelectedRow!
+        let detailsVC : ProfileViewController = segue.destinationViewController as! ProfileViewController
+        detailsVC.indexComments = indexPath.row
+        //numberPageComments = 0
+    }
+    
+    
 
 
 }

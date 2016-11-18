@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentsTableViewCell: UITableViewCell {
+class CommentsTableViewCell: UITableViewCell{
 
     @IBOutlet var CommentImage: UIImageView!
     @IBOutlet var CommentLabel: UILabel!
@@ -19,9 +19,11 @@ class CommentsTableViewCell: UITableViewCell {
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
+        
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
+    
 
 }

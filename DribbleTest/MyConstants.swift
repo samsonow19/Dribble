@@ -21,8 +21,13 @@ public var flag: Bool = false
 public var shotid : Int!
 var shotsGlobal: [Shots]!
 var commentsGlobal: [Comments]!
+var usersGlobal: [User]!
+var LikeGlobal: [Like]!
+
+
 var myToken : String!
 var numberPageShots = 1
 var numberPageComments = 1
+
 var idShot = 0
 var indexShots = 0

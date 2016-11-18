@@ -15,6 +15,7 @@ class Comments {
     var update_at: String!
     var commentCount: Int!
     var userName: String!
+    var userId: Int!
     var avatar_url: String!
     var avatarImageNSData : NSData?
     init(){
@@ -28,6 +29,7 @@ class Comments {
         self.update_at = getStrJSON(data, key: "updated_at")
         let user = data["user"] as! NSDictionary
         self.userName = getStrJSON(user, key: "name")
+        self.userId = user["id"] as! Int
         self.avatar_url = getStrJSON(user, key: "avatar_url")
     }
     func getStrJSON(data: NSDictionary, key: String) -> String{
