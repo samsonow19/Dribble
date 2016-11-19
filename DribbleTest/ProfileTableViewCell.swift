@@ -10,22 +10,17 @@ import UIKit
 
 
 class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataSource  {
-    
+    @IBOutlet var ViewCarousel: UIView!
     var Likes = LikeGlobal
-    
     @IBOutlet var Name: UILabel!
     @IBOutlet var NumberLikes: UILabel!
     @IBOutlet var MyCarousel: iCarousel!
     @IBOutlet var ImageProfile: UIImageView!
-    
-    
     var count: Int!
-    
-    
     override func awakeFromNib() {
-        
         self.MyCarousel.delegate = self
         self.MyCarousel.dataSource = self
+        MyCarousel.type = .CoverFlow2
         super.awakeFromNib()
         // Initialization code
     }
@@ -33,8 +28,8 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     override func setSelected(selected: Bool, animated: Bool) {
        // super.setSelected(false, animated: false)
         
-        self.MyCarousel.delegate = self
-        self.MyCarousel.dataSource = self
+       // self.MyCarousel.delegate = self
+       // self.MyCarousel.dataSource = self
         // Configure the view for the selected state
     }
     func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
@@ -42,27 +37,46 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     }
     func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
       
-        
-        let tempView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        
-        
-        
-       //tempView.backgroundColor = UIColor.blueColor()
-        print(Likes[0].avatart_url)
-        let image = UIImageView()
-        image.sd_setImageWithURL(NSURL(string: Likes[index].avatart_url), placeholderImage: UIImage(named: "placeHolder"))
+
+        var temp  = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let CarouselImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        CarouselImage.sd_setImageWithURL(NSURL(string: Likes[index].avatart_url), placeholderImage: UIImage(named: "placeHolder"))
+
+        let blurEffect = UIBlurEffect(style: .Dark)
+        let CarauselVisualEffect = UIVisualEffectView(effect: blurEffect);
         
         
+        CarauselVisualEffect.frame = CGRect(x: 0, y: 70, width: 100, height: 40)
+       
         
-        image.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        let CarauselLableNamePerson = UILabel();
+        let CarauselLableTittleShot = UILabel()
+        let CarauselLableData = UILabel();
         
-        tempView.addSubview(image)
+        CarauselLableNamePerson.text = Likes[index].name
         
+        CarauselLableNamePerson.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
+        CarauselLableNamePerson.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
+
+        CarauselLableTittleShot.text = Likes[index].title_shot
         
+        CarauselLableTittleShot.frame = CGRect(x: 0, y: 10, width: 100, height: 20)
         
+        CarauselLableTittleShot.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
         
+        CarauselLableData.text = Likes[index].date
+        CarauselLableData.frame = CGRect(x: 0, y: 20, width: 100, height: 20)
+        CarauselLableData.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
+        CarauselVisualEffect.addSubview(CarauselLableNamePerson)
+        CarauselVisualEffect.addSubview(CarauselLableTittleShot)
+        CarauselVisualEffect.addSubview(CarauselLableData)
+        CarouselImage.addSubview(CarauselVisualEffect)
+        temp.addSubview(CarouselImage)
+        //temp = NewView
+        //temp.frame  =  CGRect(x: 0, y: 0, width: 100, height: 100)
         
-        return tempView
+        return temp
+        
     }
    
     
@@ -70,9 +84,10 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     func carousel(carousel: iCarousel, var valueForOption option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
         if option == iCarouselOption.Spacing{
             
-            return value*5
+            return value*1.1
             
         }
+        
         return value
     }
 

@@ -29,6 +29,9 @@
 		A49359E51DC09884000A86FC /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E41DC09884000A86FC /* Comments.swift */; };
 		A49359E71DC0994C000A86FC /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E61DC0994C000A86FC /* CommentsViewController.swift */; };
 		A49982D91DB8992A00F5FE4C /* OauthDribbble.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49982D81DB8992A00F5FE4C /* OauthDribbble.swift */; };
+		A49E502D1DE06FCE00236C41 /* MyCacheUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E502C1DE06FCE00236C41 /* MyCacheUser.swift */; };
+		A49E50311DE070D400236C41 /* MyCacheLikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E50301DE070D400236C41 /* MyCacheLikes.swift */; };
+		A49E50341DE072EB00236C41 /* MyCacheFollowers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49E50331DE072EB00236C41 /* MyCacheFollowers.swift */; };
 		A4A033AE1DB9E76A00A6524C /* ShotsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A033AD1DB9E76A00A6524C /* ShotsTableViewController.swift */; };
 		A4A0E1871DDB3337000C2BA2 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4A0E1861DDB3337000C2BA2 /* iCarousel.m */; };
 		A4A0E18B1DDB396C000C2BA2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0E18A1DDB396C000C2BA2 /* ProfileViewController.swift */; };
@@ -36,7 +39,6 @@
 		A4A0E18F1DDB41B4000C2BA2 /* DribbleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0E18E1DDB41B4000C2BA2 /* DribbleUser.swift */; };
 		A4A0E1911DDB4458000C2BA2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0E1901DDB4458000C2BA2 /* User.swift */; };
 		A4A11B261DD496840038FE12 /* MyCacheShots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A11B251DD496840038FE12 /* MyCacheShots.swift */; };
-		A4A181751DB8AAC1007F4779 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A181741DB8AAC1007F4779 /* LoginViewController.swift */; };
 		A4A181781DB8C21C007F4779 /* DribbbleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A181771DB8C21C007F4779 /* DribbbleApi.swift */; };
 		A4A1817B1DB8C25D007F4779 /* Shots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A1817A1DB8C25D007F4779 /* Shots.swift */; };
 		A4A1817E1DB8C354007F4779 /* MyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A1817D1DB8C354007F4779 /* MyConstants.swift */; };
@@ -94,6 +96,9 @@
 		A49359E41DC09884000A86FC /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		A49359E61DC0994C000A86FC /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		A49982D81DB8992A00F5FE4C /* OauthDribbble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthDribbble.swift; sourceTree = "<group>"; };
+		A49E502C1DE06FCE00236C41 /* MyCacheUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCacheUser.swift; sourceTree = "<group>"; };
+		A49E50301DE070D400236C41 /* MyCacheLikes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCacheLikes.swift; sourceTree = "<group>"; };
+		A49E50331DE072EB00236C41 /* MyCacheFollowers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCacheFollowers.swift; sourceTree = "<group>"; };
 		A4A033AD1DB9E76A00A6524C /* ShotsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotsTableViewController.swift; sourceTree = "<group>"; };
 		A4A0E1841DDB3336000C2BA2 /* DribbleTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DribbleTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		A4A0E1851DDB3337000C2BA2 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
@@ -103,7 +108,6 @@
 		A4A0E18E1DDB41B4000C2BA2 /* DribbleUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DribbleUser.swift; sourceTree = "<group>"; };
 		A4A0E1901DDB4458000C2BA2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A4A11B251DD496840038FE12 /* MyCacheShots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCacheShots.swift; sourceTree = "<group>"; };
-		A4A181741DB8AAC1007F4779 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A4A181771DB8C21C007F4779 /* DribbbleApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DribbbleApi.swift; sourceTree = "<group>"; };
 		A4A1817A1DB8C25D007F4779 /* Shots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shots.swift; sourceTree = "<group>"; };
 		A4A1817D1DB8C354007F4779 /* MyConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyConstants.swift; sourceTree = "<group>"; };
@@ -159,9 +163,8 @@
 		A4880B891DD325AA007168B2 /* BD */ = {
 			isa = PBXGroup;
 			children = (
+				A49E50321DE0714E00236C41 /* Model */,
 				A4880B8C1DD3261D007168B2 /* CacheShots.swift */,
-				A4A11B251DD496840038FE12 /* MyCacheShots.swift */,
-				A4C71C721DD593BC002B8BD6 /* MyCacheComments.swift */,
 			);
 			name = BD;
 			sourceTree = "<group>";
@@ -260,6 +263,18 @@
 			name = OAuth;
 			sourceTree = "<group>";
 		};
+		A49E50321DE0714E00236C41 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A4C71C721DD593BC002B8BD6 /* MyCacheComments.swift */,
+				A4A11B251DD496840038FE12 /* MyCacheShots.swift */,
+				A49E502C1DE06FCE00236C41 /* MyCacheUser.swift */,
+				A49E50331DE072EB00236C41 /* MyCacheFollowers.swift */,
+				A49E50301DE070D400236C41 /* MyCacheLikes.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		A4A181761DB8C1ED007F4779 /* ApiDribble */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,7 +299,6 @@
 		A4AFA99E1DBF33440075F911 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A4A181741DB8AAC1007F4779 /* LoginViewController.swift */,
 				A4A033AD1DB9E76A00A6524C /* ShotsTableViewController.swift */,
 				A49359E61DC0994C000A86FC /* CommentsViewController.swift */,
 				A4880B8E1DD34934007168B2 /* ViewController.swift */,
@@ -587,9 +601,9 @@
 				A4A181781DB8C21C007F4779 /* DribbbleApi.swift in Sources */,
 				A4915CB71DD9E69F001258D1 /* CommentsTableViewCell.swift in Sources */,
 				A4880B8D1DD3261D007168B2 /* CacheShots.swift in Sources */,
+				A49E50341DE072EB00236C41 /* MyCacheFollowers.swift in Sources */,
 				A41037A41DD21F14007E5360 /* testobj.swift in Sources */,
 				A4A033AE1DB9E76A00A6524C /* ShotsTableViewController.swift in Sources */,
-				A4A181751DB8AAC1007F4779 /* LoginViewController.swift in Sources */,
 				A48C83961DDED7550050AB16 /* DribbleFollowers.swift in Sources */,
 				A4A0E18F1DDB41B4000C2BA2 /* DribbleUser.swift in Sources */,
 				A4907B711DAF5CC000DBF6EE /* AppDelegate.swift in Sources */,
@@ -597,8 +611,10 @@
 				A49359E31DC0982B000A86FC /* DribbleComment.swift in Sources */,
 				A4A11B261DD496840038FE12 /* MyCacheShots.swift in Sources */,
 				A48C83981DDEE36F0050AB16 /* Followers.swift in Sources */,
+				A49E50311DE070D400236C41 /* MyCacheLikes.swift in Sources */,
 				A4A0E1911DDB4458000C2BA2 /* User.swift in Sources */,
 				A4A0E18B1DDB396C000C2BA2 /* ProfileViewController.swift in Sources */,
+				A49E502D1DE06FCE00236C41 /* MyCacheUser.swift in Sources */,
 				A4C71C781DD59792002B8BD6 /* NetConnection.swift in Sources */,
 				A49359E51DC09884000A86FC /* Comments.swift in Sources */,
 			);

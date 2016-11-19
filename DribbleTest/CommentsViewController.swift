@@ -86,10 +86,6 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         tableView.reloadData()
     }
     
-    
-    
-    
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return commentsGlobal.count
     }
@@ -105,9 +101,6 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         cell.CommentLabel.text = comment_.body.stringByReplacingOccurrencesOfString("<[^>]+>",withString: "",  options: .RegularExpressionSearch, range: nil)
         
         cell.NameAvtorLabel.text = comment_.userName
-        
-        
-        
         cell.CommentImage.userInteractionEnabled = true
         
         let tapRecog = UITapGestureRecognizer(target: self, action: "imgTap:")
@@ -135,9 +128,13 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         let tapImg = gestureRecognizer.view!
     
         var indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
+        
+        
         print(indexPath.row )
         
         let profileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+        print(commentsGlobal)
+         profileViewController.openUserID = commentsGlobal[indexPath.row].userId
         
        // profileViewController.indexComments = indexPath.row
         self.navigationController!.pushViewController(profileViewController, animated: true)
@@ -159,6 +156,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         let indexPath : NSIndexPath = self.tableView.indexPathForSelectedRow!
         let detailsVC : ProfileViewController = segue.destinationViewController as! ProfileViewController
         detailsVC.indexComments = indexPath.row
+        
         //numberPageComments = 0
     }
     

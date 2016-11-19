@@ -11,27 +11,68 @@ import UIKit
 class ProfileViewController: UIViewController , UITableViewDataSource, UITableViewDelegate   {
     var count = 0
 
+    @IBOutlet var ImageUser: UIImageView!
+    @IBOutlet var LabelNameUser: UILabel!
+    @IBOutlet var CountLikes: UILabel!
+    @IBOutlet var CountFolowers: UILabel!
     @IBOutlet var tableView: UITableView!
   
     var indexComments = Int()
     var followers = [Follower]()
     var likes = [[Like]]()
+    var i = 0
+    var openUserID: Int!
 
     var OpenUser = User()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
+        
         if TestInternetConnection.connectedToNetwork() == true {
             usersGlobal = [User]()
             let api = DriblUser()
-            
             api.loadUsers(didLoadUser, id: commentsGlobal[indexComments].userId )
         }
+        else {
+         
+            print(openUserID)
+            OpenUser = Cache.GetUser(openUserID)
+            
+            ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatar_url), placeholderImage: UIImage(named: "placeHolder"))            
+            
+            LabelNameUser.text = OpenUser.authorName
+            CountLikes.text = String(OpenUser.numberLike)
+            
+            CountFolowers.text = String(OpenUser.numberFollowers)
+            
+            print(OpenUser.followersURL)
+            followers = Cache.GetFollowers(OpenUser.followersURL)
+            var maslikes = [Like]()
+            for fol in followers {
+                print(fol.likesURL)
+                maslikes = Cache.GetLikes(fol.likesURL)
+                likes.append(maslikes)
+            }
+            
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+            self.tableView.reloadData()
+        }
+        
     }
    
     func didLoadUser(users_: [User]){
         OpenUser =  users_[0]
         print(OpenUser.followersURL)
-     
+        
+        ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatar_url), placeholderImage: UIImage(named: "placeHolder"))
+        LabelNameUser.text = OpenUser.authorName
+        CountLikes.text = String(OpenUser.numberLike)
+        CountFolowers.text = String(OpenUser.numberFollowers)
+        
+        Cache.UpdateCasheUser(OpenUser)
+        
         let api = DribbleFollowers()
         api.loadFollowers(didLoadFollowers, url: OpenUser.followersURL)
     }
@@ -42,6 +83,7 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
             api.loadFollowers(didLoadLikes, url: follow.likesURL)
             count++;
         }
+        Cache.UpdateCasheFollowers(followers, id: OpenUser.idUser )
         
        
        
@@ -52,17 +94,17 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
         for like in likes_ {
             maslikes.append(like)
         }
-        likes.append(maslikes)
-        print(likes)
+        likes.append(maslikes )
+        Cache.UpdateCasheLikes(maslikes, id: followers[i].idUser)
+        i++;
         count--
         if count == 0{
             self.tableView.delegate = self
             self.tableView.dataSource = self
             self.tableView.reloadData()
+            
         }
-        
-        
-        
+
     }
     
 
@@ -78,8 +120,7 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        
-        
+        print(indexPath.row)
         LikeGlobal = likes[indexPath.row]
         
         
@@ -87,20 +128,14 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
   
         print(indexPath.row)
         
-        print(likes)
+        print(String(followers[indexPath.row].numberLike))
         //cell.Likes = likes[indexPath.row]
         
         cell.ImageProfile.sd_setImageWithURL(NSURL(string: followers[indexPath.row].avatar_url), placeholderImage: UIImage(named: "placeHolder"))
+        
         print(followers[indexPath.row].authorName)
         cell.Name.text = followers[indexPath.row].authorName
-        cell.NumberLikes.text = followers[indexPath.row].numberLike as? String
-        
-       
-        
-        
-        
-        
-     
+        cell.NumberLikes.text = String(followers[indexPath.row].numberLike)
         
         return cell
     }

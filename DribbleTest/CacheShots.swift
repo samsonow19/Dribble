@@ -32,11 +32,7 @@ class Cache {
             }
         }
         
-        let allShots = realm.objects(MyCacheShots)
-        /*
-        for sh in allShots{
-           print("\(sh.title)")
-        }*/
+      
         
     }
     
@@ -72,15 +68,6 @@ class Cache {
         var cacheComments = MyCacheComments()
         let realm = try! Realm()
         let cacheShots = MyCacheShots()
-       /* try! realm.write({() -> Void in
-            realm.delete(MyCacheShots)
-        })*/
-        
-        
-        
-        
-        
-        // realm.deleteAll()
         try! realm.write {
             for cm in commentsGlobal{
               
@@ -88,13 +75,11 @@ class Cache {
                 cacheComments.idShots = idShot
                 cacheComments.idComments = cm.id
                 cacheComments.body = cm.body
+                cacheComments.userId = cm.userId
                 cacheComments.userName = cm.userName
                 cacheComments.avatarUrl = cm.avatar_url
                 realm.add(cacheComments,update: true)
                 cacheShots.commentsShot.append(cacheComments)
-               // print(indexShots)
- 
-
             }
             cacheShots.idShots = shotsGlobal[indexShots].idShots
             realm.create(MyCacheShots.self, value: ["idShots": shotsGlobal[indexShots].idShots, "commentsShot":  cacheShots.commentsShot], update: true)
@@ -116,6 +101,7 @@ class Cache {
             mycomments = Comments()
             mycomments.idShots = com.idShots
             mycomments.id = com.idComments
+            mycomments.userId = com.userId
             mycomments.body = com.body
             mycomments.avatarImageNSData = com.avatarImageNSData
             mycomments.avatar_url = com.avatarUrl
@@ -123,80 +109,138 @@ class Cache {
             commentsGlobal.append(mycomments)
         }
     }
-}
-
-/*  
-}
-    
-    
-}
-        
-        /* // logik
-        if allShots.count != 0 {
-            let realm = try! Realm()
-            let allShots = realm.objects(MyCacheShots)
-            
-            for allshots in allShots {
-                for sh in shots {
-                    
-                    if sh.idShots == allshots.idShots{
-                        flag = true
-                        break
-                    }
-             
-                }
-                if flag == false {
-                    
-                    cacheShots.idShots = allshots.idShots
-                    cacheShots.title = allshots.title
-                    cacheShots.descriptions = allshots.descriptions
-                    realm.add(cacheShots)
-                    
-                }
-                
-                    
-            }
-            
-        }
-        else {
-            let realm = try! Realm()
-            try! realm.write {
-                for sh in shots{
-                    
-                    
-                   //realm.add(sh)
-                }
-            }
-        }
-    }
-    
-    func findh (id : Int) -> Bool {
-        for sh in shots {
-            if sh.idShots == id{
-                return false
-            }
-        }
-        return true
-    }
     
     
     
     
-    func addUser(){
-        let mike = Users()
-        mike.name = "Katay"
+    static func UpdateCasheUser(user: User){
+        var cacheUser = MyCacheUser()
         let realm = try! Realm()
         try! realm.write {
-            realm.add(mike)
+                cacheUser = MyCacheUser()
+                cacheUser.idUser =  user.idUser
+                cacheUser.authorName = user.authorName
+                cacheUser.numberLike = user.numberLike
+                cacheUser.numberFollowers = user.numberFollowers
+                cacheUser.avatar_url = user.avatar_url
+                cacheUser.followersURL = user.followersURL
+                realm.add(cacheUser, update: true)
         }
         
     }
-    func queryShots(){
-        let realm = try! Realm()
-        let allUsers = realm.objects(Users)
-        for person in allUsers{
-            print("\(person.name)")
-        }
-        let test : String = ""
+    static func GetUser(idUser: Int)->User{
         
-    }*/*/
+        let realm = try! Realm()
+        let userOpen = realm.objects(MyCacheUser).filter("idUser = \(idUser)")
+        var myuser = User()
+        myuser.idUser = userOpen[0].idUser
+        myuser.authorName = userOpen[0].authorName
+        myuser.numberLike = userOpen[0].numberLike
+        myuser.numberFollowers = userOpen[0].numberFollowers
+        myuser.avatar_url = userOpen[0].avatar_url
+        myuser.followersURL = userOpen[0].followersURL
+        return myuser
+        
+    }
+    
+    
+    static func UpdateCasheFollowers(followers: [Follower], id : Int){
+        var cacheFollowers = MyCacheFollowers()
+        var cacheUser = MyCacheUser()
+        let realm = try! Realm()
+        try! realm.write {
+            for follower in followers {
+                cacheFollowers = MyCacheFollowers()
+                cacheFollowers.idFollowers =  follower.idUser
+                cacheFollowers.authorName = follower.authorName
+                cacheFollowers.avatar_url = follower.avatar_url
+                cacheFollowers.numberLike = follower.numberLike
+                cacheFollowers.numberFollowers = follower.numberFollowers
+                cacheFollowers.likesURL = follower.likesURL
+                
+                realm.add(cacheFollowers)
+                cacheUser.folowers.append(cacheFollowers)
+            }
+            
+            realm.create(MyCacheUser.self, value: ["idUser": id, "folowers":  cacheUser.folowers], update: true)
+        }
+        
+        
+        
+    }
+    static func GetFollowers(str: String)->[Follower]{
+        let realm = try! Realm()
+        let Users = realm.objects(MyCacheUser).filter("followersURL = '\(str)'")
+        var folowers = [Follower]()
+        var f = Follower()
+        for fol in Users[0].folowers {
+            f = Follower()
+            f.avatar_url = fol.avatar_url
+            f.authorName = fol.authorName
+            f.idUser = fol.idFollowers
+            f.numberFollowers = fol.numberFollowers
+            f.numberLike = fol.numberLike
+            f.likesURL = fol.likesURL
+            folowers.append(f)
+        }
+        return folowers
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    static func UpdateCasheLikes(likes : [Like], id : Int){
+        var cacheLikes = MyCacheLikes()
+        var cacheFollowers = MyCacheFollowers()
+        let realm = try! Realm()
+        try! realm.write {
+            for like in likes {
+                cacheLikes = MyCacheLikes()
+                cacheLikes.idLike =  like.idLike
+                cacheLikes.name = like.name
+                cacheLikes.avatart_url = like.avatart_url
+                cacheLikes.date = like.date
+                cacheLikes.title_shot = like.title_shot
+               
+                realm.add(cacheLikes)
+                cacheFollowers.likes.append(cacheLikes)
+            }
+            
+            realm.create(MyCacheFollowers.self, value: ["idFollowers": id, "likes":  cacheFollowers.likes], update: true)
+        }
+        
+        
+        
+    }
+    static func GetLikes(str: String)->[Like]{
+        let realm = try! Realm()
+        let Likes = realm.objects(MyCacheFollowers).filter("likesURL = '\(str)'")
+        
+        var likes = [Like]()
+        var l = Like()
+       
+        
+        print(idShot)
+        for lik in Likes[0].likes {
+            l = Like()
+            l.avatart_url = lik.avatart_url
+            l.date = lik.date
+            l.idLike = lik.idLike
+            l.title_shot = lik.title_shot
+            likes.append(l)
+        }
+        return likes
+    }
+    
+    
+    
+}
+

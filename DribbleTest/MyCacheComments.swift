@@ -12,6 +12,7 @@ import RealmSwift
 
 class MyCacheComments : Object{
     dynamic var idComments = 0
+    dynamic var userId = 0
     dynamic var body: String? = nil
     dynamic var userName: String? = nil
     dynamic var idShots = 0
