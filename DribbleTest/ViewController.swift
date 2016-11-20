@@ -12,10 +12,13 @@ import Alamofire
 
 class ViewController: UIViewController {
  
+    @IBOutlet var loginbutton: UIButton!
     
     @IBAction func LoginClick(sender: AnyObject) {
         if TestInternetConnection.connectedToNetwork() == true {
+            loginbutton.hidden = true
             OauthDribble.doOAuthDribbble(self)
+            
             
         }
         else {

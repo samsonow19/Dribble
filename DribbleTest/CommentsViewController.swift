@@ -10,6 +10,10 @@ import UIKit
 import Alamofire
 
 class CommentsViewController: ViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet var inputTextField: UITextView!
+    
+    @IBOutlet var sendButton: UIButton!
 
 
     var rControl: UIRefreshControl = UIRefreshControl()
@@ -17,6 +21,18 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     @IBOutlet var CommenText: UITextField!
     var indexshot = Int()
    
+    let messageInputContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.redColor()
+        return view
+    }()
+    /*
+    let inputTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter message..."
+        return textField
+    }()*/
+    
     let api_comment = DriblComments()
     
     @IBOutlet var tableView: UITableView!
@@ -27,6 +43,28 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         idShot = shotsGlobal[indexshot].idShots
         commentsGlobal = [Comments]()
         indexShots = indexshot
+       
+        //setupInputComponents()
+        
+        /*
+        view.addConstraints(myConstraint)
+        myConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|[v0(48)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["":commentInputContainerView])
+        
+        view.addConstraints(myConstraint)*/
+      //  view.addConstraintsw
+        
+       // view.addSubview(messageInputContainerView)
+        
+        
+     
+        
+     //   view.addConstraintsWithFormat("H:|[v0]|", views: messageInputContainerView)
+      //  view.addConstraintsWithFormat("V:[v0(100)]", views: messageInputContainerView)
+        
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("handleKeyboardNotification", object: nil)
+        
+        
         
         rControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         rControl.addTarget(self, action: "refreshcontrol", forControlEvents:.ValueChanged)
@@ -44,6 +82,53 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         }
      
     }
+    
+    func handleKeyboardNotification(notification: NSNotification) {
+        
+        if let userInfo = notification.userInfo {
+            
+            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
+            print(keyboardFrame)
+            /*
+            let isKeyboardShowing = notification.name == UIKeyboardWillShowNotification
+            
+            bottomConstraint?.constant = isKeyboardShowing ? -keyboardFrame!.height : 0
+            
+            UIView.animateWithDuration(0, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.view.layoutIfNeeded()
+                
+                }, completion: { (completed) in
+                    
+                    if isKeyboardShowing {
+                        let indexPath = NSIndexPath(forItem: self.messages!.count - 1, inSection: 0)
+                        self.collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+                    }
+                    
+            })*/
+        }
+    }
+    
+    
+    private func setupInputComponents() {
+        let topBorderView = UIView()
+        topBorderView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        
+        messageInputContainerView.addSubview(inputTextField)
+       // messageInputContainerView.addSubview(sendButton)
+        messageInputContainerView.addSubview(topBorderView)
+        
+       // messageInputContainerView.addConstraintsWithFormat("H:|-8-[v0][v1(60)]|", views: inputTextField, sendButton)
+        
+        messageInputContainerView.addConstraintsWithFormat("V:|[v0]|", views: inputTextField)
+       // messageInputContainerView.addConstraintsWithFormat("V:|[v0]|", views: sendButton)
+        
+        messageInputContainerView.addConstraintsWithFormat("H:|[v0]|", views: topBorderView)
+        messageInputContainerView.addConstraintsWithFormat("V:|[v0(0.5)]", views: topBorderView)
+    }
+    
+    
+    
     
     func refreshcontrol()
     {
@@ -74,6 +159,9 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.reloadData()
         Cache.UpdateCacheComments()
+        
+      
+        
        
     }
     func didUpComments(comments_ : [Comments]){
@@ -140,18 +228,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         self.navigationController!.pushViewController(profileViewController, animated: true)
        
     }
-   
-    @IBAction func SubmitComment(sender: AnyObject) {
-       // print(myToken)
-        //print(shotsGlobal[indexshot].commentsURL)
-        Alamofire.request(.POST, shotsGlobal[indexshot].commentsURL , parameters: ["body" : "Good", "access_token" : myToken], encoding: .JSON ).responseJSON{ respons in
-        print(respons)
-        }
-         
-        
-       
-    }
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let indexPath : NSIndexPath = self.tableView.indexPathForSelectedRow!
         let detailsVC : ProfileViewController = segue.destinationViewController as! ProfileViewController
@@ -161,6 +238,14 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     }
     
     
+    @IBAction func ActionSend(sender: AnyObject) {
+        
+        Alamofire.request(.POST, shotsGlobal[indexshot].commentsURL , parameters: ["body" : inputTextField.text , "access_token" : myToken], encoding: .JSON ).responseJSON{ respons in
+            print(respons)
+        }
+        api_comment.loadShots(didLoadComments,id: indexShots)
+        tableView.reloadData()
+    }
 
 
 }

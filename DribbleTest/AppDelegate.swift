@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        print(url.host)
         if(url.host == "oauth-callback") {
             
             //   OAuthSwift.handleOpenURL(url)
