@@ -185,7 +185,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         var comment_ : Comments
     
          comment_ = commentsGlobal[indexPath.row]
-        cell.CommentImage.sd_setImageWithURL(NSURL(string: comment_.avatar_url), placeholderImage: UIImage(named: "placeHolder"))
+        cell.CommentImage.sd_setImageWithURL(NSURL(string: comment_.avatar_url), placeholderImage: UIImage(named: "Placeholder"))
         cell.CommentLabel.text = comment_.body.stringByReplacingOccurrencesOfString("<[^>]+>",withString: "",  options: .RegularExpressionSearch, range: nil)
         
         cell.NameAvtorLabel.text = comment_.userName

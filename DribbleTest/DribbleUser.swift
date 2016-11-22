@@ -9,13 +9,15 @@
 import Foundation
 import Alamofire
 class DriblUser {
-    // let accesToken = "3f5b8b149a5a70351e114f3911be7e9910ff3154e0ae9f08061e1064b503e67d"
-    func loadUsers(completion: (([User])-> Void)!, id : Int) {
+ 
+    func loadUsers(completion: (([User])-> Void)!, id : Int, urlStringParam : String) {
       
-        let urlString = "https://api.dribbble.com/v1/users/\(id)?access_token=\(myToken)"
-
+       // let urlString = "https://api.dribbble.com/v1/users/\(id)?access_token=\(myToken)"
+        
+        let urlString = urlStringParam
+        
         Alamofire.request(.GET, urlString).responseJSON{ respons in 
-            //print(respons.2.value)
+         
             let JsonResult = respons.2.value
             var users = [User]()
             let user = User(data: JsonResult as! NSDictionary)

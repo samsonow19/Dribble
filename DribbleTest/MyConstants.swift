@@ -31,6 +31,7 @@ var numberPageComments = 1
 
 var idShot = 0
 var indexShots = 0
+var IdUserAuthenticated = 0
 
 
 extension UIView {

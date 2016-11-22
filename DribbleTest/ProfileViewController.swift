@@ -32,14 +32,14 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
         if TestInternetConnection.connectedToNetwork() == true {
             usersGlobal = [User]()
             let api = DriblUser()
-            api.loadUsers(didLoadUser, id: commentsGlobal[indexComments].userId )
+            api.loadUsers(didLoadUser, id: openUserID, urlStringParam: "https://api.dribbble.com/v1/users/\(openUserID)?access_token=\(myToken)")
         }
         else {
          
             print(openUserID)
             OpenUser = Cache.GetUser(openUserID)
             
-            ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatar_url), placeholderImage: UIImage(named: "placeHolder"))            
+            ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatar_url), placeholderImage: UIImage(named: "Placeholder"))            
             
             LabelNameUser.text = OpenUser.authorName
             CountLikes.text = String(OpenUser.numberLike)
@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
         OpenUser =  users_[0]
         print(OpenUser.followersURL)
         
-        ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatar_url), placeholderImage: UIImage(named: "placeHolder"))
+        ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatar_url), placeholderImage: UIImage(named: "Placeholder"))
         LabelNameUser.text = OpenUser.authorName
         CountLikes.text = String(OpenUser.numberLike)
         CountFolowers.text = String(OpenUser.numberFollowers)

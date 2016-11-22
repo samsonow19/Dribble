@@ -13,8 +13,10 @@ class ShotsTableViewController: UITableViewController{
     
     
     
+    @IBOutlet var likeImage: UIImageView!
+    
     var rControl: UIRefreshControl = UIRefreshControl()
- 
+    let apiCheckLike = DriblLikeUser()
     
     @IBAction func butUp(sender: AnyObject) {
         
@@ -33,7 +35,19 @@ class ShotsTableViewController: UITableViewController{
             let api = DriblShots()
             api.loadShots(didLoadShots)
         }
+        
+        let api = DriblUser()
+        api.loadUsers(didLoadUser, id: 0, urlStringParam: "https://api.dribbble.com/v1/user?access_token=\(myToken)") // get id Authenticated User
+        
+        
+        
+        
     }
+    func didLoadUser(users_: [User]){
+        IdUserAuthenticated =  users_[0].idUser
+    }
+    
+    
     func refreshcontrol()
     {
         print(numberPageShots)
@@ -54,8 +68,8 @@ class ShotsTableViewController: UITableViewController{
             shotsGlobal.append( sh)
         }
         Cache.UpdateCacheShots()
-        //self.tableView.reloadData()
-        print("123")
+      
+   
         self.rControl.endRefreshing()
         dispatch_async(dispatch_get_main_queue(), {() -> Void in
         self.tableView.reloadData()
@@ -91,10 +105,41 @@ class ShotsTableViewController: UITableViewController{
         cell.ImageShot.sd_setImageWithURL(NSURL(string: shot_.imageURL), placeholderImage: UIImage(named: "placeHolder"))
         
         cell.TitleShot.text = shot_.title
+        
         cell.DescriptionShot.text = shot_.descriptions.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
         
-    
-
+        
+        cell.ImageShotAvtor.sd_setImageWithURL(NSURL(string: shot_.userAvatarUrl), placeholderImage: UIImage(named: "placeHolder"))
+        
+        
+        if apiCheckLike.loadShots("https://api.dribbble.com/v1/shots/\(IdUserAuthenticated)/like?access_token=\(myToken)") {
+            cell.ImageShotLike.image = UIImage(named: "lheart")
+        }
+        else{
+            cell.ImageShotLike.image = UIImage(named: "dlike")
+        }
+        
+        
+        
+        
+        
+        
+        cell.ImageShotAvtor.userInteractionEnabled = true
+        
+        let tapRecog = UITapGestureRecognizer(target: self, action: "imgTappUser:")
+        
+        cell.ImageShotAvtor.addGestureRecognizer(tapRecog)
+        
+        
+        
+ 
+        
+        cell.ImageShotLike.userInteractionEnabled = true
+        
+        let tapRecoglike = UITapGestureRecognizer(target: self, action: "imgTappLike:")
+        
+        cell.ImageShotLike.addGestureRecognizer(tapRecoglike)
+        
         
         if TestInternetConnection.connectedToNetwork() == true {
             
@@ -111,6 +156,34 @@ class ShotsTableViewController: UITableViewController{
         
         return cell
     }
+    
+    func imgTappUser(gestureRecognizer: UITapGestureRecognizer)
+    {
+        let touch = gestureRecognizer.locationInView(self.tableView)
+        
+      //  let tapImg = gestureRecognizer.view!
+        
+        let indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
+        
+        
+        print(indexPath.row )
+        
+        let profileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+        
+        
+        profileViewController.openUserID = shotsGlobal[indexPath.row].userID
+        
+        // profileViewController.indexComments = indexPath.row
+        self.navigationController!.pushViewController(profileViewController, animated: true)
+        
+    }
+    
+    func imgTappLike(gestureRecognizer: UITapGestureRecognizer)
+    {
+        
+    }
+    
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
                return true
@@ -118,7 +191,10 @@ class ShotsTableViewController: UITableViewController{
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         let indexPath : NSIndexPath = self.tableView.indexPathForSelectedRow!
         let detailsVC : CommentsViewController = segue.destinationViewController as! CommentsViewController
         detailsVC.indexshot = indexPath.row

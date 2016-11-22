@@ -26,17 +26,19 @@ class OauthDribble {
                     data, response in
                     let jsonDict: AnyObject! = try? NSJSONSerialization.JSONObjectWithData(data, options: [])
                  
-                    flag = true
+                
+                    print(data)
+                    
                     let ShotsVC = this.storyboard!!.instantiateViewControllerWithIdentifier("ShotsVC")
                     this.presentViewController(ShotsVC, animated: true, completion: nil)
                 }, failure: { error in
                     print(error)
-                    flag = false
+                    
                   
             })
             }, failure: { error in
                 print(error.localizedDescription)
-                    flag = false
+                
     })
         
     }

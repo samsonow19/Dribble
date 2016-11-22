@@ -27,6 +27,8 @@ class Cache {
                 cacheShots.descriptions = sh.descriptions
                 cacheShots.imageData = sh.imageData
                 cacheShots.imageUrl = sh.imageURL
+                cacheShots.userId = sh.userID
+                cacheShots.userName = sh.userName
              
                 realm.add(cacheShots)
             }

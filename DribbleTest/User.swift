@@ -16,6 +16,7 @@ class User {
     var numberFollowers: Int!
     var followersURL: String!
     
+    
     init(){
         
     }

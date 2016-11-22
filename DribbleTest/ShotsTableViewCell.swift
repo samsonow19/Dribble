@@ -10,6 +10,15 @@ import UIKit
 
 class ShotsTableViewCell: UITableViewCell {
 
+    
+    
+    @IBOutlet var ImageShotAvtor: UIImageView!
+    
+    @IBOutlet var ImageShotLike: UIImageView!
+    
+    
+    
+    
     @IBOutlet var ImageShot: UIImageView!
     
     @IBOutlet var TitleShot: UILabel!

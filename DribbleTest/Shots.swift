@@ -19,7 +19,10 @@ class Shots {
     var viewsCount: Int!
     var imageURL: String!
     var imageData : NSData?
-    var cache : Int! // 0 - not cashe 1 - cashe 2 - dell 3 - not dell
+    var userAvatarUrl : String!
+    var userName : String!
+    var userID : Int!
+
  
     init(){
         
@@ -35,7 +38,16 @@ class Shots {
         self.viewsCount = data["views_count"] as! Int
         let image = data["images"] as! NSDictionary//{mas}
         self.imageURL = getStrJSON(image, key: "normal")
-        self.cache = 0
+        
+        let user = data["user"] as! NSDictionary
+        
+        
+        self.userAvatarUrl = getStrJSON(user, key: "avatar_url")//add_Cache
+        
+        self.userName = getStrJSON(user, key: "name") //add_Cache
+        self.userID = user["id"] as! Int // add_Cache
+        
+      
     }
     
 
