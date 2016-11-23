@@ -21,6 +21,8 @@ class MyCacheUser : Object{
     dynamic var followersURL: String? = nil
     let folowers = List<MyCacheFollowers>()
     
+    
+    
     override static func primaryKey() -> String? {
         return "idUser"
     }

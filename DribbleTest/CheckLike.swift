@@ -7,41 +7,48 @@
 //
 
 import Foundation
-import OAuthSwift
+import Alamofire
 
 class DriblLikeUser {
-    func loadShots(urlStringParam : String)-> Bool {
+    func loadCheckLike(completion: ((Bool)-> Void), urlStringParam1 : String) {
         
-        let urlString = urlStringParam
-        //"https://api.dribbble.com/v1/shots/\(id)/like?access_token=\(myToken)"
-        let session = NSURLSession.sharedSession()
-        let shotsURL = NSURL(string: urlString)
-        
-        let task = session.dataTaskWithURL(shotsURL!) {
-            (data,response,error)-> Void in
+        var flag: Bool!
+        Alamofire.request(.GET , urlStringParam1).responseJSON{respons in
             
-            if error != nil {
-                print(error?.localizedDescription)
-            } else {
-                
-                do{
-                    if let JsonResult = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as? NSArray{
-                        var likes =  JsonResult[0] as! NSDictionary
-                        print(likes)
-                        
-                      
-                        
-                        
-                    }
-                 
-                   
-                }catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-                
+            
+            
+            print(respons.2 .value)
+            if(respons.2.value != nil)
+            {
+                flag = true
             }
+            else{
+                flag = false
+            }
+            
+            let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
+            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                dispatch_async(dispatch_get_main_queue()){
+                    completion(flag)
+                }}
         }
-        return false
+        
        
+        
+       
+    }
+    func LikeShot(urlStringParam : String)
+    {
+        print(urlStringParam)
+        Alamofire.request(.POST, urlStringParam).responseJSON { respons in
+            
+            let JsonResult = respons.2.value
+            print(respons)
+        }
+
+    }
+    func DellLikeShot(urlStringParam : String)
+    {
+        Alamofire.request(.DELETE, urlStringParam)
     }
 }

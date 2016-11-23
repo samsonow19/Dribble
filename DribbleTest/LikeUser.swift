@@ -9,22 +9,11 @@
 import Foundation
 
 class LikeUser {
-    var idLike: Int!
+
     var like: Bool!
     init(){
     }
     
-    init(data : NSDictionary){
-        if data["id"] == nil
-        {
-            self.idLike = data["id"] as! Int
-            self.like = true
-        }
-        else
-        {
-            self.idLike = data["id"] as! Int
-            self.like = false
-        }
-    }
+
     
 }

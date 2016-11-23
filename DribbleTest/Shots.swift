@@ -19,9 +19,14 @@ class Shots {
     var viewsCount: Int!
     var imageURL: String!
     var imageData : NSData?
+    
+    
     var userAvatarUrl : String!
     var userName : String!
     var userID : Int!
+    
+    
+    var likeUserAutho: Bool! = false
 
  
     init(){

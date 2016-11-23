@@ -29,7 +29,9 @@ class Cache {
                 cacheShots.imageUrl = sh.imageURL
                 cacheShots.userId = sh.userID
                 cacheShots.userName = sh.userName
-             
+                cacheShots.userAvatarUrl = sh.userAvatarUrl
+                
+                cacheShots.likeUserAutho = sh.likeUserAutho
                 realm.add(cacheShots)
             }
         }
@@ -51,10 +53,12 @@ class Cache {
             myshots.imageData = sh.imageData
             myshots.imageURL = sh.imageUrl
             myshots.commentsURL = ""
+            myshots.likeUserAutho = sh.likeUserAutho
             
             myshots.commentCount = 0
             myshots .likesCount = 0
             myshots.viewsCount = 0
+            myshots.userAvatarUrl = sh.userAvatarUrl
             shotsGlobal.append(myshots)
         }
         /*

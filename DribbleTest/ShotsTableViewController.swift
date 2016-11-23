@@ -17,7 +17,7 @@ class ShotsTableViewController: UITableViewController{
     
     var rControl: UIRefreshControl = UIRefreshControl()
     let apiCheckLike = DriblLikeUser()
-    
+    var numberShot = 0
     @IBAction func butUp(sender: AnyObject) {
         
         
@@ -34,10 +34,11 @@ class ShotsTableViewController: UITableViewController{
             shotsGlobal = [Shots]()
             let api = DriblShots()
             api.loadShots(didLoadShots)
+            /*let api = DriblUser()
+            api.loadUsers(didLoadUser, id: 0, urlStringParam: "https://api.dribbble.com/v1/user?access_token=\(myToken)") // get id Authenticated User  */
         }
         
-        let api = DriblUser()
-        api.loadUsers(didLoadUser, id: 0, urlStringParam: "https://api.dribbble.com/v1/user?access_token=\(myToken)") // get id Authenticated User
+        
         
         
         
@@ -66,14 +67,10 @@ class ShotsTableViewController: UITableViewController{
             let data = NSData(contentsOfURL: NSURL(string: sh.imageURL)!)
             sh.imageData = data
             shotsGlobal.append( sh)
+            apiCheckLike.loadCheckLike(didLoadChekLike, urlStringParam1: "https://api.dribbble.com/v1/shots/\(sh.idShots)/like?access_token=\(myToken)")
         }
-        Cache.UpdateCacheShots()
-      
-   
-        self.rControl.endRefreshing()
-        dispatch_async(dispatch_get_main_queue(), {() -> Void in
-        self.tableView.reloadData()
-    })
+       
+       
     }
     func didUploadingShots(shots_: [Shots]){
         for sh in shots_{
@@ -82,7 +79,7 @@ class ShotsTableViewController: UITableViewController{
             shotsGlobal.append( sh)
         }
       
-        Cache.UpdateCacheShots()
+        //Cache.UpdateCacheShots()
     }
 
     override func didReceiveMemoryWarning() {
@@ -112,12 +109,14 @@ class ShotsTableViewController: UITableViewController{
         cell.ImageShotAvtor.sd_setImageWithURL(NSURL(string: shot_.userAvatarUrl), placeholderImage: UIImage(named: "placeHolder"))
         
         
-        if apiCheckLike.loadShots("https://api.dribbble.com/v1/shots/\(IdUserAuthenticated)/like?access_token=\(myToken)") {
-            cell.ImageShotLike.image = UIImage(named: "lheart")
-        }
-        else{
-            cell.ImageShotLike.image = UIImage(named: "dlike")
-        }
+        
+            if shot_.likeUserAutho == true
+            {
+                cell.ImageShotLike.image = UIImage(named: "lheart")
+            }
+            else{
+                cell.ImageShotLike.image = UIImage(named: "dlike")
+            }
         
         
         
@@ -156,6 +155,22 @@ class ShotsTableViewController: UITableViewController{
         
         return cell
     }
+    func didLoadChekLike(flag: Bool)
+    {
+        shotsGlobal[numberShot].likeUserAutho = flag;
+        numberShot++
+        if numberShot == shotsGlobal.count-1
+        {
+            self.rControl.endRefreshing()
+            dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                self.tableView.reloadData()
+            
+            
+            })
+            Cache.UpdateCacheShots()
+        }
+    }
+        
     
     func imgTappUser(gestureRecognizer: UITapGestureRecognizer)
     {
@@ -180,7 +195,28 @@ class ShotsTableViewController: UITableViewController{
     
     func imgTappLike(gestureRecognizer: UITapGestureRecognizer)
     {
+        let touch = gestureRecognizer.locationInView(self.tableView)
         
+        //  let tapImg = gestureRecognizer.view!
+        
+        let indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
+        
+        if shotsGlobal[indexPath.row].likeUserAutho == true {
+            
+            //apiCheckLike.DellLikeShot("https://api.dribbble.com/v1/shots/\(shotsGlobal[indexPath.row].idShots)/like?access_token=\(myToken)")
+            shotsGlobal[indexPath.row].likeUserAutho = false
+        }
+        else {
+            
+            
+            //apiCheckLike.LikeShot("https://api.dribbble.com/v1/shots/\(shotsGlobal[indexPath.row].idShots)/like?access_token=\(myToken)")
+            shotsGlobal[indexPath.row].likeUserAutho = true
+        }
+        self.rControl.endRefreshing()
+        dispatch_async(dispatch_get_main_queue(), {() -> Void in
+            self.tableView.reloadData()
+
+        })
     }
     
     
