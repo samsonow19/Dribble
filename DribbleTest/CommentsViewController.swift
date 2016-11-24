@@ -11,27 +11,16 @@ import Alamofire
 
 class CommentsViewController: ViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet var messageInputContainerView: UIView!
     @IBOutlet var inputTextField: UITextView!
     
     @IBOutlet var sendButton: UIButton!
-
-
+    var bottomConstreint: NSLayoutConstraint?
     var rControl: UIRefreshControl = UIRefreshControl()
     
     @IBOutlet var CommenText: UITextField!
     var indexshot = Int()
-   
-    let messageInputContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.redColor()
-        return view
-    }()
-    /*
-    let inputTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter message..."
-        return textField
-    }()*/
+
     
     let api_comment = DriblComments()
     
@@ -43,28 +32,17 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         idShot = shotsGlobal[indexshot].idShots
         commentsGlobal = [Comments]()
         indexShots = indexshot
-       
-        //setupInputComponents()
+      
+   
+      
         
-        /*
-        view.addConstraints(myConstraint)
-        myConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|[v0(48)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["":commentInputContainerView])
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardNotification:" as Selector, name: UIKeyboardWillShowNotification, object: nil)
         
-        view.addConstraints(myConstraint)*/
-      //  view.addConstraintsw
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardNotification:" as Selector, name: UIKeyboardWillHideNotification, object: nil)
         
-       // view.addSubview(messageInputContainerView)
-        
-        
-     
-        
-     //   view.addConstraintsWithFormat("H:|[v0]|", views: messageInputContainerView)
-      //  view.addConstraintsWithFormat("V:[v0(100)]", views: messageInputContainerView)
-        
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("handleKeyboardNotification", object: nil)
-        
-        
+        bottomConstreint = NSLayoutConstraint(item: messageInputContainerView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
+         view.addConstraint(bottomConstreint!)
+      
         
         rControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         rControl.addTarget(self, action: "refreshcontrol", forControlEvents:.ValueChanged)
@@ -89,43 +67,17 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
             
             let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
             print(keyboardFrame)
-            /*
+            
+           
             let isKeyboardShowing = notification.name == UIKeyboardWillShowNotification
-            
-            bottomConstraint?.constant = isKeyboardShowing ? -keyboardFrame!.height : 0
-            
-            UIView.animateWithDuration(0, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.view.layoutIfNeeded()
-                
-                }, completion: { (completed) in
-                    
-                    if isKeyboardShowing {
-                        let indexPath = NSIndexPath(forItem: self.messages!.count - 1, inSection: 0)
-                        self.collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
-                    }
-                    
-            })*/
+           
+            bottomConstreint?.constant = isKeyboardShowing ? -keyboardFrame!.height: 0 // very cool
+        
         }
     }
     
     
-    private func setupInputComponents() {
-        let topBorderView = UIView()
-        topBorderView.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
-        
-        messageInputContainerView.addSubview(inputTextField)
-       // messageInputContainerView.addSubview(sendButton)
-        messageInputContainerView.addSubview(topBorderView)
-        
-       // messageInputContainerView.addConstraintsWithFormat("H:|-8-[v0][v1(60)]|", views: inputTextField, sendButton)
-        
-        messageInputContainerView.addConstraintsWithFormat("V:|[v0]|", views: inputTextField)
-       // messageInputContainerView.addConstraintsWithFormat("V:|[v0]|", views: sendButton)
-        
-        messageInputContainerView.addConstraintsWithFormat("H:|[v0]|", views: topBorderView)
-        messageInputContainerView.addConstraintsWithFormat("V:|[v0(0.5)]", views: topBorderView)
-    }
+
     
     
     
@@ -215,7 +167,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         
         let tapImg = gestureRecognizer.view!
     
-        var indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
+        let indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
         
         
         print(indexPath.row )
@@ -223,8 +175,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         let profileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
         print(commentsGlobal)
          profileViewController.openUserID = commentsGlobal[indexPath.row].userId
-        
-       // profileViewController.indexComments = indexPath.row
+ 
         self.navigationController!.pushViewController(profileViewController, animated: true)
        
     }
@@ -242,9 +193,10 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         
         Alamofire.request(.POST, shotsGlobal[indexshot].commentsURL , parameters: ["body" : inputTextField.text , "access_token" : myToken], encoding: .JSON ).responseJSON{ respons in
             print(respons)
+            self.api_comment.loadShots(self.didLoadComments,id: indexShots)
+            self.tableView.reloadData()
         }
-        api_comment.loadShots(didLoadComments,id: indexShots)
-        tableView.reloadData()
+        
     }
 
 

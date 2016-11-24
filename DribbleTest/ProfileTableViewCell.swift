@@ -38,7 +38,7 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
       
 
-        var temp  = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let temp  = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         let CarouselImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         CarouselImage.sd_setImageWithURL(NSURL(string: Likes[index].avatart_url), placeholderImage: UIImage(named: "placeHolder"))
 
@@ -71,9 +71,9 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
         CarauselVisualEffect.addSubview(CarauselLableTittleShot)
         CarauselVisualEffect.addSubview(CarauselLableData)
         CarouselImage.addSubview(CarauselVisualEffect)
+        
         temp.addSubview(CarouselImage)
-        //temp = NewView
-        //temp.frame  =  CGRect(x: 0, y: 0, width: 100, height: 100)
+       
         
         return temp
         
@@ -81,7 +81,7 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
    
     
     
-    func carousel(carousel: iCarousel, var valueForOption option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
+    func carousel(carousel: iCarousel, valueForOption option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
         if option == iCarouselOption.Spacing{
             
             return value*1.1

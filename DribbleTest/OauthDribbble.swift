@@ -15,7 +15,7 @@ class OauthDribble {
     static func  doOAuthDribbble(this : AnyObject)  {
     
         
-        oauthswift.authorizeWithCallbackURL( NSURL(string: "DribbleTest://oauth-callback")!, scope: "", state: "", success: {
+        oauthswift.authorizeWithCallbackURL( NSURL(string: "DribbleTest://oauth-callback")!, scope: "public+write+comment", state: "", success: {
             credential, response, parameters in
             
             // Get User

@@ -14,7 +14,7 @@ class Cache {
     static func UpdateCacheShots(){
         var cacheShots = MyCacheShots()
         let realm = try! Realm()
-        var flag : Bool = false
+      
         try! realm.write({() -> Void in
             realm.deleteAll()
         })
@@ -138,7 +138,7 @@ class Cache {
         
         let realm = try! Realm()
         let userOpen = realm.objects(MyCacheUser).filter("idUser = \(idUser)")
-        var myuser = User()
+        let myuser = User()
         myuser.idUser = userOpen[0].idUser
         myuser.authorName = userOpen[0].authorName
         myuser.numberLike = userOpen[0].numberLike
@@ -152,7 +152,7 @@ class Cache {
     
     static func UpdateCasheFollowers(followers: [Follower], id : Int){
         var cacheFollowers = MyCacheFollowers()
-        var cacheUser = MyCacheUser()
+        let cacheUser = MyCacheUser()
         let realm = try! Realm()
         try! realm.write {
             for follower in followers {
@@ -205,7 +205,7 @@ class Cache {
     
     static func UpdateCasheLikes(likes : [Like], id : Int){
         var cacheLikes = MyCacheLikes()
-        var cacheFollowers = MyCacheFollowers()
+        let cacheFollowers = MyCacheFollowers()
         let realm = try! Realm()
         try! realm.write {
             for like in likes {

@@ -203,13 +203,13 @@ class ShotsTableViewController: UITableViewController{
         
         if shotsGlobal[indexPath.row].likeUserAutho == true {
             
-            //apiCheckLike.DellLikeShot("https://api.dribbble.com/v1/shots/\(shotsGlobal[indexPath.row].idShots)/like?access_token=\(myToken)")
+            apiCheckLike.DellLikeShot("https://api.dribbble.com/v1/shots/\(shotsGlobal[indexPath.row].idShots)/like?access_token=\(myToken)")
             shotsGlobal[indexPath.row].likeUserAutho = false
         }
         else {
             
             
-            //apiCheckLike.LikeShot("https://api.dribbble.com/v1/shots/\(shotsGlobal[indexPath.row].idShots)/like?access_token=\(myToken)")
+            apiCheckLike.LikeShot("https://api.dribbble.com/v1/shots/\(shotsGlobal[indexPath.row].idShots)/like?access_token=\(myToken)")
             shotsGlobal[indexPath.row].likeUserAutho = true
         }
         self.rControl.endRefreshing()
