@@ -23,11 +23,11 @@ var shotsGlobal: [Shots]!
 var commentsGlobal: [Comments]!
 var usersGlobal: [User]!
 var LikeGlobal: [Like]!
-
+var FollowerGlobal: Follower!
 
 var myToken : String!
-var numberPageShots = 1
-var numberPageComments = 1
+//var numberPageShots = 1
+//var numberPageComments = 1
 
 var idShot = 0
 var indexShots = 0

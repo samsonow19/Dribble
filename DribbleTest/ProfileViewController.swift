@@ -18,94 +18,25 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
     @IBOutlet var tableView: UITableView!
   
     var indexComments = Int()
-    var followers = [Follower]()
-    var likes = [[Like]]()
-    var i = 0
+ 
+ 
     var openUserID: Int!
+    
+    
+    var viewModel = ProfileViewModel()
 
     var OpenUser = User()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        viewModel.loadContent(self.tableView)
+        viewModel.loadModel(openUserID)
         
        
         
-        if TestInternetConnection.connectedToNetwork() == true {
-            usersGlobal = [User]()
-            let api = DriblUser()
-            api.loadUsers(didLoadUser, id: openUserID, urlStringParam: "https://api.dribbble.com/v1/users/\(openUserID)?access_token=\(myToken)")
-        }
-        else {
-         
-            print(openUserID)
-            OpenUser = Cache.GetUser(openUserID)
-            
-            ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatar_url), placeholderImage: UIImage(named: "Placeholder"))            
-            
-            LabelNameUser.text = OpenUser.authorName
-            CountLikes.text = String(OpenUser.numberLike)
-            
-            CountFolowers.text = String(OpenUser.numberFollowers)
-            
-            print(OpenUser.followersURL)
-            followers = Cache.GetFollowers(OpenUser.followersURL)
-            var maslikes = [Like]()
-            for fol in followers {
-                print(fol.likesURL)
-                maslikes = Cache.GetLikes(fol.likesURL)
-                likes.append(maslikes)
-            }
-            
-            self.tableView.delegate = self
-            self.tableView.dataSource = self
-            self.tableView.reloadData()
-        }
-        
     }
-   
-    func didLoadUser(users_: [User]){
-        OpenUser =  users_[0]
-        print(OpenUser.followersURL)
-        
-        ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatar_url), placeholderImage: UIImage(named: "Placeholder"))
-        LabelNameUser.text = OpenUser.authorName
-        CountLikes.text = String(OpenUser.numberLike)
-        CountFolowers.text = String(OpenUser.numberFollowers)
-        
-        Cache.UpdateCasheUser(OpenUser)
-        
-        let api = DribbleFollowers()
-        api.loadFollowers(didLoadFollowers, url: OpenUser.followersURL)
-    }
-    func didLoadFollowers(folowers_: [Follower]){
-        let api = DribbleLikes()
-        for follow in folowers_ {
-            followers.append(follow)
-            api.loadFollowers(didLoadLikes, url: follow.likesURL)
-            count++;
-        }
-        Cache.UpdateCasheFollowers(followers, id: OpenUser.idUser )
-        
-       
-       
-    }
-    
-    func didLoadLikes(likes_: [Like]){
-       var maslikes = [Like]()
-        for like in likes_ {
-            maslikes.append(like)
-        }
-        likes.append(maslikes )
-        Cache.UpdateCasheLikes(maslikes, id: followers[i].idUser)
-        i++;
-        count--
-        if count == 0{
-            self.tableView.delegate = self
-            self.tableView.dataSource = self
-            self.tableView.reloadData()
-            
-        }
-
-    }
+ 
     
 
     override func didReceiveMemoryWarning() {
@@ -115,30 +46,29 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return followers.count
+        return viewModel.ReturnFollowersCount()
     }
+    
+ 
+    
    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        print(indexPath.row)
-        LikeGlobal = likes[indexPath.row]
+        let OpenUser = viewModel.returnItemUser()
         
+        ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatarUrl), placeholderImage: UIImage(named: "Placeholder"))
+        LabelNameUser.text = OpenUser.name
+        CountLikes.text = OpenUser.countLikes
+        CountFolowers.text = OpenUser.countFollower
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("ProfileTableViewCell") as! ProfileTableViewCell
-  
-        print(indexPath.row)
+ 
         
-        print(String(followers[indexPath.row].numberLike))
-        //cell.Likes = likes[indexPath.row]
-        
-        cell.ImageProfile.sd_setImageWithURL(NSURL(string: followers[indexPath.row].avatar_url), placeholderImage: UIImage(named: "placeHolder"))
-        
-        print(followers[indexPath.row].authorName)
-        cell.Name.text = followers[indexPath.row].authorName
-        cell.NumberLikes.text = String(followers[indexPath.row].numberLike)
-        
-        return cell
+      
+        return viewModel.returnCell(indexPath.row)
     }
+    
+    
+    
     
     
     

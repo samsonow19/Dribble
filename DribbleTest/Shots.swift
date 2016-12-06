@@ -10,6 +10,8 @@ import Foundation
 
 
 class Shots {
+    
+    
     var idShots: Int!
     var title: String!
     var descriptions: String!

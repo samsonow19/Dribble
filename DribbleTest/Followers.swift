@@ -16,6 +16,7 @@ class Follower {
     var numberLike: Int!
     var numberFollowers: Int!
     var likesURL: String!
+    var likes = [Like]()
     init(){
         
     }

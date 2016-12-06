@@ -11,16 +11,16 @@ import Realm
 import RealmSwift
 class Cache {
 
-    static func UpdateCacheShots(){
+    static func UpdateCacheShots(shots: [Shots]){
         var cacheShots = MyCacheShots()
         let realm = try! Realm()
       
-        try! realm.write({() -> Void in
+       try! realm.write({() -> Void in
             realm.deleteAll()
         })
        // realm.deleteAll()
         try! realm.write {
-            for sh in shotsGlobal{
+            for sh in shots{
                 cacheShots = MyCacheShots()
                 cacheShots.idShots = sh.idShots
                 cacheShots.title = sh.title
@@ -40,11 +40,11 @@ class Cache {
         
     }
     
-      static func GetShots() {
+      static func GetShots()-> [Shots] {
         let realm = try! Realm()
         let allShots = realm.objects(MyCacheShots)
         var myshots  = Shots()
-        shotsGlobal = [Shots]()
+        var shots = [Shots]()
         for sh in allShots {
             myshots = Shots()
             myshots.idShots = sh.idShots
@@ -59,8 +59,9 @@ class Cache {
             myshots .likesCount = 0
             myshots.viewsCount = 0
             myshots.userAvatarUrl = sh.userAvatarUrl
-            shotsGlobal.append(myshots)
+            shots.append(myshots)
         }
+        return shots
         /*
         for sh in allShots{
         print("\(sh.title)")
@@ -70,12 +71,12 @@ class Cache {
     // in comments
     
     
-    static func UpdateCacheComments(){
+    static func UpdateCacheComments(comments: [Comments], idShot : Int){
         var cacheComments = MyCacheComments()
         let realm = try! Realm()
         let cacheShots = MyCacheShots()
         try! realm.write {
-            for cm in commentsGlobal{
+            for cm in comments{
               
                 cacheComments = MyCacheComments()
                 cacheComments.idShots = idShot
@@ -87,8 +88,8 @@ class Cache {
                 realm.add(cacheComments,update: true)
                 cacheShots.commentsShot.append(cacheComments)
             }
-            cacheShots.idShots = shotsGlobal[indexShots].idShots
-            realm.create(MyCacheShots.self, value: ["idShots": shotsGlobal[indexShots].idShots, "commentsShot":  cacheShots.commentsShot], update: true)
+            cacheShots.idShots = idShot
+            realm.create(MyCacheShots.self, value: ["idShots": idShot, "commentsShot":  cacheShots.commentsShot], update: true)
         }
 
     }
@@ -96,11 +97,11 @@ class Cache {
     
     
     
-    static func GetComments(){
+    static func GetComments()->[Comments]{
         let realm = try! Realm()
         let allCommentsShot = realm.objects(MyCacheShots).filter("idShots = \(idShot)")
         var mycomments = Comments()
-        commentsGlobal = [Comments]()
+        var comments = [Comments]()
        
         print(idShot)
         for com in allCommentsShot[0].commentsShot {
@@ -112,8 +113,9 @@ class Cache {
             mycomments.avatarImageNSData = com.avatarImageNSData
             mycomments.avatar_url = com.avatarUrl
             mycomments.userName = com.userName
-            commentsGlobal.append(mycomments)
+            comments.append(mycomments)
         }
+        return comments
     }
     
     
@@ -202,7 +204,7 @@ class Cache {
     
     
     
-    
+    // update like and one to relationship followers
     static func UpdateCasheLikes(likes : [Like], id : Int){
         var cacheLikes = MyCacheLikes()
         let cacheFollowers = MyCacheFollowers()
