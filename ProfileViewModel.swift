@@ -34,10 +34,12 @@ class ProfileViewModel
                 self.LoadFollower(urlString)
                 
         }
-    }
+        }
         else
         {
             self.OpenUser = Cache.GetUser(openUserID)
+            self.followers = Cache.GetFollowers(OpenUser.followersURL)
+            tableView.reloadData()
         }
     }
     func returnItemUser()->ItemUser
@@ -105,9 +107,10 @@ class ProfileViewModel
     {
         print(index)
         
-        FollowerGlobal = returnFollower(index)
+        //FollowerGlobal = returnFollower(index)
         let cell = tableView.dequeueReusableCellWithIdentifier("ProfileTableViewCell") as! ProfileTableViewCell
-        //cell.FollowerIcarausel = returnFollower(index)
+   //     cell = tableView.i
+        cell.FollowerIcarausel = returnFollower(index)
         
         let item = retutnItemFollower(index)
         print(returnFollower(index).authorName)

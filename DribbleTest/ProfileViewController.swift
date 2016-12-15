@@ -66,6 +66,9 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
       
         return viewModel.returnCell(indexPath.row)
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  
+    }
     
     
     

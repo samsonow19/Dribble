@@ -13,7 +13,7 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     var FollowerIcarausel = Follower()
     
     @IBOutlet var ViewCarousel: UIView!
-    var Likes = LikeGlobal
+  //  var Likes = LikeGlobal
     
     @IBOutlet var Name: UILabel!
     @IBOutlet var NumberLikes: UILabel!
@@ -27,18 +27,33 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
         MyCarousel.type = .CoverFlow2
         super.awakeFromNib()
         //print(FollowerIcarausel.authorName)
+        /*
         viewModel.LoadFollower(FollowerIcarausel, carousel: MyCarousel)
         viewModel.LoadLikes()
-        
-        self.MyCarousel.delegate = self
-        self.MyCarousel.dataSource = self
+        */
+       
         
      
         // Initialization code
     }
+    override func layoutSubviews() {
+        print(FollowerIcarausel.authorName)
+        
+        viewModel.LoadFollower(FollowerIcarausel, carousel: MyCarousel)
+        viewModel.LoadLikes()
+        self.MyCarousel.delegate = self
+        self.MyCarousel.dataSource = self
+        //awakeFromNib()
+    }
+
 
     override func setSelected(selected: Bool, animated: Bool) {
-     
+       
+        
+    
+        
+       // self.MyCarousel.delegate = self
+       // self.MyCarousel.dataSource = self
     }
     func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
        

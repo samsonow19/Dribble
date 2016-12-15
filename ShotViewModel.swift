@@ -19,12 +19,17 @@ class ShotViewModel  {
     var numberShot = 0
     var countItem = 0
     var numberPageShots = 1
-  
-    func LoadShot(tableView: UITableView, storyboard: UIStoryboard, navigationController: UINavigationController  )
+    func LoadComponent(tableView: UITableView, storyboard: UIStoryboard, navigationController: UINavigationController )
     {
         self.tableView = tableView
         self.storyboard = storyboard
         self.navigationController = navigationController
+    }
+    
+  
+    func LoadShot()
+    {
+    
         if TestInternetConnection.connectedToNetwork() == true {
 
             let urlString = "https://api.dribbble.com/v1/shots?page=\(numberPageShots)&access_token=\(myToken)"
@@ -33,7 +38,9 @@ class ShotViewModel  {
                 
                 for shot in JsonResult{
                     self.shots.append(Shots(data: shot as! NSDictionary))
-                    Alamofire.request(.GET , "https://api.dribbble.com/v1/shots/\(self.shots[self.shots.count-1].idShots)/like?access_token=\(myToken)").responseJSON{respons in
+                    print(self.shots.last!.idShots)
+                    Alamofire.request(.GET , "https://api.dribbble.com/v1/shots/\(self.shots.last!.idShots)/like?access_token=\(myToken)").responseJSON{respons in
+                        print(respons.2.value)
                         if(respons.2.value != nil)
                         {
                             self.shots[self.countItem].likeUserAutho = true
@@ -49,7 +56,7 @@ class ShotViewModel  {
                         if self.countItem == self.shots.count
                         {
                             Cache.UpdateCacheShots(self.shots)
-                            tableView.reloadData()
+                            self.tableView.reloadData()
                         }
                     }
             }
@@ -57,12 +64,21 @@ class ShotViewModel  {
             }
         }
         else {
-            shots = Cache.GetShots();
+            shots = Cache.GetShots()
+            print(shots)
+            for sh in shots
+            {
+                item.append(itemForShots(sh))
+                self.countItem++
+            }
+            self.tableView.reloadData()
         }
      
     }
-    func returnCell(cell:ShotsTableViewCell,  index: Int , tableView: UITableView, target: AnyObject)-> ShotsTableViewCell
+    func returnCell( index: Int , target: AnyObject)-> ShotsTableViewCell
     {
+        let cell = tableView.dequeueReusableCellWithIdentifier("ShotsTableViewCell") as! ShotsTableViewCell
+
         
         let item = retutnItem(index, tableView: tableView)
         
@@ -102,6 +118,7 @@ class ShotViewModel  {
         return shots[index].userID
     }
     func getIdShot(index: Int)->Int{
+        
         return shots[index].idShots
     }
     
@@ -112,24 +129,31 @@ class ShotViewModel  {
     }
     
     
-    func Like(index : Int, tableView: UITableView )
+    func Like(index : Int )
     {
        if shots[index].likeUserAutho == true {
-            Alamofire.request(.POST, "https://api.dribbble.com/v1/shots/\(shots[index].idShots)/like?access_token=\(myToken)").responseJSON { respons in
-               // print(respons)
-            
-            }
-            shots[index].likeUserAutho = true
+        
+        Alamofire.request(.DELETE, "https://api.dribbble.com/v1/shots/\(shots[index].idShots)/like?access_token=\(myToken)")
+        
+            shots[index].likeUserAutho = false
+            item[index].imageLike = UIImage(named: "dlike")
+            tableView.reloadData()
         }
         else
        {
-            Alamofire.request(.DELETE, "https://api.dribbble.com/v1/shots/\(shots[index].idShots)/like?access_token=\(myToken)")
-            shots[index].likeUserAutho = false
+            Alamofire.request(.POST, "https://api.dribbble.com/v1/shots/\(shots[index].idShots)/like?access_token=\(myToken)").responseJSON { respons in
+                print(respons)
+            
+            }
+        
+            shots[index].likeUserAutho = true
+            item[index].imageLike = UIImage(named: "lheart")
+            tableView.reloadData()
         
         }
         Cache.UpdateCacheShots(shots) // can be optimized if need
         
-        tableView.reloadData()
+       
     }
     
     
@@ -144,7 +168,7 @@ class ShotViewModel  {
         if id == shots.count-2
         {
             numberPageShots++
-            LoadShot(tableView, storyboard: self.storyboard, navigationController: self.navigationController)
+            LoadShot( )
         }
         
         return item[id]
@@ -178,7 +202,7 @@ class ShotViewModel  {
         let description: String
         let imageURL: String!
         let userAvatarUrl: String!
-        let imageLike: UIImage!
+        var imageLike: UIImage!
         
         
     }

@@ -30,15 +30,16 @@ class ShotsTableViewController: UITableViewController{
         rControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         rControl.addTarget(self, action: "refreshcontrol", forControlEvents:.ValueChanged)
         self.tableView.addSubview(rControl)
-        viewModel.LoadShot(self.tableView, storyboard: self.storyboard!, navigationController: self.navigationController!)
+        viewModel.LoadComponent(self.tableView, storyboard: self.storyboard!, navigationController: self.navigationController!)
+        viewModel.LoadShot()
        
         
     }
     
     func refreshcontrol()
     {
-       
-        viewModel.LoadShot(self.tableView, storyboard: self.storyboard!, navigationController: self.navigationController!)
+
+        viewModel.LoadShot()
     }
     
 
@@ -54,10 +55,9 @@ class ShotsTableViewController: UITableViewController{
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ShotsTableViewCell") as! ShotsTableViewCell
-      
+              
    
-        return  viewModel.returnCell(cell, index: indexPath.row, tableView: self.tableView, target: self)
+        return  viewModel.returnCell(indexPath.row,  target: self)
     }
   
         
@@ -65,14 +65,9 @@ class ShotsTableViewController: UITableViewController{
     func imgTappUser(gestureRecognizer: UITapGestureRecognizer)
     {
         let touch = gestureRecognizer.locationInView(self.tableView)
-        
-
-        
         let indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
         let profileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
-      
         profileViewController.openUserID = viewModel.getIdUser(indexPath.row)
-      
         self.navigationController!.pushViewController(profileViewController, animated: true)
         
     }
@@ -82,7 +77,7 @@ class ShotsTableViewController: UITableViewController{
     {
         let touch = gestureRecognizer.locationInView(self.tableView)
         let indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
-        viewModel.Like(indexPath.row, tableView: self.tableView)
+        viewModel.Like(indexPath.row)
      
     }
     
@@ -104,6 +99,6 @@ class ShotsTableViewController: UITableViewController{
         detailsVC.idShot = viewModel.getIdShot(indexPath.row)
       
         detailsVC.urlComment = viewModel.getUrlComment(indexPath.row)
-        //numberPageComments = 0
+
     }
 }

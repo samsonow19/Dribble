@@ -52,11 +52,16 @@ class CommentViewModel  {
             }
         }
         else {
-            comments = Cache.GetComments()
+            comments = Cache.GetComments(IdShot)
+            for com in comments
+            {
+                item.append(itemForComments(com))
+            }
+            tableView.reloadData()
         }
     }
     
-    func returnCell(  index: Int , tableView: UITableView, target: AnyObject)-> CommentsTableViewCell
+    func returnCell(  index: Int , target: AnyObject)-> CommentsTableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentsTableViewCell") as! CommentsTableViewCell
         

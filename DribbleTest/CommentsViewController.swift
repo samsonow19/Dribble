@@ -92,7 +92,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     {
        
         viewModel.LoadComments()
-       // api.loadShots(didLoadComments, id: indexShots)
+  
         rControl.endRefreshing()
     }
     
@@ -111,7 +111,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     }
  
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return   viewModel.returnCell( indexPath.row, tableView: self.tableView, target: self)
+        return   viewModel.returnCell( indexPath.row, target: self)
     }
     
     
@@ -129,7 +129,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         let detailsVC : ProfileViewController = segue.destinationViewController as! ProfileViewController
         detailsVC.indexComments = indexPath.row
         
-        //numberPageComments = 0
+   
     }
     
     

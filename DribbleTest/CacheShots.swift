@@ -54,9 +54,10 @@ class Cache {
             myshots.imageURL = sh.imageUrl
             myshots.commentsURL = ""
             myshots.likeUserAutho = sh.likeUserAutho
+            myshots.userID = sh.userId
             
             myshots.commentCount = 0
-            myshots .likesCount = 0
+            myshots.likesCount = 0
             myshots.viewsCount = 0
             myshots.userAvatarUrl = sh.userAvatarUrl
             shots.append(myshots)
@@ -97,25 +98,30 @@ class Cache {
     
     
     
-    static func GetComments()->[Comments]{
+    static func GetComments(openIDShot: Int)->[Comments]{
         let realm = try! Realm()
-        let allCommentsShot = realm.objects(MyCacheShots).filter("idShots = \(idShot)")
+        let allCommentsShot = realm.objects(MyCacheShots).filter("idShots = \(openIDShot)")
+        print(openIDShot)
         var mycomments = Comments()
         var comments = [Comments]()
        
         print(idShot)
-        for com in allCommentsShot[0].commentsShot {
-            mycomments = Comments()
-            mycomments.idShots = com.idShots
-            mycomments.id = com.idComments
-            mycomments.userId = com.userId
-            mycomments.body = com.body
-            mycomments.avatarImageNSData = com.avatarImageNSData
-            mycomments.avatar_url = com.avatarUrl
-            mycomments.userName = com.userName
-            comments.append(mycomments)
+        if allCommentsShot[0].commentsShot != 0
+        {
+            for com in allCommentsShot[0].commentsShot {
+                mycomments = Comments()
+                mycomments.idShots = com.idShots
+                mycomments.id = com.idComments
+                mycomments.userId = com.userId
+                mycomments.body = com.body
+                mycomments.avatarImageNSData = com.avatarImageNSData
+                mycomments.avatar_url = com.avatarUrl
+                mycomments.userName = com.userName
+                comments.append(mycomments)
+            }
         }
         return comments
+            
     }
     
     

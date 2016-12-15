@@ -20,26 +20,31 @@ class LikeViewModel {
     func LoadFollower(follower : Follower,carousel : iCarousel )
     {
         self.carousel = carousel
-       // print(follower.authorName)
-        self.follower = FollowerGlobal
+       
+        self.follower = follower
+  
+        print(self.follower.authorName)
     }
     
 
-  
-    
     func LoadLikes()
     {
         
         if TestInternetConnection.connectedToNetwork() == true
         {
+            print(self.follower.likesURL)
+            print(self.itemLike.count)
+            print(self.follower.likes.count)
         Alamofire.request(.GET, self.follower.likesURL!+"?page=\(self.numberPageLike)&access_token=\(myToken)").responseJSON{ respons in
+         //   self.follower.likes = [Like]()
+            self.itemLike = [ItemLike]()
             let JsonResult = respons.2.value as! NSArray!
             if JsonResult != nil
             {
                 
                 for like in JsonResult!{
                     self.follower.likes.append(Like(data: like as! NSDictionary))
-                    print(self.follower.likes.last)
+                    print(self.follower.likes.last?.name)
                     self.itemLike.append(self.itemForLike(self.follower.likes.last!))
 
                 }
@@ -52,10 +57,10 @@ class LikeViewModel {
             print(self.follower.numberLike)
 
             self.carousel.reloadData()
-            Cache.UpdateCasheLikes(self.follower.likes, id: self.follower.idUser)
+            //Cache.UpdateCasheLikes(self.follower.likes, id: self.follower.idUser)
           
            
-        }
+            }
         }
         else
         {
@@ -66,7 +71,8 @@ class LikeViewModel {
     {
        
       
-        return follower.likes.count
+        return itemLike.count
+       // return count
         
     }
     
@@ -75,37 +81,32 @@ class LikeViewModel {
         let avatarUrl = like.avatart_url
         let name = like.name
         let titleShot = like.title_shot
-        
-        /*let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        guard let date = dateFormatter.dateFromString(like.date) else {
-            assert(false, "no date")
-         
-        }
 
-        let time = dateFormatter.stringFromDate(date)*/
-        
-        
-        let item = ItemLike(avatarUrl: avatarUrl, name: name, title_shot: titleShot, date: "123")
+        let date = like.date.characters.split{$0 == "T"}.map(String.init)[0]
+
+        let item = ItemLike(avatarUrl: avatarUrl, name: name, title_shot: titleShot, date: date)
         
         return item
     }
     
     func returnItemLike(id: Int)-> ItemLike
     {
-        if id == follower.likes.count-2
+        if id % 12 == 10 && id > itemLike.count-3
         {
-            if follower.likes.count > 10
-            {
+            
                 numberPageLike++
                 LoadLikes()
-            }
+            
+           
         }
+        print(itemLike.count)
+        print(follower.likes.count)
         
         return itemLike[id]
     }
     func CreateView(index : Int)-> UIView
     {
+        print(itemLike.count)
         let item = returnItemLike(index)
         
         let temp  = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
