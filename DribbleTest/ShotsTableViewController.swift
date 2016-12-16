@@ -31,7 +31,7 @@ class ShotsTableViewController: UITableViewController{
         rControl.addTarget(self, action: "refreshcontrol", forControlEvents:.ValueChanged)
         self.tableView.addSubview(rControl)
         viewModel.LoadComponent(self.tableView, storyboard: self.storyboard!, navigationController: self.navigationController!)
-        viewModel.LoadShot()
+        viewModel.LoadShot(didLoadShot)
        
         
     }
@@ -39,7 +39,12 @@ class ShotsTableViewController: UITableViewController{
     func refreshcontrol()
     {
 
-        viewModel.LoadShot()
+        viewModel.LoadShot(didLoadShot)
+    }
+    
+    func didLoadShot(shots_: [Shots])
+    {
+        tableView.reloadData()
     }
     
 

@@ -11,12 +11,12 @@ class Comments {
     var id: Int!
     var idShots: Int?
     var body: String!
-    var created_at: String!
-    var update_at: String!
+    var createdAt: String!
+    var updateAt: String!
     var commentCount: Int!
     var userName: String!
     var userId: Int!
-    var avatar_url: String!
+    var avatarUrl: String!
     var avatarImageNSData : NSData?
     init(){
         
@@ -25,12 +25,12 @@ class Comments {
     init(data : NSDictionary){
         self.id = data["id"] as! Int
         self.body = getStrJSON(data, key: "body")
-        self.created_at = getStrJSON(data, key: "created_at")
-        self.update_at = getStrJSON(data, key: "updated_at")
+        self.createdAt = getStrJSON(data, key: "created_at")
+        self.updateAt = getStrJSON(data, key: "updated_at")
         let user = data["user"] as! NSDictionary
         self.userName = getStrJSON(user, key: "name")
         self.userId = user["id"] as! Int
-        self.avatar_url = getStrJSON(user, key: "avatar_url")
+        self.avatarUrl = getStrJSON(user, key: "avatar_url")
     }
     func getStrJSON(data: NSDictionary, key: String) -> String{
         let info : AnyObject? = data[key]

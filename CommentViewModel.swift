@@ -115,7 +115,7 @@ class CommentViewModel  {
         
        let body = comment.body.stringByReplacingOccurrencesOfString("<[^>]+>",withString: "",  options: .RegularExpressionSearch, range: nil)
         
-        let item = Item(avatar_url: comment.avatar_url, name_avtor: comment.userName, body: body)
+        let item = Item(avatar_url: comment.avatarUrl, name_avtor: comment.userName, body: body)
         
         return item
     }

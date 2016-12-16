@@ -78,13 +78,13 @@ class LikeViewModel {
     
     func itemForLike(like: Like) -> ItemLike {
         
-        let avatarUrl = like.avatart_url
+        let avatarUrl = like.avatartUrl
         let name = like.name
-        let titleShot = like.title_shot
+        let titleShot = like.titleShot
 
         let date = like.date.characters.split{$0 == "T"}.map(String.init)[0]
 
-        let item = ItemLike(avatarUrl: avatarUrl, name: name, title_shot: titleShot, date: date)
+        let item = ItemLike(avatarUrl: avatarUrl, name: name, titleShot: titleShot, date: date)
         
         return item
     }
@@ -132,7 +132,7 @@ class LikeViewModel {
         CarauselLableNamePerson.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
         CarauselLableNamePerson.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
         
-        CarauselLableTittleShot.text = item.title_shot
+        CarauselLableTittleShot.text = item.titleShot
         
         CarauselLableTittleShot.frame = CGRect(x: 0, y: 10, width: 100, height: 20)
         
@@ -154,7 +154,7 @@ class LikeViewModel {
     struct ItemLike {
         let avatarUrl: String
         let name: String
-        let title_shot: String!
+        let titleShot: String!
         let date: String
        
         

@@ -46,7 +46,7 @@ class ProfileViewModel
     {
         let countLikes = String(OpenUser.numberLike)
         let countFollowers = String(OpenUser.numberFollowers)
-        return ItemUser(avatarUrl: OpenUser.avatar_url, name: OpenUser.authorName, countLikes: countLikes, countFollower: countFollowers)
+        return ItemUser(avatarUrl: OpenUser.avatarUrl, name: OpenUser.authorName, countLikes: countLikes, countFollower: countFollowers)
     }
     
     
@@ -84,7 +84,7 @@ class ProfileViewModel
     }
     func itemForFollower(follower: Follower) -> ItemFollower {
 
-        let item = ItemFollower(imageProfile: follower.avatar_url, name: follower.authorName, numberLikes: follower.numberLike)
+        let item = ItemFollower(imageProfile: follower.avatarUrl, name: follower.authorName, numberLikes: follower.numberLike)
         
         return item
     }

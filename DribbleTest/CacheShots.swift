@@ -85,7 +85,7 @@ class Cache {
                 cacheComments.body = cm.body
                 cacheComments.userId = cm.userId
                 cacheComments.userName = cm.userName
-                cacheComments.avatarUrl = cm.avatar_url
+                cacheComments.avatarUrl = cm.avatarUrl
                 realm.add(cacheComments,update: true)
                 cacheShots.commentsShot.append(cacheComments)
             }
@@ -115,7 +115,7 @@ class Cache {
                 mycomments.userId = com.userId
                 mycomments.body = com.body
                 mycomments.avatarImageNSData = com.avatarImageNSData
-                mycomments.avatar_url = com.avatarUrl
+                mycomments.avatarUrl = com.avatarUrl
                 mycomments.userName = com.userName
                 comments.append(mycomments)
             }
@@ -136,7 +136,7 @@ class Cache {
                 cacheUser.authorName = user.authorName
                 cacheUser.numberLike = user.numberLike
                 cacheUser.numberFollowers = user.numberFollowers
-                cacheUser.avatar_url = user.avatar_url
+                cacheUser.avatarUrl = user.avatarUrl
                 cacheUser.followersURL = user.followersURL
                 realm.add(cacheUser, update: true)
         }
@@ -151,7 +151,7 @@ class Cache {
         myuser.authorName = userOpen[0].authorName
         myuser.numberLike = userOpen[0].numberLike
         myuser.numberFollowers = userOpen[0].numberFollowers
-        myuser.avatar_url = userOpen[0].avatar_url
+        myuser.avatarUrl = userOpen[0].avatarUrl
         myuser.followersURL = userOpen[0].followersURL
         return myuser
         
@@ -167,7 +167,7 @@ class Cache {
                 cacheFollowers = MyCacheFollowers()
                 cacheFollowers.idFollowers =  follower.idUser
                 cacheFollowers.authorName = follower.authorName
-                cacheFollowers.avatar_url = follower.avatar_url
+                cacheFollowers.avatarUrl = follower.avatarUrl
                 cacheFollowers.numberLike = follower.numberLike
                 cacheFollowers.numberFollowers = follower.numberFollowers
                 cacheFollowers.likesURL = follower.likesURL
@@ -189,7 +189,7 @@ class Cache {
         var f = Follower()
         for fol in Users[0].folowers {
             f = Follower()
-            f.avatar_url = fol.avatar_url
+            f.avatarUrl = fol.avatarUrl
             f.authorName = fol.authorName
             f.idUser = fol.idFollowers
             f.numberFollowers = fol.numberFollowers
@@ -220,9 +220,9 @@ class Cache {
                 cacheLikes = MyCacheLikes()
                 cacheLikes.idLike =  like.idLike
                 cacheLikes.name = like.name
-                cacheLikes.avatart_url = like.avatart_url
+                cacheLikes.avatart_url = like.avatartUrl
                 cacheLikes.date = like.date
-                cacheLikes.title_shot = like.title_shot
+                cacheLikes.titleShot = like.titleShot
                
                 realm.add(cacheLikes)
                 cacheFollowers.likes.append(cacheLikes)
@@ -245,10 +245,10 @@ class Cache {
         print(idShot)
         for lik in Likes[0].likes {
             l = Like()
-            l.avatart_url = lik.avatart_url
+            l.avatartUrl = lik.avatart_url
             l.date = lik.date
             l.idLike = lik.idLike
-            l.title_shot = lik.title_shot
+            l.titleShot = lik.titleShot
             likes.append(l)
         }
         return likes

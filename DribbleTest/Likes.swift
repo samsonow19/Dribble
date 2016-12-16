@@ -8,9 +8,9 @@ import Foundation
 class Like {
     var idLike: Int!
     var name: String!
-    var avatart_url: String!
+    var avatartUrl: String!
     var date: String!
-    var title_shot: String!
+    var titleShot: String!
     init(){
         
     }
@@ -20,9 +20,9 @@ class Like {
         let shot = data["shot"] as! NSDictionary
         let user = shot["user"] as! NSDictionary
         self.name = getStrJSON(user, key: "name")
-        self.avatart_url = getStrJSON(user, key: "avatar_url")
+        self.avatartUrl = getStrJSON(user, key: "avatar_url")
         self.date = getStrJSON(data, key: "created_at")
-        self.title_shot = getStrJSON(shot, key: "title")
+        self.titleShot = getStrJSON(shot, key: "title")
     }
     
     func getStrJSON(data: NSDictionary, key: String) -> String{

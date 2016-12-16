@@ -11,7 +11,7 @@ import Foundation
 class User {
     var idUser: Int!
     var authorName: String!
-    var avatar_url: String!
+    var avatarUrl: String!
     var numberLike: Int!
     var numberFollowers: Int!
     var followersURL: String!
@@ -24,7 +24,7 @@ class User {
     init(data : NSDictionary){
         self.idUser = data["id"] as! Int
         self.authorName = getStrJSON(data, key: "username")
-        self.avatar_url = getStrJSON(data, key: "avatar_url")
+        self.avatarUrl = getStrJSON(data, key: "avatar_url")
         self.numberLike = data["likes_count"] as! Int
         self.numberFollowers = data["followers_count"] as! Int
         self.followersURL = getStrJSON(data, key: "followers_url")

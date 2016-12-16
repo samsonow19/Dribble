@@ -27,7 +27,7 @@ class ShotViewModel  {
     }
     
   
-    func LoadShot()
+    func LoadShot(completion: (([Shots])-> Void))
     {
     
         if TestInternetConnection.connectedToNetwork() == true {
@@ -52,16 +52,21 @@ class ShotViewModel  {
                         }
                         self.item.append(self.itemForShots(self.shots[self.countItem]))
                         self.countItem++
+                
+                        let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                            
+                            dispatch_async(dispatch_get_main_queue()){
+                                Cache.UpdateCacheShots(self.shots)
+                                completion(self.shots)
+                            }}
                       
-                        if self.countItem == self.shots.count
-                        {
-                            Cache.UpdateCacheShots(self.shots)
-                            self.tableView.reloadData()
-                        }
                     }
-            }
+                    
+                }
        
             }
+           
         }
         else {
             shots = Cache.GetShots()
@@ -168,12 +173,13 @@ class ShotViewModel  {
         if id == shots.count-2
         {
             numberPageShots++
-            LoadShot( )
+          //  LoadShot(didLoadShot)
         }
         
         return item[id]
        
     }
+   
     
 
     func itemForShots(shot: Shots) -> Item {

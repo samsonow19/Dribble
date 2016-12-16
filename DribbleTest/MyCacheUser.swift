@@ -15,7 +15,7 @@ class MyCacheUser : Object{
 
     dynamic var idUser = 0
     dynamic var authorName:String? = nil
-    dynamic var avatar_url: String? = nil
+    dynamic var avatarUrl: String? = nil
     dynamic var numberLike = 0
     dynamic var numberFollowers = 0
     dynamic var followersURL: String? = nil

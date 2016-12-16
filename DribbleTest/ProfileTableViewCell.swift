@@ -26,15 +26,7 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
        
         MyCarousel.type = .CoverFlow2
         super.awakeFromNib()
-        //print(FollowerIcarausel.authorName)
-        /*
-        viewModel.LoadFollower(FollowerIcarausel, carousel: MyCarousel)
-        viewModel.LoadLikes()
-        */
-       
-        
-     
-        // Initialization code
+    
     }
     override func layoutSubviews() {
         print(FollowerIcarausel.authorName)
@@ -43,7 +35,7 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
         viewModel.LoadLikes()
         self.MyCarousel.delegate = self
         self.MyCarousel.dataSource = self
-        //awakeFromNib()
+  
     }
 
 

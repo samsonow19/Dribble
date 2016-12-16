@@ -17,7 +17,7 @@ class MyCacheLikes : Object{
     dynamic var name: String? = nil
     dynamic var avatart_url: String? = nil
     dynamic var date: String? = nil
-    dynamic var title_shot: String? = nil
+    dynamic var titleShot: String? = nil
    
     
     override static func primaryKey() -> String? {
