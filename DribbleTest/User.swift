@@ -21,7 +21,7 @@ class User {
         
     }
     
-    init(data : NSDictionary){
+    init(data : NSDictionary) {
         self.idUser = data["id"] as! Int
         self.authorName = getStrJSON(data, key: "username")
         self.avatarUrl = getStrJSON(data, key: "avatar_url")
@@ -30,15 +30,11 @@ class User {
         self.followersURL = getStrJSON(data, key: "followers_url")
     }
     
-    
-    
-    
-    func getStrJSON(data: NSDictionary, key: String) -> String{
+    func getStrJSON(data: NSDictionary, key: String) -> String {
         let info : AnyObject? = data[key]
         if let info = data[key] as? String{
             return info
         }
         return ""
-        
     }
 }

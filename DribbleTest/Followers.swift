@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Follower {
     var idUser: Int!
     var authorName: String!
@@ -21,7 +20,7 @@ class Follower {
         
     }
     
-    init(data : NSDictionary){
+    init(data : NSDictionary) {
         self.idUser = data["id"] as! Int
         let follower = data["follower"] as! NSDictionary
         self.authorName = getStrJSON(follower, key: "name")
@@ -31,7 +30,7 @@ class Follower {
         self.likesURL = getStrJSON(follower, key: "likes_url")
     }
     
-    func getStrJSON(data: NSDictionary, key: String) -> String{
+    func getStrJSON(data: NSDictionary, key: String) -> String {
         let info : AnyObject? = data[key]
         if let info = data[key] as? String{
             return info

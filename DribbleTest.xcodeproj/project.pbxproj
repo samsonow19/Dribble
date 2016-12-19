@@ -10,7 +10,6 @@
 		0D43B8E7271EEB75EB47D940 /* Pods_DribbleTestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F0C035005C0F9DBF0E9267 /* Pods_DribbleTestTests.framework */; };
 		3322BE45BB42AAA64E6ECC70 /* Pods_DribbleTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3726790FB02E8AB47452A5C5 /* Pods_DribbleTest.framework */; };
 		6DFACF28AAFF1B43E42C56F2 /* Pods_DribbleTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA9C2EA6EC1287F26177C708 /* Pods_DribbleTestUITests.framework */; };
-		A41037A41DD21F14007E5360 /* testobj.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41037A31DD21F14007E5360 /* testobj.swift */; };
 		A482862B1DED87D000E14FCD /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A482862A1DED87D000E14FCD /* CommentViewModel.swift */; };
 		A482862D1DEDD06600E14FCD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A482862C1DEDD06600E14FCD /* ProfileViewModel.swift */; };
 		A48500D41DE1BF7E00B828D7 /* LikeUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48500D31DE1BF7E00B828D7 /* LikeUser.swift */; };
@@ -23,7 +22,6 @@
 		A4907B7B1DAF5CC000DBF6EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4907B791DAF5CC000DBF6EE /* LaunchScreen.storyboard */; };
 		A4907B861DAF5CC000DBF6EE /* DribbleTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B851DAF5CC000DBF6EE /* DribbleTestTests.swift */; };
 		A4907B911DAF5CC000DBF6EE /* DribbleTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B901DAF5CC000DBF6EE /* DribbleTestUITests.swift */; };
-		A4907B9F1DAF7D5E00DBF6EE /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B9E1DAF7D5E00DBF6EE /* OAuth.swift */; };
 		A4915CB71DD9E69F001258D1 /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4915CB61DD9E69F001258D1 /* CommentsTableViewCell.swift */; };
 		A4915CBB1DD9E8DF001258D1 /* ShotsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4915CBA1DD9E8DF001258D1 /* ShotsTableViewCell.swift */; };
 		A493543E1DE849D7007867FC /* ShotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A493543D1DE849D7007867FC /* ShotViewModel.swift */; };
@@ -71,7 +69,6 @@
 		3726790FB02E8AB47452A5C5 /* Pods_DribbleTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DribbleTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		595356D7B5A196A326680EDA /* Pods-DribbleTestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DribbleTestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DribbleTestUITests/Pods-DribbleTestUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9D5EDF5CFE75B16DE062F085 /* Pods-DribbleTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DribbleTestTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DribbleTestTests/Pods-DribbleTestTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A41037A31DD21F14007E5360 /* testobj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testobj.swift; sourceTree = "<group>"; };
 		A482862A1DED87D000E14FCD /* CommentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		A482862C1DEDD06600E14FCD /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		A48500D31DE1BF7E00B828D7 /* LikeUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeUser.swift; sourceTree = "<group>"; };
@@ -90,7 +87,6 @@
 		A4907B8C1DAF5CC000DBF6EE /* DribbleTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DribbleTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4907B901DAF5CC000DBF6EE /* DribbleTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DribbleTestUITests.swift; sourceTree = "<group>"; };
 		A4907B921DAF5CC000DBF6EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A4907B9E1DAF7D5E00DBF6EE /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		A4915CB61DD9E69F001258D1 /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
 		A4915CBA1DD9E8DF001258D1 /* ShotsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotsTableViewCell.swift; sourceTree = "<group>"; };
 		A493543D1DE849D7007867FC /* ShotViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotViewModel.swift; sourceTree = "<group>"; };
@@ -160,6 +156,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A4818DE51E084A1000D14687 /* Junk */ = {
+			isa = PBXGroup;
+			children = (
+				A4907B791DAF5CC000DBF6EE /* LaunchScreen.storyboard */,
+				A4907B771DAF5CC000DBF6EE /* Assets.xcassets */,
+				A4A0E1841DDB3336000C2BA2 /* DribbleTest-Bridging-Header.h */,
+				A4907B7C1DAF5CC000DBF6EE /* Info.plist */,
+				A4A1817F1DB8DEAC007F4779 /* Main.storyboard */,
+				A4907B701DAF5CC000DBF6EE /* AppDelegate.swift */,
+			);
+			name = Junk;
+			sourceTree = "<group>";
+		};
 		A4880B891DD325AA007168B2 /* BD */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +216,7 @@
 		A4907B6F1DAF5CC000DBF6EE /* DribbleTest */ = {
 			isa = PBXGroup;
 			children = (
+				A4818DE51E084A1000D14687 /* Junk */,
 				A493543C1DE8442F007867FC /* View Models */,
 				A493543B1DE843F4007867FC /* Controllers */,
 				A4A0E1851DDB3337000C2BA2 /* iCarousel.h */,
@@ -217,14 +227,6 @@
 				A4A1817C1DB8C31C007F4779 /* Constant */,
 				A4A181761DB8C1ED007F4779 /* ApiDribble */,
 				A49982D71DB898F300F5FE4C /* OAuth */,
-				A4907B701DAF5CC000DBF6EE /* AppDelegate.swift */,
-				A41037A31DD21F14007E5360 /* testobj.swift */,
-				A4A1817F1DB8DEAC007F4779 /* Main.storyboard */,
-				A4907B771DAF5CC000DBF6EE /* Assets.xcassets */,
-				A4907B791DAF5CC000DBF6EE /* LaunchScreen.storyboard */,
-				A4907B7C1DAF5CC000DBF6EE /* Info.plist */,
-				A4907B9E1DAF7D5E00DBF6EE /* OAuth.swift */,
-				A4A0E1841DDB3336000C2BA2 /* DribbleTest-Bridging-Header.h */,
 			);
 			path = DribbleTest;
 			sourceTree = "<group>";
@@ -601,7 +603,6 @@
 				A4A1817B1DB8C25D007F4779 /* Shots.swift in Sources */,
 				A4A0E18D1DDB3CA0000C2BA2 /* ProfileTableViewCell.swift in Sources */,
 				A49359E71DC0994C000A86FC /* CommentsViewController.swift in Sources */,
-				A4907B9F1DAF7D5E00DBF6EE /* OAuth.swift in Sources */,
 				A493543E1DE849D7007867FC /* ShotViewModel.swift in Sources */,
 				A48C839F1DDF02190050AB16 /* Likes.swift in Sources */,
 				A49982D91DB8992A00F5FE4C /* OauthDribbble.swift in Sources */,
@@ -613,7 +614,6 @@
 				A4880B8D1DD3261D007168B2 /* CacheShots.swift in Sources */,
 				A49E50341DE072EB00236C41 /* MyCacheFollowers.swift in Sources */,
 				A482862B1DED87D000E14FCD /* CommentViewModel.swift in Sources */,
-				A41037A41DD21F14007E5360 /* testobj.swift in Sources */,
 				A482862D1DEDD06600E14FCD /* ProfileViewModel.swift in Sources */,
 				A4A033AE1DB9E76A00A6524C /* ShotsTableViewController.swift in Sources */,
 				A4907B711DAF5CC000DBF6EE /* AppDelegate.swift in Sources */,

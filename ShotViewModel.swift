@@ -11,183 +11,109 @@ import Alamofire
 
 class ShotViewModel  {
     
+    struct Item {
+        let title: String
+        let description: String
+        let imageURL: String!
+        let userAvatarUrl: String!
+        var imageLike: UIImage!
+    }
+    
     var item = [Item]()
     var shots = [Shots]()
-    var tableView: UITableView!
-    var storyboard: UIStoryboard!
-    var navigationController: UINavigationController!
     var numberShot = 0
     var countItem = 0
     var numberPageShots = 1
-    func LoadComponent(tableView: UITableView, storyboard: UIStoryboard, navigationController: UINavigationController )
-    {
-        self.tableView = tableView
-        self.storyboard = storyboard
-        self.navigationController = navigationController
-    }
     
-  
-    func LoadShot(completion: (([Shots])-> Void))
-    {
-    
+    func LoadShot(completion: (()-> Void)) {
         if TestInternetConnection.connectedToNetwork() == true {
-
             let urlString = "https://api.dribbble.com/v1/shots?page=\(numberPageShots)&access_token=\(myToken)"
             Alamofire.request(.GET , urlString).responseJSON{respons in
                 let JsonResult = respons.2.value as! NSArray!
-                
                 for shot in JsonResult{
                     self.shots.append(Shots(data: shot as! NSDictionary))
                     print(self.shots.last!.idShots)
                     Alamofire.request(.GET , "https://api.dribbble.com/v1/shots/\(self.shots.last!.idShots)/like?access_token=\(myToken)").responseJSON{respons in
                         print(respons.2.value)
-                        if(respons.2.value != nil)
-                        {
+                        if (respons.2.value != nil) {
                             self.shots[self.countItem].likeUserAutho = true
-
                         }
-                        else{
-                            
+                        else {
                             self.shots[self.countItem].likeUserAutho = false
                         }
                         self.item.append(self.itemForShots(self.shots[self.countItem]))
                         self.countItem++
-                
+                        if self.countItem == self.shots.count {
                         let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
                         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                            
                             dispatch_async(dispatch_get_main_queue()){
                                 Cache.UpdateCacheShots(self.shots)
-                                completion(self.shots)
+                                completion()
                             }}
-                      
+                        }
                     }
-                    
                 }
-       
             }
-           
         }
         else {
             shots = Cache.GetShots()
-            print(shots)
-            for sh in shots
-            {
+            for sh in shots {
                 item.append(itemForShots(sh))
                 self.countItem++
             }
-            self.tableView.reloadData()
+            completion()
         }
-     
     }
-    func returnCell( index: Int , target: AnyObject)-> ShotsTableViewCell
-    {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ShotsTableViewCell") as! ShotsTableViewCell
 
-        
-        let item = retutnItem(index, tableView: tableView)
-        
-        
-        print(item)
-        cell.ImageShot.sd_setImageWithURL(NSURL(string: item.imageURL), placeholderImage: UIImage(named: "placeHolder"))
-        
-        cell.TitleShot.text = item.title
-        
-        cell.DescriptionShot.text = item.description
-        
-        
-        cell.ImageShotAvtor.sd_setImageWithURL(NSURL(string: item.userAvatarUrl), placeholderImage: UIImage(named: "placeHolder"))
-        
-        cell.ImageShotLike.image = item.imageLike
-        
-        cell.ImageShotAvtor.userInteractionEnabled = true
-        
-        let tapRecog = UITapGestureRecognizer(target: target, action: "imgTappUser:")
-        
-        cell.ImageShotAvtor.addGestureRecognizer(tapRecog)
-        
-        cell.ImageShotLike.userInteractionEnabled = true
-
-        
-        let tapRecoglike = UITapGestureRecognizer(target: target, action: "imgTappLike:")
-        
-        cell.ImageShotLike.addGestureRecognizer(tapRecoglike)
-        
-        
-        
-        return cell
-        
-    }
-    func getIdUser(index: Int)->Int
-    {
+    func getIdUser(index: Int)->Int {
         return shots[index].userID
     }
-    func getIdShot(index: Int)->Int{
-        
+    
+    func getIdShot(index: Int)->Int {
         return shots[index].idShots
     }
     
     
-    func getUrlComment(index: Int)->String
-    {
+    func getUrlComment(index: Int)->String {
         return shots[index].commentsURL
     }
     
     
-    func Like(index : Int )
-    {
+    func Like(index : Int, completion: (()-> Void) ) {
        if shots[index].likeUserAutho == true {
-        
         Alamofire.request(.DELETE, "https://api.dribbble.com/v1/shots/\(shots[index].idShots)/like?access_token=\(myToken)")
-        
             shots[index].likeUserAutho = false
             item[index].imageLike = UIImage(named: "dlike")
-            tableView.reloadData()
+            completion()
         }
-        else
-       {
+        else {
             Alamofire.request(.POST, "https://api.dribbble.com/v1/shots/\(shots[index].idShots)/like?access_token=\(myToken)").responseJSON { respons in
-                print(respons)
-            
             }
-        
             shots[index].likeUserAutho = true
             item[index].imageLike = UIImage(named: "lheart")
-            tableView.reloadData()
-        
+            completion()
         }
-        Cache.UpdateCacheShots(shots) // can be optimized if need
-        
-       
+        Cache.UpdateCacheShots(shots) 
     }
     
     
-    func ofCountItem()->Int
-    {
+    func ofCountItem()->Int {
         return countItem
     }
-    func retutnItem(id: Int, tableView: UITableView) -> Item
-    {
-        print(id)
-        print(shots.count)
-        if id == shots.count-2
-        {
+    
+    func retutnItem(index: Int) -> Item {
+        if (index+1)%12 - 3 == 0 {
             numberPageShots++
-          //  LoadShot(didLoadShot)
         }
-        
-        return item[id]
+        return item[index]
        
     }
    
-    
-
     func itemForShots(shot: Shots) -> Item {
         
         let title = shot.title
         let description =  shot.descriptions.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
         let imageURL = shot.imageURL
-        
         let userAvatarUrl = shot.userAvatarUrl
         let imageLike: UIImage!
         
@@ -198,19 +124,10 @@ class ShotViewModel  {
         else{
             imageLike  = UIImage(named: "dlike")
         }
-
-        let item = Item(title: title, description: description, imageURL: imageURL!, userAvatarUrl: userAvatarUrl, imageLike: imageLike)
         
+        let item = Item(title: title, description: description, imageURL: imageURL!, userAvatarUrl: userAvatarUrl, imageLike: imageLike)
         return item
     }
-    struct Item {
-        let title: String
-        let description: String
-        let imageURL: String!
-        let userAvatarUrl: String!
-        var imageLike: UIImage!
-        
-        
-    }
+   
 }
 

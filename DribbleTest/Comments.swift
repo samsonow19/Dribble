@@ -32,13 +32,11 @@ class Comments {
         self.userId = user["id"] as! Int
         self.avatarUrl = getStrJSON(user, key: "avatar_url")
     }
-    func getStrJSON(data: NSDictionary, key: String) -> String{
+    func getStrJSON(data: NSDictionary, key: String) -> String {
         let info : AnyObject? = data[key]
         if let info = data[key] as? String{
             return info
         }
         return ""
-
     }
-    
 }

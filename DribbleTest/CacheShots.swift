@@ -14,11 +14,9 @@ class Cache {
     static func UpdateCacheShots(shots: [Shots]){
         var cacheShots = MyCacheShots()
         let realm = try! Realm()
-      
-       try! realm.write({() -> Void in
+        try! realm.write({() -> Void in
             realm.deleteAll()
         })
-       // realm.deleteAll()
         try! realm.write {
             for sh in shots{
                 cacheShots = MyCacheShots()
@@ -30,14 +28,10 @@ class Cache {
                 cacheShots.userId = sh.userID
                 cacheShots.userName = sh.userName
                 cacheShots.userAvatarUrl = sh.userAvatarUrl
-                
                 cacheShots.likeUserAutho = sh.likeUserAutho
                 realm.add(cacheShots)
             }
         }
-        
-      
-        
     }
     
       static func GetShots()-> [Shots] {
@@ -55,7 +49,6 @@ class Cache {
             myshots.commentsURL = ""
             myshots.likeUserAutho = sh.likeUserAutho
             myshots.userID = sh.userId
-            
             myshots.commentCount = 0
             myshots.likesCount = 0
             myshots.viewsCount = 0
@@ -63,22 +56,15 @@ class Cache {
             shots.append(myshots)
         }
         return shots
-        /*
-        for sh in allShots{
-        print("\(sh.title)")
-        }*/
     }
     
     // in comments
-    
-    
     static func UpdateCacheComments(comments: [Comments], idShot : Int){
         var cacheComments = MyCacheComments()
         let realm = try! Realm()
         let cacheShots = MyCacheShots()
         try! realm.write {
             for cm in comments{
-              
                 cacheComments = MyCacheComments()
                 cacheComments.idShots = idShot
                 cacheComments.idComments = cm.id
@@ -95,17 +81,11 @@ class Cache {
 
     }
     
-    
-    
-    
     static func GetComments(openIDShot: Int)->[Comments]{
         let realm = try! Realm()
         let allCommentsShot = realm.objects(MyCacheShots).filter("idShots = \(openIDShot)")
-        print(openIDShot)
         var mycomments = Comments()
         var comments = [Comments]()
-       
-        print(idShot)
         if allCommentsShot[0].commentsShot != 0
         {
             for com in allCommentsShot[0].commentsShot {
@@ -121,11 +101,7 @@ class Cache {
             }
         }
         return comments
-            
     }
-    
-    
-    
     
     static func UpdateCasheUser(user: User){
         var cacheUser = MyCacheUser()
@@ -140,8 +116,8 @@ class Cache {
                 cacheUser.followersURL = user.followersURL
                 realm.add(cacheUser, update: true)
         }
-        
     }
+    
     static func GetUser(idUser: Int)->User{
         
         let realm = try! Realm()
@@ -157,7 +133,6 @@ class Cache {
         
     }
     
-    
     static func UpdateCasheFollowers(followers: [Follower], id : Int){
         var cacheFollowers = MyCacheFollowers()
         let cacheUser = MyCacheUser()
@@ -171,17 +146,13 @@ class Cache {
                 cacheFollowers.numberLike = follower.numberLike
                 cacheFollowers.numberFollowers = follower.numberFollowers
                 cacheFollowers.likesURL = follower.likesURL
-                
-                realm.add(cacheFollowers)
+                realm.add(cacheFollowers, update: true)
                 cacheUser.folowers.append(cacheFollowers)
             }
-            
             realm.create(MyCacheUser.self, value: ["idUser": id, "folowers":  cacheUser.folowers], update: true)
         }
-        
-        
-        
     }
+    
     static func GetFollowers(str: String)->[Follower]{
         let realm = try! Realm()
         let Users = realm.objects(MyCacheUser).filter("followersURL = '\(str)'")
@@ -200,16 +171,6 @@ class Cache {
         return folowers
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // update like and one to relationship followers
     static func UpdateCasheLikes(likes : [Like], id : Int){
         var cacheLikes = MyCacheLikes()
@@ -223,38 +184,30 @@ class Cache {
                 cacheLikes.avatart_url = like.avatartUrl
                 cacheLikes.date = like.date
                 cacheLikes.titleShot = like.titleShot
-               
-                realm.add(cacheLikes)
+                realm.add(cacheLikes, update: true)
                 cacheFollowers.likes.append(cacheLikes)
             }
             
             realm.create(MyCacheFollowers.self, value: ["idFollowers": id, "likes":  cacheFollowers.likes], update: true)
         }
-        
-        
-        
     }
+    
     static func GetLikes(str: String)->[Like]{
         let realm = try! Realm()
         let Likes = realm.objects(MyCacheFollowers).filter("likesURL = '\(str)'")
-        
         var likes = [Like]()
-        var l = Like()
-       
-        
-        print(idShot)
-        for lik in Likes[0].likes {
-            l = Like()
-            l.avatartUrl = lik.avatart_url
-            l.date = lik.date
-            l.idLike = lik.idLike
-            l.titleShot = lik.titleShot
-            likes.append(l)
+        var like = Like()
+        for like_ in Likes[0].likes {
+            like = Like()
+            like.avatartUrl = like_.avatart_url
+            like.name = like_.name
+            like.date = like_.date
+            like.idLike = like_.idLike
+            like.titleShot = like_.titleShot
+            likes.append(like)
         }
         return likes
     }
-    
-    
     
 }
 

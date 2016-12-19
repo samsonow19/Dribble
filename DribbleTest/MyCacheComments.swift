@@ -7,10 +7,9 @@
 //
 
 import Foundation
-//import Realm
 import RealmSwift
 
-class MyCacheComments : Object{
+class MyCacheComments : Object {
     dynamic var idComments = 0
     dynamic var userId = 0
     dynamic var body: String? = nil

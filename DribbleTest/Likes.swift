@@ -25,12 +25,11 @@ class Like {
         self.titleShot = getStrJSON(shot, key: "title")
     }
     
-    func getStrJSON(data: NSDictionary, key: String) -> String{
+    func getStrJSON(data: NSDictionary, key: String) -> String {
         let info : AnyObject? = data[key]
         if let info = data[key] as? String{
             return info
         }
         return ""
-        
     }
 }

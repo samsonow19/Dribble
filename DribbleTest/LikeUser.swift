@@ -13,7 +13,5 @@ class LikeUser {
     var like: Bool!
     init(){
     }
-    
 
-    
 }

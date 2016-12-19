@@ -7,10 +7,7 @@
 //
 
 import Foundation
-
-
 class Shots {
-    
     
     var idShots: Int!
     var title: String!
@@ -21,16 +18,10 @@ class Shots {
     var viewsCount: Int!
     var imageURL: String!
     var imageData : NSData?
-    
-    
     var userAvatarUrl : String!
     var userName : String!
     var userID : Int!
-    
-    
     var likeUserAutho: Bool! = false
-
- 
     init(){
         
     }
@@ -43,30 +34,20 @@ class Shots {
         self.commentCount = data["comments_count"] as! Int
         self.likesCount = data["likes_count"] as! Int
         self.viewsCount = data["views_count"] as! Int
-        let image = data["images"] as! NSDictionary//{mas}
+        let image = data["images"] as! NSDictionary
         self.imageURL = getStrJSON(image, key: "normal")
         
         let user = data["user"] as! NSDictionary
-        
-        
-        self.userAvatarUrl = getStrJSON(user, key: "avatar_url")//add_Cache
-        
-        self.userName = getStrJSON(user, key: "name") //add_Cache
-        self.userID = user["id"] as! Int // add_Cache
-        
-      
+        self.userAvatarUrl = getStrJSON(user, key: "avatar_url")
+        self.userName = getStrJSON(user, key: "name")
+        self.userID = user["id"] as! Int
     }
     
-
-
-
-    func getStrJSON(data: NSDictionary, key: String) -> String{
-      //  let info : AnyObject? = data[key]
+    func getStrJSON(data: NSDictionary, key: String) -> String {
         if let info = data[key] as? String{
             return info
         }
         return ""
-        
     }
 }
 

@@ -7,10 +7,9 @@
 //
 
 import Foundation
-//import Realm
 import RealmSwift
 
-class MyCacheShots : Object{
+class MyCacheShots : Object {
  
     dynamic var idShots = 0
     dynamic var title: String? = nil

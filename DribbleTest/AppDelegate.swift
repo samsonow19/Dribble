@@ -14,25 +14,14 @@ import OAuthSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    /*
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if(url.host == "oauth-callback") {
-            //   OAuthSwift.handleOpenURL(url)
-            OAuthSwift.handleOpenURL(url)   //not use :(
-        }
-        return true
-    }*/
- 
-    
+
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         print(url.host)
         if(url.host == "oauth-callback") {
-            
-            //   OAuthSwift.handleOpenURL(url)
+
             OAuthSwift.handleOpenURL(url)
         }
-        
-            
+
             return true
     }
 

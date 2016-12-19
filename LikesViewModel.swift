@@ -12,143 +12,65 @@ import Alamofire
 class LikeViewModel {
     var follower: Follower!
     var carousel: iCarousel!
-  
     var count = 0
     var indexFollower = 0
-    var numberPageLike = 0
+    var numberPageLike = 1
     var itemLike = [ItemLike]()
-    func LoadFollower(follower : Follower,carousel : iCarousel )
-    {
-        self.carousel = carousel
-       
+    func LoadFollower(follower : Follower) {
+        print(follower.likes.count)
+        print(itemLike.count)
         self.follower = follower
-  
-        print(self.follower.authorName)
     }
     
-
-    func LoadLikes()
-    {
-        
-        if TestInternetConnection.connectedToNetwork() == true
-        {
-            print(self.follower.likesURL)
-            print(self.itemLike.count)
-            print(self.follower.likes.count)
+    func LoadLikes(completion: (()-> Void)) {
+        if TestInternetConnection.connectedToNetwork() == true{
         Alamofire.request(.GET, self.follower.likesURL!+"?page=\(self.numberPageLike)&access_token=\(myToken)").responseJSON{ respons in
-         //   self.follower.likes = [Like]()
             self.itemLike = [ItemLike]()
             let JsonResult = respons.2.value as! NSArray!
-            if JsonResult != nil
-            {
-                
+            if JsonResult != nil {
                 for like in JsonResult!{
                     self.follower.likes.append(Like(data: like as! NSDictionary))
                     print(self.follower.likes.last?.name)
                     self.itemLike.append(self.itemForLike(self.follower.likes.last!))
-
                 }
             }
-            else
-            {
+            else{
                 self.follower.likes.append(Like())
             }
-            print(self.count)
-            print(self.follower.numberLike)
-
-            self.carousel.reloadData()
-            //Cache.UpdateCasheLikes(self.follower.likes, id: self.follower.idUser)
-          
-           
+            let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
+            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                dispatch_async(dispatch_get_main_queue()){
+                    Cache.UpdateCasheLikes(self.follower.likes, id: self.follower.idUser)
+                    completion()
+                }}
             }
         }
-        else
-        {
+        else{
             self.follower.likes = Cache.GetLikes( self.follower.likesURL)
+            for like in follower.likes{
+                self.itemLike.append(self.itemForLike(like))
+            }
+            completion()
         }
     }
-    func returnCountLike()-> Int
-    {
-       
-      
+    func returnCountLike()-> Int {
         return itemLike.count
-       // return count
-        
     }
     
     func itemForLike(like: Like) -> ItemLike {
-        
         let avatarUrl = like.avatartUrl
         let name = like.name
         let titleShot = like.titleShot
-
         let date = like.date.characters.split{$0 == "T"}.map(String.init)[0]
-
         let item = ItemLike(avatarUrl: avatarUrl, name: name, titleShot: titleShot, date: date)
-        
         return item
     }
     
-    func returnItemLike(id: Int)-> ItemLike
-    {
-        if id % 12 == 10 && id > itemLike.count-3
-        {
-            
-                numberPageLike++
-                LoadLikes()
-            
-           
+    func returnItemLike(id: Int)-> ItemLike {
+        if (id+1)%12 == 0 {
+            numberPageLike++
         }
-        print(itemLike.count)
-        print(follower.likes.count)
-        
         return itemLike[id]
-    }
-    func CreateView(index : Int)-> UIView
-    {
-        print(itemLike.count)
-        let item = returnItemLike(index)
-        
-        let temp  = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        let CarouselImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        
-        
-        
-        CarouselImage.sd_setImageWithURL(NSURL(string: item.avatarUrl), placeholderImage: UIImage(named: "placeHolder"))
-        
-        let blurEffect = UIBlurEffect(style: .Dark)
-        let CarauselVisualEffect = UIVisualEffectView(effect: blurEffect);
-        
-        
-        CarauselVisualEffect.frame = CGRect(x: 0, y: 70, width: 100, height: 40)
-        
-        
-        let CarauselLableNamePerson = UILabel();
-        let CarauselLableTittleShot = UILabel()
-        let CarauselLableData = UILabel();
-        
-        CarauselLableNamePerson.text = item.name
-        
-        CarauselLableNamePerson.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
-        CarauselLableNamePerson.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
-        
-        CarauselLableTittleShot.text = item.titleShot
-        
-        CarauselLableTittleShot.frame = CGRect(x: 0, y: 10, width: 100, height: 20)
-        
-        CarauselLableTittleShot.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
-        
-        CarauselLableData.text = item.date
-        CarauselLableData.frame = CGRect(x: 0, y: 20, width: 100, height: 20)
-        CarauselLableData.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
-        CarauselVisualEffect.addSubview(CarauselLableNamePerson)
-        CarauselVisualEffect.addSubview(CarauselLableTittleShot)
-        CarauselVisualEffect.addSubview(CarauselLableData)
-        CarouselImage.addSubview(CarauselVisualEffect)
-        
-        temp.addSubview(CarouselImage)
-        
-        return temp
     }
     
     struct ItemLike {
@@ -156,8 +78,6 @@ class LikeViewModel {
         let name: String
         let titleShot: String!
         let date: String
-       
-        
     }
 }
 

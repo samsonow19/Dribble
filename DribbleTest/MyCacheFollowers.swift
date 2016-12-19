@@ -7,10 +7,9 @@
 //
 
 import Foundation
-//import Realm
 import RealmSwift
 
-class MyCacheFollowers : Object{
+class MyCacheFollowers : Object {
     
     dynamic var idFollowers = 0
     dynamic var authorName: String? = nil

@@ -8,10 +8,9 @@
 
 
 import Foundation
-//import Realm
 import RealmSwift
 
-class MyCacheUser : Object{
+class MyCacheUser : Object {
 
     dynamic var idUser = 0
     dynamic var authorName:String? = nil
@@ -20,8 +19,6 @@ class MyCacheUser : Object{
     dynamic var numberFollowers = 0
     dynamic var followersURL: String? = nil
     let folowers = List<MyCacheFollowers>()
-    
-    
     
     override static func primaryKey() -> String? {
         return "idUser"
