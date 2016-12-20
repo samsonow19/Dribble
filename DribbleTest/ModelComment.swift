@@ -1,15 +1,16 @@
 //
-//  MyCacheComments.swift
+//  ModelComment.swift
 //  DribbleTest
 //
-//  Created by Admip on 10.11.16.
+//  Created by Admip on 20.12.16.
 //  Copyright © 2016 Admip. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-class MyCacheComments : Object {
+class ModelComment : Object {
+    
     dynamic var idComments = 0
     dynamic var userId = 0
     dynamic var body: String? = nil

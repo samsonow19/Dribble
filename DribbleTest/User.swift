@@ -9,13 +9,13 @@
 import Foundation
 
 class User {
+    
     var idUser: Int!
     var authorName: String!
     var avatarUrl: String!
     var numberLike: Int!
     var numberFollowers: Int!
     var followersURL: String!
-    
     
     init(){
         
@@ -31,8 +31,7 @@ class User {
     }
     
     func getStrJSON(data: NSDictionary, key: String) -> String {
-        let info : AnyObject? = data[key]
-        if let info = data[key] as? String{
+        if let info = data[key] as? String {
             return info
         }
         return ""

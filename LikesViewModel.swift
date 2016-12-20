@@ -10,6 +10,14 @@ import Foundation
 import Alamofire
 
 class LikeViewModel {
+    
+    struct ItemLike {
+        let avatarUrl: String
+        let name: String
+        let titleShot: String!
+        let date: String
+    }
+    
     var follower: Follower!
     var carousel: iCarousel!
     var count = 0
@@ -33,8 +41,7 @@ class LikeViewModel {
                     print(self.follower.likes.last?.name)
                     self.itemLike.append(self.itemForLike(self.follower.likes.last!))
                 }
-            }
-            else{
+            } else{
                 self.follower.likes.append(Like())
             }
             let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
@@ -44,8 +51,7 @@ class LikeViewModel {
                     completion()
                 }}
             }
-        }
-        else{
+        } else{
             self.follower.likes = Cache.GetLikes( self.follower.likesURL)
             for like in follower.likes{
                 self.itemLike.append(self.itemForLike(like))
@@ -73,12 +79,7 @@ class LikeViewModel {
         return itemLike[id]
     }
     
-    struct ItemLike {
-        let avatarUrl: String
-        let name: String
-        let titleShot: String!
-        let date: String
-    }
+    
 }
 
     

@@ -22,11 +22,12 @@ class Shots {
     var userName : String!
     var userID : Int!
     var likeUserAutho: Bool! = false
+    
     init(){
         
     }
     
-    init(data : NSDictionary){
+    init(data : NSDictionary) {
         self.idShots = data["id"] as! Int
         self.title = getStrJSON(data, key: "title")
         self.descriptions = getStrJSON(data, key: "description")
@@ -36,7 +37,6 @@ class Shots {
         self.viewsCount = data["views_count"] as! Int
         let image = data["images"] as! NSDictionary
         self.imageURL = getStrJSON(image, key: "normal")
-        
         let user = data["user"] as! NSDictionary
         self.userAvatarUrl = getStrJSON(user, key: "avatar_url")
         self.userName = getStrJSON(user, key: "name")
@@ -44,7 +44,7 @@ class Shots {
     }
     
     func getStrJSON(data: NSDictionary, key: String) -> String {
-        if let info = data[key] as? String{
+        if let info = data[key] as? String {
             return info
         }
         return ""

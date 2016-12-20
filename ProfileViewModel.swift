@@ -11,7 +11,6 @@ import Alamofire
 class ProfileViewModel {
     
     struct ItemFollower {
-        
         let imageProfile: String
         let name: String
         let numberLikes: Int!
@@ -33,7 +32,6 @@ class ProfileViewModel {
     var urlString: String!
    
     func loadUser(openUserID: Int,completion: (()-> Void)) {
-        
         if TestInternetConnection.connectedToNetwork() == true {
             Alamofire.request(.GET, "https://api.dribbble.com/v1/users/\(openUserID)?access_token=\(myToken)").responseJSON{ respons in
                 let JsonResult = respons.2.value
@@ -46,8 +44,7 @@ class ProfileViewModel {
                         completion()
                     }}
         }
-        }
-        else{
+        } else{
             self.OpenUser = Cache.GetUser(openUserID)
             self.followers = Cache.GetFollowers(OpenUser.followersURL)
             for folower in followers{
@@ -81,8 +78,7 @@ class ProfileViewModel {
                     }}
             }
             
-        }
-        else{
+        } else{
             completion()
         }
     }
@@ -99,7 +95,6 @@ class ProfileViewModel {
     }
     
     func itemForFollower(follower: Follower) -> ItemFollower {
-
         let item = ItemFollower(imageProfile: follower.avatarUrl, name: follower.authorName, numberLikes: follower.numberLike)
         return item
     }

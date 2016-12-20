@@ -17,8 +17,7 @@ class ViewController: UIViewController {
         if TestInternetConnection.connectedToNetwork() == true {
             loginbutton.hidden = true
             OauthDribble.doOAuthDribbble(didLoadDribble)
-        }
-        else {
+        } else {
             Cache.GetShots()
             let ShotsVC = self.storyboard!.instantiateViewControllerWithIdentifier("ShotsVC")
             self.presentViewController(ShotsVC, animated: true, completion: nil)
@@ -36,6 +35,5 @@ class ViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
 }

@@ -51,8 +51,7 @@ class CommentViewModel {
                         completion()
                 }}
             }
-        }
-        else {
+        } else {
             comments = Cache.GetComments(IdShot)
             for com in comments{
                 item.append(itemForComments(com))

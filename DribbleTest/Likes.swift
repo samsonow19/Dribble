@@ -6,16 +6,18 @@
 import Foundation
 
 class Like {
+    
     var idLike: Int!
     var name: String!
     var avatartUrl: String!
     var date: String!
     var titleShot: String!
+    
     init(){
         
     }
     
-    init(data : NSDictionary){
+    init(data : NSDictionary) {
         self.idLike = data["id"] as! Int
         let shot = data["shot"] as! NSDictionary
         let user = shot["user"] as! NSDictionary
@@ -26,8 +28,7 @@ class Like {
     }
     
     func getStrJSON(data: NSDictionary, key: String) -> String {
-        let info : AnyObject? = data[key]
-        if let info = data[key] as? String{
+        if let info = data[key] as? String {
             return info
         }
         return ""

@@ -10,14 +10,15 @@ import UIKit
 
 
 class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataSource  {
-    var FollowerIcarausel = Follower()
     
     @IBOutlet var ViewCarousel: UIView!
     @IBOutlet var Name: UILabel!
     @IBOutlet var NumberLikes: UILabel!
     @IBOutlet var MyCarousel: iCarousel!
     @IBOutlet var ImageProfile: UIImageView!
+    
     var viewModel = LikeViewModel()
+    var FollowerIcarausel = Follower()
     
     override func awakeFromNib() {
         MyCarousel.type = .CoverFlow2
@@ -34,20 +35,15 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     func didLoadLikes() {
         MyCarousel.reloadData()
     }
-    
-    override func setSelected(selected: Bool, animated: Bool) {
-       
-    }
+
     func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
-       
         return viewModel.returnCountLike()
     }
     
     func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
-        if index % 12 == 10 && index > viewModel.returnCountLike()-3{
+        if index % 12 == 10 && index > viewModel.returnCountLike()-3 {
             viewModel.LoadLikes(didLoadLikes)
         }
-        
         let item = viewModel.returnItemLike(index)
         let temp  = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         let CarouselImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))

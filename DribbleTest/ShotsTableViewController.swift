@@ -43,8 +43,7 @@ class ShotsTableViewController: UITableViewController{
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ShotsTableViewCell") as! ShotsTableViewCell
         let item = viewModel.retutnItem(indexPath.row)
-        if indexPath.row == viewModel.countItem-2
-        {
+        if indexPath.row == viewModel.countItem-2 {
             viewModel.LoadShot(didLoadShot)
         }
         cell.ImageShot.sd_setImageWithURL(NSURL(string: item.imageURL), placeholderImage: UIImage(named: "Placeholder"))
@@ -67,7 +66,6 @@ class ShotsTableViewController: UITableViewController{
     func imgTappUser(gestureRecognizer: UITapGestureRecognizer) {
         let touch = gestureRecognizer.locationInView(self.tableView)
         let indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
-        
         let profileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
         
         profileViewController.openUserID = viewModel.getIdUser(indexPath.row)

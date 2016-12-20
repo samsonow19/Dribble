@@ -37,8 +37,7 @@ class ShotViewModel  {
                         print(respons.2.value)
                         if (respons.2.value != nil) {
                             self.shots[self.countItem].likeUserAutho = true
-                        }
-                        else {
+                        } else {
                             self.shots[self.countItem].likeUserAutho = false
                         }
                         self.item.append(self.itemForShots(self.shots[self.countItem]))
@@ -54,11 +53,10 @@ class ShotViewModel  {
                     }
                 }
             }
-        }
-        else {
+        } else {
             shots = Cache.GetShots()
-            for sh in shots {
-                item.append(itemForShots(sh))
+            for shot in shots {
+                item.append(itemForShots(shot))
                 self.countItem++
             }
             completion()
@@ -73,11 +71,9 @@ class ShotViewModel  {
         return shots[index].idShots
     }
     
-    
     func getUrlComment(index: Int)->String {
         return shots[index].commentsURL
     }
-    
     
     func Like(index : Int, completion: (()-> Void) ) {
        if shots[index].likeUserAutho == true {
@@ -85,8 +81,7 @@ class ShotViewModel  {
             shots[index].likeUserAutho = false
             item[index].imageLike = UIImage(named: "dlike")
             completion()
-        }
-        else {
+        } else {
             Alamofire.request(.POST, "https://api.dribbble.com/v1/shots/\(shots[index].idShots)/like?access_token=\(myToken)").responseJSON { respons in
             }
             shots[index].likeUserAutho = true
@@ -106,11 +101,9 @@ class ShotViewModel  {
             numberPageShots++
         }
         return item[index]
-       
     }
    
     func itemForShots(shot: Shots) -> Item {
-        
         let title = shot.title
         let description =  shot.descriptions.stringByReplacingOccurrencesOfString("<[^>]+>", withString: "", options: .RegularExpressionSearch, range: nil)
         let imageURL = shot.imageURL
@@ -120,14 +113,12 @@ class ShotViewModel  {
         if shot.likeUserAutho == true
         {
             imageLike = UIImage(named: "lheart")
-        }
-        else{
+        } else {
             imageLike  = UIImage(named: "dlike")
         }
         
         let item = Item(title: title, description: description, imageURL: imageURL!, userAvatarUrl: userAvatarUrl, imageLike: imageLike)
         return item
     }
-   
 }
 

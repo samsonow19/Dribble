@@ -48,7 +48,6 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
             print(keyboardFrame)
             let isKeyboardShowing = notification.name == UIKeyboardWillShowNotification
             bottomConstreint?.constant = isKeyboardShowing ? -keyboardFrame!.height: 0
-        
         }
     }
     

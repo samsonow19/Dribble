@@ -15,10 +15,12 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
     @IBOutlet var CountLikes: UILabel!
     @IBOutlet var CountFolowers: UILabel!
     @IBOutlet var tableView: UITableView!
+    
     var indexComments = Int()
     var openUserID: Int!
     var viewModel = ProfileViewModel()
     var OpenUser = User()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
@@ -51,11 +53,8 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
     
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        if indexPath.row == viewModel.followers.count-2{
-            if viewModel.followers.count > 10{
+        if indexPath.row == viewModel.followers.count-2 && viewModel.followers.count > 10 {
                 viewModel.LoadFollower(didLoadFollower)
-            }
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("ProfileTableViewCell") as! ProfileTableViewCell
         cell.FollowerIcarausel = viewModel.returnFollower(indexPath.row)
@@ -65,8 +64,5 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
         cell.NumberLikes.text = String(item.numberLikes)
         return cell
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  
-    }
+
 }

@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             OAuthSwift.handleOpenURL(url)
         }
-
-            return true
+        return true
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

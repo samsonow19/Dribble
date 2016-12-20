@@ -8,6 +8,7 @@
 
 import Foundation
 class Comments {
+    
     var id: Int!
     var idShots: Int?
     var body: String!
@@ -18,11 +19,12 @@ class Comments {
     var userId: Int!
     var avatarUrl: String!
     var avatarImageNSData : NSData?
+    
     init(){
         
     }
     
-    init(data : NSDictionary){
+    init(data : NSDictionary) {
         self.id = data["id"] as! Int
         self.body = getStrJSON(data, key: "body")
         self.createdAt = getStrJSON(data, key: "created_at")
@@ -33,8 +35,7 @@ class Comments {
         self.avatarUrl = getStrJSON(user, key: "avatar_url")
     }
     func getStrJSON(data: NSDictionary, key: String) -> String {
-        let info : AnyObject? = data[key]
-        if let info = data[key] as? String{
+        if let info = data[key] as? String {
             return info
         }
         return ""
