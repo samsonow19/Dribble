@@ -18,7 +18,7 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     @IBOutlet var ImageProfile: UIImageView!
     
     var viewModel = LikeViewModel()
-    var FollowerIcarausel = Follower()
+    var followerIcarausel = Follower()
     
     override func awakeFromNib() {
         MyCarousel.type = .CoverFlow2
@@ -26,8 +26,8 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     }
     
     override func layoutSubviews() {
-        viewModel.LoadFollower(FollowerIcarausel)
-        viewModel.LoadLikes(didLoadLikes)
+        viewModel.loadFollower(followerIcarausel)
+        viewModel.loadLikes(didLoadLikes)
         self.MyCarousel.delegate = self
         self.MyCarousel.dataSource = self
     }
@@ -37,38 +37,21 @@ class ProfileTableViewCell:   UITableViewCell, iCarouselDelegate, iCarouselDataS
     }
 
     func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
-        return viewModel.returnCountLike()
+        return viewModel.countLike()
     }
     
     func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
-        if index % 12 == 10 && index > viewModel.returnCountLike()-3 {
-            viewModel.LoadLikes(didLoadLikes)
+        if index % 12 == 10 && index > viewModel.countLike()-3 {
+            viewModel.loadLikes(didLoadLikes)
         }
-        let item = viewModel.returnItemLike(index)
-        let temp  = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        let CarouselImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        CarouselImage.sd_setImageWithURL(NSURL(string: item.avatarUrl), placeholderImage: UIImage(named: "placeHolder"))
-        let blurEffect = UIBlurEffect(style: .Dark)
-        let CarauselVisualEffect = UIVisualEffectView(effect: blurEffect);
-        CarauselVisualEffect.frame = CGRect(x: 0, y: 70, width: 100, height: 40)
-        let CarauselLableNamePerson = UILabel();
-        let CarauselLableTittleShot = UILabel()
-        let CarauselLableData = UILabel();
-        CarauselLableNamePerson.text = item.name
-        CarauselLableNamePerson.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
-        CarauselLableNamePerson.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
-        CarauselLableTittleShot.text = item.titleShot
-        CarauselLableTittleShot.frame = CGRect(x: 0, y: 10, width: 100, height: 20)
-        CarauselLableTittleShot.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
-        CarauselLableData.text = item.date
-        CarauselLableData.frame = CGRect(x: 0, y: 20, width: 100, height: 20)
-        CarauselLableData.font = UIFont(name: (CarauselLableNamePerson.font?.fontName)!, size: 10)
-        CarauselVisualEffect.addSubview(CarauselLableNamePerson)
-        CarauselVisualEffect.addSubview(CarauselLableTittleShot)
-        CarauselVisualEffect.addSubview(CarauselLableData)
-        CarouselImage.addSubview(CarauselVisualEffect)
-        temp.addSubview(CarouselImage)
-        
+
+        let itemLike = viewModel.itemLike(index)
+        let temp = IcarouselView(frame: CGRect(x: 0, y: 0, width: 110, height: 110))
+        temp.imageUser.sd_setImageWithURL(NSURL(string: itemLike.avatarUrl), placeholderImage: UIImage(named: "placeHolder"))
+        temp.nameUser.text = itemLike.name
+        temp.titleShot.text = itemLike.titleShot
+        temp.date.text = itemLike.date
+ 
         return temp
     }
    

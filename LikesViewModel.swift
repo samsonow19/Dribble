@@ -24,19 +24,18 @@ class LikeViewModel {
     var indexFollower = 0
     var numberPageLike = 1
     var itemLike = [ItemLike]()
-    func LoadFollower(follower : Follower) {
-        print(follower.likes.count)
-        print(itemLike.count)
+    
+    func loadFollower(follower : Follower) {
         self.follower = follower
     }
     
-    func LoadLikes(completion: (()-> Void)) {
+    func loadLikes(completion: (()-> Void)) {
         if TestInternetConnection.connectedToNetwork() == true{
         Alamofire.request(.GET, self.follower.likesURL!+"?page=\(self.numberPageLike)&access_token=\(myToken)").responseJSON{ respons in
             self.itemLike = [ItemLike]()
-            let JsonResult = respons.2.value as! NSArray!
-            if JsonResult != nil {
-                for like in JsonResult!{
+            let jsonResult = respons.2.value as! NSArray!
+            if jsonResult != nil {
+                for like in jsonResult!{
                     self.follower.likes.append(Like(data: like as! NSDictionary))
                     print(self.follower.likes.last?.name)
                     self.itemLike.append(self.itemForLike(self.follower.likes.last!))
@@ -47,19 +46,19 @@ class LikeViewModel {
             let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
             dispatch_async(dispatch_get_global_queue(priority, 0)) {
                 dispatch_async(dispatch_get_main_queue()){
-                    Cache.UpdateCasheLikes(self.follower.likes, id: self.follower.idUser)
+                    Cache.updateCasheLikes(self.follower.likes, id: self.follower.idUser)
                     completion()
                 }}
             }
         } else{
-            self.follower.likes = Cache.GetLikes( self.follower.likesURL)
+            self.follower.likes = Cache.getLikes( self.follower.likesURL)
             for like in follower.likes{
                 self.itemLike.append(self.itemForLike(like))
             }
             completion()
         }
     }
-    func returnCountLike()-> Int {
+    func countLike()-> Int {
         return itemLike.count
     }
     
@@ -72,7 +71,7 @@ class LikeViewModel {
         return item
     }
     
-    func returnItemLike(id: Int)-> ItemLike {
+    func itemLike(id: Int)-> ItemLike {
         if (id+1)%12 == 0 {
             numberPageLike++
         }

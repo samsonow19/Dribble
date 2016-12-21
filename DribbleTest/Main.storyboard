@@ -206,6 +206,9 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YIx-BT-y7X" customClass="iCarousel">
                                                     <rect key="frame" x="156" y="3" width="109" height="111"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="109" id="MUr-jw-eKv"/>
+                                                    </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>

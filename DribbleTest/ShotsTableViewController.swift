@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 
 class ShotsTableViewController: UITableViewController{
+    
     @IBOutlet var likeImage: UIImageView!
     var rControl: UIRefreshControl = UIRefreshControl()
     var numberShot = 0
@@ -20,11 +21,11 @@ class ShotsTableViewController: UITableViewController{
         rControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         rControl.addTarget(self, action: "refreshcontrol", forControlEvents:.ValueChanged)
         self.tableView.addSubview(rControl)
-        viewModel.LoadShot(didLoadShot)
+        viewModel.loadShot(didLoadShot)
     }
     
     func refreshcontrol() {
-        viewModel.LoadShot(didLoadShot)
+        viewModel.loadShot(didLoadShot)
     }
     
     func didLoadShot() {
@@ -41,25 +42,28 @@ class ShotsTableViewController: UITableViewController{
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ShotsTableViewCell") as! ShotsTableViewCell
-        let item = viewModel.retutnItem(indexPath.row)
+    
         if indexPath.row == viewModel.countItem-2 {
-            viewModel.LoadShot(didLoadShot)
+            viewModel.loadShot(didLoadShot)
         }
+        return setupCellWithViewModel(indexPath.row)
+    }
+    
+    func setupCellWithViewModel(indexPath :Int)-> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("ShotsTableViewCell") as! ShotsTableViewCell
+        let item = viewModel.shotItem(indexPath)
         cell.ImageShot.sd_setImageWithURL(NSURL(string: item.imageURL), placeholderImage: UIImage(named: "Placeholder"))
         cell.TitleShot.text = item.title
         cell.DescriptionShot.text = item.description
         cell.ImageShotAvtor.sd_setImageWithURL(NSURL(string: item.userAvatarUrl), placeholderImage: UIImage(named: "Placeholder"))
         cell.ImageShotLike.image = item.imageLike
         cell.ImageShotAvtor.userInteractionEnabled = true
-        
         let tapRecog = UITapGestureRecognizer(target: self, action: "imgTappUser:")
         cell.ImageShotAvtor.addGestureRecognizer(tapRecog)
         cell.ImageShotLike.userInteractionEnabled = true
-        
         let tapRecoglike = UITapGestureRecognizer(target: self, action: "imgTappLike:")
         cell.ImageShotLike.addGestureRecognizer(tapRecoglike)
-
+        
         return  cell
     }
   
@@ -76,7 +80,7 @@ class ShotsTableViewController: UITableViewController{
     func imgTappLike(gestureRecognizer: UITapGestureRecognizer) {
         let touch = gestureRecognizer.locationInView(self.tableView)
         let indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
-        viewModel.Like(indexPath.row, completion: didLoadShot)
+        viewModel.loadLike(indexPath.row, completion: didLoadShot)
      
     }
 

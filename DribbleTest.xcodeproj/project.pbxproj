@@ -28,6 +28,8 @@
 		A4907B911DAF5CC000DBF6EE /* DribbleTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4907B901DAF5CC000DBF6EE /* DribbleTestUITests.swift */; };
 		A4915CB71DD9E69F001258D1 /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4915CB61DD9E69F001258D1 /* CommentsTableViewCell.swift */; };
 		A4915CBB1DD9E8DF001258D1 /* ShotsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4915CBA1DD9E8DF001258D1 /* ShotsTableViewCell.swift */; };
+		A492F63A1E0A4DB500B11235 /* IcarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492F6391E0A4DB500B11235 /* IcarouselView.swift */; };
+		A492F63C1E0A4DD900B11235 /* IcarouselView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A492F63B1E0A4DD900B11235 /* IcarouselView.xib */; };
 		A493543E1DE849D7007867FC /* ShotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A493543D1DE849D7007867FC /* ShotViewModel.swift */; };
 		A49359E51DC09884000A86FC /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E41DC09884000A86FC /* Comments.swift */; };
 		A49359E71DC0994C000A86FC /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49359E61DC0994C000A86FC /* CommentsViewController.swift */; };
@@ -92,6 +94,8 @@
 		A4907B921DAF5CC000DBF6EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A4915CB61DD9E69F001258D1 /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
 		A4915CBA1DD9E8DF001258D1 /* ShotsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotsTableViewCell.swift; sourceTree = "<group>"; };
+		A492F6391E0A4DB500B11235 /* IcarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcarouselView.swift; sourceTree = "<group>"; };
+		A492F63B1E0A4DD900B11235 /* IcarouselView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IcarouselView.xib; sourceTree = "<group>"; };
 		A493543D1DE849D7007867FC /* ShotViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShotViewModel.swift; sourceTree = "<group>"; };
 		A49359E41DC09884000A86FC /* Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		A49359E61DC0994C000A86FC /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +171,15 @@
 			name = Junk;
 			sourceTree = "<group>";
 		};
+		A48592E21E0AC8CE00B8C6F9 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				A492F6391E0A4DB500B11235 /* IcarouselView.swift */,
+				A492F63B1E0A4DD900B11235 /* IcarouselView.xib */,
+			);
+			name = Xib;
+			sourceTree = "<group>";
+		};
 		A4880B891DD325AA007168B2 /* BD */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +226,7 @@
 		A4907B6F1DAF5CC000DBF6EE /* DribbleTest */ = {
 			isa = PBXGroup;
 			children = (
+				A48592E21E0AC8CE00B8C6F9 /* Xib */,
 				A4818DE51E084A1000D14687 /* Junk */,
 				A493543C1DE8442F007867FC /* View Models */,
 				A493543B1DE843F4007867FC /* Controllers */,
@@ -445,6 +459,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A492F63C1E0A4DD900B11235 /* IcarouselView.xib in Resources */,
 				A4A181801DB8DEAC007F4779 /* Main.storyboard in Resources */,
 				A4907B7B1DAF5CC000DBF6EE /* LaunchScreen.storyboard in Resources */,
 				A4907B781DAF5CC000DBF6EE /* Assets.xcassets in Resources */,
@@ -595,6 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A492F63A1E0A4DB500B11235 /* IcarouselView.swift in Sources */,
 				A4A0E1871DDB3337000C2BA2 /* iCarousel.m in Sources */,
 				A48648AC1E0940A900DD9270 /* Caching.swift in Sources */,
 				A4A1817B1DB8C25D007F4779 /* Shots.swift in Sources */,

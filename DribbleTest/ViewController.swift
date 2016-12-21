@@ -18,15 +18,15 @@ class ViewController: UIViewController {
             loginbutton.hidden = true
             OauthDribble.doOAuthDribbble(didLoadDribble)
         } else {
-            Cache.GetShots()
-            let ShotsVC = self.storyboard!.instantiateViewControllerWithIdentifier("ShotsVC")
-            self.presentViewController(ShotsVC, animated: true, completion: nil)
+            Cache.getShots()
+            let shotsVC = self.storyboard!.instantiateViewControllerWithIdentifier("ShotsVC")
+            self.presentViewController(shotsVC, animated: true, completion: nil)
         }
     }
     
     func didLoadDribble() {
-        let ShotsVC = self.storyboard!.instantiateViewControllerWithIdentifier("ShotsVC")
-        self.presentViewController(ShotsVC, animated: true, completion: nil)
+        let shotsVC = self.storyboard!.instantiateViewControllerWithIdentifier("ShotsVC")
+        self.presentViewController(shotsVC, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

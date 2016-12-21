@@ -24,7 +24,7 @@ class ProfileViewModel {
         let followersUrl: String
     }
     
-    var OpenUser : User!
+    var openUser : User!
     var followers = [Follower]()
     var itemFollower = [ItemFollower]()
     var count = 0
@@ -35,9 +35,9 @@ class ProfileViewModel {
         if TestInternetConnection.connectedToNetwork() == true {
             Alamofire.request(.GET, "https://api.dribbble.com/v1/users/\(openUserID)?access_token=\(myToken)").responseJSON{ respons in
                 let JsonResult = respons.2.value
-                self.OpenUser = User(data: JsonResult as! NSDictionary)
-                self.urlString = self.OpenUser.followersURL+"?page=\(self.numberPageFollower)&access_token=\(myToken)"
-                Cache.UpdateCasheUser(self.OpenUser)
+                self.openUser = User(data: JsonResult as! NSDictionary)
+                self.urlString = self.openUser.followersURL+"?page=\(self.numberPageFollower)&access_token=\(myToken)"
+                Cache.updateCasheUser(self.openUser)
                 let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     dispatch_async(dispatch_get_main_queue()){
@@ -45,8 +45,8 @@ class ProfileViewModel {
                     }}
         }
         } else{
-            self.OpenUser = Cache.GetUser(openUserID)
-            self.followers = Cache.GetFollowers(OpenUser.followersURL)
+            self.openUser = Cache.getUser(openUserID)
+            self.followers = Cache.getFollowers(openUser.followersURL)
             for folower in followers{
                 self.itemFollower.append(self.itemForFollower(folower))
             }
@@ -54,13 +54,13 @@ class ProfileViewModel {
         }
     }
     
-    func returnItemUser()->ItemUser {
-        let countLikes = String(OpenUser.numberLike)
-        let countFollowers = String(OpenUser.numberFollowers)
-        return ItemUser(avatarUrl: OpenUser.avatarUrl, name: OpenUser.authorName, countLikes: countLikes, countFollowers: countFollowers,followersUrl: OpenUser.followersURL)
+    func itemUser()->ItemUser {
+        let countLikes = String(openUser.numberLike)
+        let countFollowers = String(openUser.numberFollowers)
+        return ItemUser(avatarUrl: openUser.avatarUrl, name: openUser.authorName, countLikes: countLikes, countFollowers: countFollowers,followersUrl: openUser.followersURL)
     }
     
-    func LoadFollower(completion: (()-> Void)) {
+    func loadFollower(completion: (()-> Void)) {
         
         if TestInternetConnection.connectedToNetwork() == true{
             numberPageFollower++
@@ -73,7 +73,7 @@ class ProfileViewModel {
                 let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     dispatch_async(dispatch_get_main_queue()){
-                        Cache.UpdateCasheFollowers(self.followers, id: self.OpenUser.idUser)
+                        Cache.updateCasheFollowers(self.followers, id: self.openUser.idUser)
                         completion()
                     }}
             }
@@ -83,14 +83,14 @@ class ProfileViewModel {
         }
     }
     
-    func returnFollower(index : Int)->Follower {
+    func follower(index : Int)->Follower {
         if (index+1)%12 - 3 == 0 {
             numberPageFollower++
         }
         return followers[index]
     }
     
-    func ReturnFollowersCount()->Int {
+    func followersCount()->Int {
         return followers.count
     }
     
@@ -99,7 +99,7 @@ class ProfileViewModel {
         return item
     }
     
-    func retutnItemFollower(id: Int)->ItemFollower {
+    func itemFollower(id: Int)->ItemFollower {
         return itemFollower[id]
     }
     

@@ -25,11 +25,11 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.LoadIdShot(idShot)
+        viewModel.loadIdShot(idShot)
         tableView.delegate = self
         tableView.dataSource = self
-        viewModel.LoadUrl(urlComment)
-        viewModel.LoadComments(didLoadComments)
+        viewModel.loadUrl(urlComment)
+        viewModel.loadComments(didLoadComments)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardNotification:" as Selector, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardNotification:" as Selector, name: UIKeyboardWillHideNotification, object: nil)
         
@@ -56,11 +56,11 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     }
     
     func didAddComment() {
-        viewModel.LoadComments(didLoadComments)
+        viewModel.loadComments(didLoadComments)
     }
     
     func refreshcontrol() {
-        viewModel.LoadComments(didLoadComments)
+        viewModel.loadComments(didLoadComments)
         rControl.endRefreshing()
     }
     
@@ -75,11 +75,15 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == viewModel.ofCountItem()-2 {
             if viewModel.ofCountItem() > 10 {
-                viewModel.LoadComments(didLoadComments)
+                viewModel.loadComments(didLoadComments)
             }
         }
+        return setupCellWithViewModel(indexPath.row)
+    }
+    
+    func setupCellWithViewModel(indexPath :Int)-> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentsTableViewCell") as! CommentsTableViewCell
-        let item = viewModel.retutnItem(indexPath.row)
+        let item = viewModel.commentItem(indexPath)
         cell.CommentImage.sd_setImageWithURL(NSURL(string: item.avatarUrl), placeholderImage: UIImage(named: "Placeholder"))
         cell.CommentLabel.text = item.body
         cell.NameAvtorLabel.text = item.nameAvtor
@@ -93,7 +97,7 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
         let touch = gestureRecognizer.locationInView(self.tableView)
         let indexPath : NSIndexPath = self.tableView.indexPathForRowAtPoint(touch)!
         let profileViewController = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
-        profileViewController.openUserID = viewModel.returnCommentsUserID(indexPath.row)
+        profileViewController.openUserID = viewModel.commentUserID(indexPath.row)
         self.navigationController!.pushViewController(profileViewController, animated: true)
        
     }
@@ -106,6 +110,6 @@ class CommentsViewController: ViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func ActionSend(sender: AnyObject) {
-        viewModel.AddComment(CommenText.text!, completion: didAddComment)
+        viewModel.addComment(CommenText.text!, completion: didAddComment)
     }
 }

@@ -24,16 +24,16 @@ class CommentViewModel {
     var navigationController: UINavigationController!
     var numberPageComments = 1
     var url: String!
-    var IdShot: Int!
+    var idShot: Int!
     
-    func LoadUrl(url: String  ) {
+    func loadUrl(url: String  ) {
         self.url = url
     }
-    func LoadIdShot(id: Int) {
-        IdShot = id
+    func loadIdShot(id: Int) {
+        idShot = id
     }
     
-    func LoadComments(completion: (()-> Void)) {
+    func loadComments(completion: (()-> Void)) {
         
         if TestInternetConnection.connectedToNetwork() == true {
             let urlString = url + "?page=\(numberPageComments)&access_token=\(myToken)"
@@ -46,13 +46,13 @@ class CommentViewModel {
                 let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
                 dispatch_async(dispatch_get_global_queue(priority, 0)) {
                     dispatch_async(dispatch_get_main_queue()){
-                        print(self.IdShot)
-                        Cache.UpdateCacheComments(self.comments, idShot: self.IdShot)
+                        print(self.idShot)
+                        Cache.updateCacheComments(self.comments, idShot: self.idShot)
                         completion()
                 }}
             }
         } else {
-            comments = Cache.GetComments(IdShot)
+            comments = Cache.getComments(idShot)
             for com in comments{
                 item.append(itemForComments(com))
             }
@@ -61,11 +61,11 @@ class CommentViewModel {
 
     }
     
-    func returnCommentsUserID(id: Int) -> Int {
+    func commentUserID(id: Int) -> Int {
         return comments[id].userId
     }
 
-    func retutnItem(index: Int) -> Item {
+    func commentItem(index: Int) -> Item {
         if (index+1)%12 - 3 == 0 {
             if comments.count > 10{
                 numberPageComments++
@@ -84,12 +84,12 @@ class CommentViewModel {
         return item
     }
     
-    func AddComment(text: String,completion: (()-> Void)) {
+    func addComment(text: String,completion: (()-> Void)) {
         Alamofire.request(.POST, url, parameters: ["body" : text , "access_token" : myToken], encoding: .JSON ).responseJSON{ respons in
             let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
             dispatch_async(dispatch_get_global_queue(priority, 0)) {
                 dispatch_async(dispatch_get_main_queue()){
-                    Cache.UpdateCacheComments(self.comments, idShot: self.IdShot)
+                    Cache.updateCacheComments(self.comments, idShot: self.idShot)
                     completion()
                 }}
         }

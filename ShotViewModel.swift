@@ -25,12 +25,12 @@ class ShotViewModel  {
     var countItem = 0
     var numberPageShots = 1
     
-    func LoadShot(completion: (()-> Void)) {
+    func loadShot(completion: (()-> Void)) {
         if TestInternetConnection.connectedToNetwork() == true {
             let urlString = "https://api.dribbble.com/v1/shots?page=\(numberPageShots)&access_token=\(myToken)"
             Alamofire.request(.GET , urlString).responseJSON{respons in
-                let JsonResult = respons.2.value as! NSArray!
-                for shot in JsonResult{
+                let jsonResult = respons.2.value as! NSArray!
+                for shot in jsonResult{
                     self.shots.append(Shots(data: shot as! NSDictionary))
                     print(self.shots.last!.idShots)
                     Alamofire.request(.GET , "https://api.dribbble.com/v1/shots/\(self.shots.last!.idShots)/like?access_token=\(myToken)").responseJSON{respons in
@@ -46,7 +46,7 @@ class ShotViewModel  {
                         let priority  = DISPATCH_QUEUE_PRIORITY_DEFAULT
                         dispatch_async(dispatch_get_global_queue(priority, 0)) {
                             dispatch_async(dispatch_get_main_queue()){
-                                Cache.UpdateCacheShots(self.shots)
+                                Cache.updateCacheShots(self.shots)
                                 completion()
                             }}
                         }
@@ -54,7 +54,7 @@ class ShotViewModel  {
                 }
             }
         } else {
-            shots = Cache.GetShots()
+            shots = Cache.getShots()
             for shot in shots {
                 item.append(itemForShots(shot))
                 self.countItem++
@@ -75,7 +75,7 @@ class ShotViewModel  {
         return shots[index].commentsURL
     }
     
-    func Like(index : Int, completion: (()-> Void) ) {
+    func loadLike(index : Int, completion: (()-> Void) ) {
        if shots[index].likeUserAutho == true {
         Alamofire.request(.DELETE, "https://api.dribbble.com/v1/shots/\(shots[index].idShots)/like?access_token=\(myToken)")
             shots[index].likeUserAutho = false
@@ -88,7 +88,7 @@ class ShotViewModel  {
             item[index].imageLike = UIImage(named: "lheart")
             completion()
         }
-        Cache.UpdateCacheShots(shots) 
+        Cache.updateCacheShots(shots)
     }
     
     
@@ -96,7 +96,7 @@ class ShotViewModel  {
         return countItem
     }
     
-    func retutnItem(index: Int) -> Item {
+    func shotItem(index: Int) -> Item {
         if (index+1)%12 - 3 == 0 {
             numberPageShots++
         }

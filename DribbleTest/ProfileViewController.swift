@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
     var indexComments = Int()
     var openUserID: Int!
     var viewModel = ProfileViewModel()
-    var OpenUser = User()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +29,12 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
     }
     
     func didLoadUser() {
-        let OpenUser = viewModel.returnItemUser()
-        ImageUser.sd_setImageWithURL(NSURL(string:OpenUser.avatarUrl), placeholderImage: UIImage(named: "Placeholder"))
-        LabelNameUser.text = OpenUser.name
-        CountLikes.text = OpenUser.countLikes
-        CountFolowers.text = OpenUser.countFollowers
-        viewModel.LoadFollower(didLoadFollower)
+        let openUser = viewModel.itemUser()
+        ImageUser.sd_setImageWithURL(NSURL(string:openUser.avatarUrl), placeholderImage: UIImage(named: "Placeholder"))
+        LabelNameUser.text = openUser.name
+        CountLikes.text = openUser.countLikes
+        CountFolowers.text = openUser.countFollowers
+        viewModel.loadFollower(didLoadFollower)
     }
     
     func didLoadFollower() {
@@ -48,17 +48,22 @@ class ProfileViewController: UIViewController , UITableViewDataSource, UITableVi
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.ReturnFollowersCount()
+        return viewModel.followersCount()
     }
     
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == viewModel.followers.count-2 && viewModel.followers.count > 10 {
-                viewModel.LoadFollower(didLoadFollower)
+                viewModel.loadFollower(didLoadFollower)
         }
+       
+        return setupCellWithViewModel(indexPath.row)
+    }
+    
+    func setupCellWithViewModel(indexPath :Int)-> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ProfileTableViewCell") as! ProfileTableViewCell
-        cell.FollowerIcarausel = viewModel.returnFollower(indexPath.row)
-        let item = viewModel.retutnItemFollower(indexPath.row)
+        cell.followerIcarausel = viewModel.follower(indexPath)
+        let item = viewModel.itemFollower(indexPath)
         cell.ImageProfile.sd_setImageWithURL(NSURL(string: item.imageProfile), placeholderImage: UIImage(named: "Placeholder"))
         cell.Name.text = item.name
         cell.NumberLikes.text = String(item.numberLikes)

@@ -13,7 +13,7 @@ class Cache {
     
     // MARK: - Caching Shots
     
-    static func UpdateCacheShots(shots: [Shots]) {
+    static func updateCacheShots(shots: [Shots]) {
  
         let realm = try! Realm()
         try! realm.write({() -> Void in
@@ -37,7 +37,7 @@ class Cache {
         }
     }
     
-    static func GetShots()-> [Shots] {
+    static func getShots()-> [Shots] {
         
         let realm = try! Realm()
         let allShots = realm.objects(ModelShot)
@@ -63,7 +63,7 @@ class Cache {
     
     // MARK: - Caching Comments
     
-    static func UpdateCacheComments(comments: [Comments], idShot : Int) {
+    static func updateCacheComments(comments: [Comments], idShot : Int) {
         let realm = try! Realm()
         let cacheShots = ModelShot()
         try! realm.write {
@@ -84,7 +84,7 @@ class Cache {
         
     }
     
-    static func GetComments(openIDShot: Int)->[Comments] {
+    static func getComments(openIDShot: Int)->[Comments] {
         let realm = try! Realm()
         let allCommentsShot = realm.objects(ModelShot).filter("idShots = \(openIDShot)")
         var comments = [Comments]()
@@ -106,7 +106,7 @@ class Cache {
     
     // MARK: - Caching User
     
-    static func UpdateCasheUser(user: User) {
+    static func updateCasheUser(user: User) {
         let realm = try! Realm()
         try! realm.write {
             let cachedUser = ModelUser()
@@ -120,7 +120,7 @@ class Cache {
         }
     }
     
-    static func GetUser(idUser: Int)->User {
+    static func getUser(idUser: Int)->User {
         
         let realm = try! Realm()
         let userOpen = realm.objects(ModelUser).filter("idUser = \(idUser)")
@@ -137,7 +137,7 @@ class Cache {
     
     // MARK: - Caching Followers
     
-    static func UpdateCasheFollowers(followers: [Follower], id : Int) {
+    static func updateCasheFollowers(followers: [Follower], id : Int) {
         
         let cacheUser = ModelUser()
         let realm = try! Realm()
@@ -157,7 +157,7 @@ class Cache {
         }
     }
     
-    static func GetFollowers(str: String)->[Follower]{
+    static func getFollowers(str: String)->[Follower]{
         let realm = try! Realm()
         let Users = realm.objects(ModelUser).filter("followersURL = '\(str)'")
         var folowers = [Follower]()
@@ -176,7 +176,7 @@ class Cache {
     
     // MARK: - Caching Likes
     
-    static func UpdateCasheLikes(likes : [Like], id : Int){
+    static func updateCasheLikes(likes : [Like], id : Int){
         let cacheFollowers = ModelFollower()
         let realm = try! Realm()
         try! realm.write {
@@ -194,7 +194,7 @@ class Cache {
         }
     }
     
-    static func GetLikes(str: String)->[Like]{
+    static func getLikes(str: String)->[Like]{
         let realm = try! Realm()
         let Likes = realm.objects(ModelFollower).filter("likesURL = '\(str)'")
         var likes = [Like]()
